@@ -54,6 +54,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetrieveNote.feature</DependentUpon>
     </Compile>
+    <Compile Include="Steps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
