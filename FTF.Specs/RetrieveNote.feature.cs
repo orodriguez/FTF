@@ -18,21 +18,21 @@ namespace FTF.Specs
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Create Note")]
-    public partial class CreateNoteFeature
+    [NUnit.Framework.DescriptionAttribute("Retrieve Note")]
+    public partial class RetrieveNoteFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "CreateNote.feature"
+#line 1 "RetrieveNote.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Create Note", "\tIn order to organize the things I have to do or remember\r\n\tI want to be able to " +
-                    "save notes", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Retrieve Note", "\tIn order to remember a note I saved\r\n\tI want to be able to retrieve the informat" +
+                    "ion of a note", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -62,6 +62,35 @@ namespace FTF.Specs
         public virtual void ScenarioCleanup()
         {
             testRunner.CollectScenarioErrors();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Simple Note")]
+        public virtual void SimpleNote()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple Note", ((string[])(null)));
+#line 5
+this.ScenarioSetup(scenarioInfo);
+#line 6
+ testRunner.Given("today is \'Feb 20 1984\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 7
+ testRunner.And("I created a note #101 with text \'I was born\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 8
+ testRunner.When("I retrieve the note #101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table1.AddRow(new string[] {
+                        "Text",
+                        "I was born"});
+            table1.AddRow(new string[] {
+                        "CreationDate",
+                        "Feb 20 1984"});
+#line 9
+ testRunner.Then("the note should match:", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
         }
     }
 }
