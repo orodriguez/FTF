@@ -16,10 +16,3 @@ Scenario: Two Notes with the same Tag
 	Then the tags list should match:
          | Name | NotesCount |
          | Buy  | 2          |
-
-Scenario: Note with duplicated Tag
-	Given I created a note with text '#Read a book about how to #Read'
-	When I list all tags
-	Then the tags list should match:
-         | Name | NotesCount |
-         | Read | 1          |
