@@ -58,34 +58,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="GlobalSteps.cs" />
-    <Compile Include="Hooks.cs" />
-    <Compile Include="ListTagsSteps.cs" />
-    <Compile Include="NoteSteps.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RetrieveNote.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RetrieveNote.feature</DependentUpon>
-    </Compile>
-    <Compile Include="ListTags.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Features\ListTags.feature.cs">
       <DependentUpon>ListTags.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="RetrieveNoteSteps.cs" />
+    <Compile Include="Features\RetrieveNote.feature.cs">
+      <DependentUpon>RetrieveNote.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Hooks.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Steps\GlobalSteps.cs" />
+    <Compile Include="Steps\ListTagsSteps.cs" />
+    <Compile Include="Steps\NoteSteps.cs" />
+    <Compile Include="Steps\RetrieveNoteSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="RetrieveNote.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RetrieveNote.feature.cs</LastGenOutput>
-    </None>
-    <None Include="ListTags.feature">
+    <None Include="Features\ListTags.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>ListTags.feature.cs</LastGenOutput>
     </None>
+    <None Include="Features\RetrieveNote.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>RetrieveNote.feature.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
