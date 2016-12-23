@@ -17,7 +17,7 @@ namespace FTF.Specs
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _context.Db = new DbContext("FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>());
+            _context.Db = new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>());
             _context.Transaction = _context.Db.Database.BeginTransaction();
         }
 

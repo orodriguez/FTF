@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201612231412124_CreateNote.Designer.cs">
       <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612231437367_AddTagsToNote.cs" />
+    <Compile Include="Migrations\201612231437367_AddTagsToNote.Designer.cs">
+      <DependentUpon>201612231437367_AddTagsToNote.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -70,6 +74,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612231412124_CreateNote.resx">
       <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231437367_AddTagsToNote.resx">
+      <DependentUpon>201612231437367_AddTagsToNote.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
