@@ -1,6 +1,7 @@
 using System.Data.Entity;
+using FTF.Core;
 
-namespace FTF.Core
+namespace FTF.Storage.EntityFramework
 {
     public class DbContext : System.Data.Entity.DbContext
     {

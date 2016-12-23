@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
-using DbContext = FTF.Core.DbContext;
+using DbContext = FTF.Storage.EntityFramework.DbContext;
 
 namespace FTF.Specs
 {

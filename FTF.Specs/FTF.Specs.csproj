@@ -83,6 +83,10 @@
       <Project>{B8BB0669-72D6-4CE9-872C-F041E367AB7C}</Project>
       <Name>FTF.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FTF.Storage.EntityFramework\FTF.Storage.EntityFramework.csproj">
+      <Project>{C5A4E268-B508-436F-9AFA-B6BE4D27562D}</Project>
+      <Name>FTF.Storage.EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

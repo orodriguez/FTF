@@ -26,7 +26,12 @@ namespace FTF.Specs
 
         [Given(@"I created a note \#(.*) with text '(.*)'")]
         public void CreateNote(int id, string text) =>
-            new CreateNote(generateId: () => id, getCurrentDate: _context.GetCurrentDate, db: _context.Db).Create(id, text);
+            new CreateNote(
+                generateId: () => id, 
+                getCurrentDate: _context.GetCurrentDate, 
+                saveNote: note => _context.Db.Notes.Add(note), 
+                saveChanges: () => _context.Db.SaveChanges()
+            ).Create(id, text);
 
         [When(@"I retrieve the note \#(.*)")]
         public void RetrieveNote(int id)
