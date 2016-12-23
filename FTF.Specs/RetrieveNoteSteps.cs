@@ -1,11 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using FTF.Core;
-using FTF.Core.Extensions;
-using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
-using FTF.Storage.EntityFramework;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -24,31 +19,6 @@ namespace FTF.Specs
         public RetrieveNoteSteps(Context context)
         {
             _context = context;
-        }
-
-        [Given(@"today is '(.*)'")]
-        public void TodayIs(string date) => _context.GetCurrentDate = () => DateTime.Parse(date);
-
-        [Given(@"I created the note number (.*) with text '(.*)'")]
-        public void CreateNote(int id, string text) =>
-            new CreateNote(
-                generateId: () => id, 
-                getCurrentDate: _context.GetCurrentDate, 
-                saveNote: note => _context.Db.Notes.Add(note), 
-                saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags
-            ).Create(text);
-
-        [Given(@"I created a note with text '(.*)'")]
-        public void CreateNote(string text)
-        {
-            new CreateNote(
-                generateId: () => _context.Db.Notes.NextId(),
-                getCurrentDate: _context.GetCurrentDate,
-                saveNote: note => _context.Db.Notes.Add(note),
-                saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags
-            ).Create(text);
         }
 
         [When(@"I retrieve the note number (.*)")]
