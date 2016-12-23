@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using FTF.Core;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -52,7 +53,7 @@ namespace FTF.Specs
         [BeforeScenario()]
         public void BeforeScenario()
         {
-            _db = new FtfDbContext();
+            _db = new FtfDbContext("FTF.Tests");
             _transation = _db.Database.BeginTransaction();
         }
 
