@@ -41,13 +41,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions\QueriableExtensions.cs" />
+    <Compile Include="Extensions\Queriable\NoteQueries.cs" />
+    <Compile Include="Extensions\Queriable\TagQueries.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IEntity.cs" />
+    <Compile Include="INameable.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Notes\CreateNote.cs" />
     <Compile Include="Notes\Queries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\NameableQueries.cs" />
     <Compile Include="Tag.cs" />
   </ItemGroup>
   <ItemGroup>

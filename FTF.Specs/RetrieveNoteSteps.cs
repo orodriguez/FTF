@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using FTF.Core;
 using FTF.Core.Extensions;
+using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
 using FTF.Storage.EntityFramework;
 using NUnit.Framework;

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using FTF.Core.Notes;
 
 namespace FTF.Core
 {
-    public class Tag
+    public class Tag : INameable
     {
         public int Id { get; set; }
 

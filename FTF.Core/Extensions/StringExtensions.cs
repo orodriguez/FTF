@@ -8,7 +8,7 @@ namespace FTF.Core.Extensions
     {
         private static readonly Regex TagRegex = new Regex(@"#(\w*)");
 
-        public static IEnumerable<string> ParseTagNames(this string text) => _ParseTagNames(text).Distinct();
+        public static string[] ParseTagNames(this string text) => _ParseTagNames(text).Distinct().ToArray();
 
         private static IEnumerable<string> _ParseTagNames(string text)
         {

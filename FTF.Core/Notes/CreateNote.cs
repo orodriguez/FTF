@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using FTF.Core.Extensions;
+using FTF.Core.Extensions.Queriable;
+using FTF.Core.Queries;
 
 namespace FTF.Core.Notes
 {
@@ -38,33 +40,22 @@ namespace FTF.Core.Notes
                 Id = _generateId(),
                 Text = text,
                 CreationDate = _getCurrentDate(),
-                Tags = ParseTags(text).ToArray()
+                Tags = MakeTags(text.ParseTagNames()).ToList()
             });
 
             _saveChanges();
         }
 
-        private IEnumerable<Tag> ParseTags(string text)
-        {
-            var tagNames = text
-                .ParseTagNames()
-                .Distinct()
-                .ToArray();
+        private IEnumerable<Tag> MakeTags(string[] tagNames) => 
+            _tags
+                .ByName(tagNames)
+                .ToArray()
+                .Concat(MakeNewTags(tagNames));
 
-            var existingTags = FindExistingTags(tagNames);
-
-            var newTags = tagNames.Where(tagName => existingTags.All(t => t.Name != tagName))
+        private IEnumerable<Tag> MakeNewTags(string[] tagNames) => 
+            tagNames
+                .Except(_tags.ByName(tagNames).Names())
                 .Select(tagName => new Tag { Name = tagName })
                 .ToArray();
-
-            return existingTags.Concat(newTags);
-        }
-
-        private List<Tag> FindExistingTags(IEnumerable<string> tagNames)
-        {
-            return _tags
-                .Where(t => tagNames.Contains(t.Name))
-                .ToList();
-        }
     }
 }
