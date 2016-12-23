@@ -4,19 +4,17 @@ using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
-using DbContext = FTF.Core.DbContext;
 
 namespace FTF.Specs
 {
     [Binding]
     public class Steps
     {
+        private readonly Context _context;
+
         private Note _note;
 
         private Exception _error;
-
-        
-        private Context _context;
 
         public Steps(Context context)
         {
@@ -51,21 +49,6 @@ namespace FTF.Specs
         {
             Assert.NotNull(_error, "No error was produced");
             Assert.AreEqual(message, _error.Message);
-        }
-
-        [BeforeScenario()]
-        public void BeforeScenario()
-        {
-            _context.Db = new DbContext("FTF.Tests");
-            _context.Transaction = _context.Db.Database.BeginTransaction();
-        }
-
-        [AfterScenario()]
-        public void AfterScenario()
-        {
-            _context.Transaction.Rollback();
-            _context.Db.Dispose();
-            _context = null;
         }
     }
 }
