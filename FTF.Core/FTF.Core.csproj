@@ -51,7 +51,8 @@
   <ItemGroup>
     <Compile Include="FtfDbContext.cs" />
     <Compile Include="Note.cs" />
-    <Compile Include="Notes.cs" />
+    <Compile Include="Notes\CreateNote.cs" />
+    <Compile Include="Notes\Queries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

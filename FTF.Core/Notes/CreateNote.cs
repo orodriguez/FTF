@@ -1,9 +1,8 @@
 using System;
-using System.Linq;
 
-namespace FTF.Core
+namespace FTF.Core.Notes
 {
-    public class Notes
+    public class CreateNote
     {
         private readonly Func<int> _generateId;
 
@@ -11,7 +10,7 @@ namespace FTF.Core
 
         private readonly FtfDbContext _db;
 
-        public Notes(Func<int> generateId, Func<DateTime> getCurrentDate, FtfDbContext db)
+        public CreateNote(Func<int> generateId, Func<DateTime> getCurrentDate, FtfDbContext db)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;
@@ -28,16 +27,6 @@ namespace FTF.Core
             });
 
             _db.SaveChanges();
-        }
-
-        public Note Retrieve(int id)
-        {
-            var note = Queryable.FirstOrDefault<Note>(_db.Notes, n => n.Id == id);
-
-            if (note == null)
-                throw new Exception($"Note #{id} does not exist");
-
-            return note;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using FTF.Core;
+using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -25,14 +26,14 @@ namespace FTF.Specs
 
         [Given(@"I created a note \#(.*) with text '(.*)'")]
         public void CreateNote(int id, string text) =>
-            new Notes(generateId: () => id, getCurrentDate: _getCurrentDate, db: _db).Create(id, text);
+            new CreateNote(generateId: () => id, getCurrentDate: _getCurrentDate, db: _db).Create(id, text);
 
         [When(@"I retrieve the note \#(.*)")]
         public void RetrieveNote(int id)
         {
             try
             {
-                _note = new Notes(generateId: () => id, getCurrentDate: _getCurrentDate, db: _db).Retrieve(id);
+                _note = new Queries(_db.Notes).Retrieve(id);
             }
             catch (Exception e)
             {
