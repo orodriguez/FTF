@@ -8,12 +8,19 @@ namespace FTF.Specs
     [Binding]
     public class ListTagsSteps
     {
+        private readonly Context _context;
+
         private IEnumerable<Tag> _tags;
+
+        public ListTagsSteps(Context context)
+        {
+            _context = context;
+        }
 
         [When(@"I list all tags")]
         public void ListTags()
         {
-            _tags = new TagQueries().All();
+            _tags = _context.Db.Tags;
         }
 
         [Then(@"the tags list should match:")]

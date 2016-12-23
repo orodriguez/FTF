@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Data.Entity;
 using FTF.Core;
 
@@ -17,5 +18,7 @@ namespace FTF.Storage.EntityFramework
         }
 
         public IDbSet<Note> Notes { get; set; }
+
+        public IDbSet<Tag> Tags { get; set; }
     }
 }

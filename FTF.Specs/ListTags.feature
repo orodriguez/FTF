@@ -6,5 +6,5 @@ Scenario: Create a Note
 	Given I created a note with text '#Read Athlas Shrugged'
 	When I list all tags
 	Then the tags list should match:
-		| TagName | NotesCount |
-		| Read    | 1          |
+		| Name | NotesCount |
+		| Read | 1          |

@@ -77,7 +77,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                        "TagName",
+                        "Name",
                         "NotesCount"});
             table1.AddRow(new string[] {
                         "Read",
