@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Core", "FTF.Core\FTF.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Storage.EntityFramework", "FTF.Storage.EntityFramework\FTF.Storage.EntityFramework.csproj", "{C5A4E268-B508-436F-9AFA-B6BE4D27562D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Tests.Unit", "FTF.Tests.Unit\FTF.Tests.Unit.csproj", "{893A9C7D-87D3-44B3-B8CC-9F586355F406}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{893A9C7D-87D3-44B3-B8CC-9F586355F406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{893A9C7D-87D3-44B3-B8CC-9F586355F406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{893A9C7D-87D3-44B3-B8CC-9F586355F406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{893A9C7D-87D3-44B3-B8CC-9F586355F406}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
