@@ -11,6 +11,13 @@ Scenario: Note Exists
 		| Text         | I was born  |
 		| CreationDate | Feb 20 1984 |
 
+Scenario: Note with Tags
+	Given I created the note number 101 with text '#Buy cheese'
+	When I retrieve the note number 101
+	Then the note should contain the tags:
+		| TagName |
+		| Buy     |
+
 Scenario: Note not found
 	When I retrieve the note number 101
 	Then it should show the error 'Note #101 does not exist'

@@ -45,6 +45,7 @@
     <Compile Include="Notes\CreateNote.cs" />
     <Compile Include="Notes\Queries.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

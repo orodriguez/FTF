@@ -94,15 +94,37 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Note with Tags")]
+        public virtual void NoteWithTags()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note with Tags", ((string[])(null)));
+#line 14
+this.ScenarioSetup(scenarioInfo);
+#line 15
+ testRunner.Given("I created the note number 101 with text \'#Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 16
+ testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "TagName"});
+            table2.AddRow(new string[] {
+                        "Buy"});
+#line 17
+ testRunner.Then("the note should contain the tags:", ((string)(null)), table2, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Note not found")]
         public virtual void NoteNotFound()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note not found", ((string[])(null)));
-#line 14
+#line 21
 this.ScenarioSetup(scenarioInfo);
-#line 15
+#line 22
  testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 16
+#line 23
  testRunner.Then("it should show the error \'Note #101 does not exist\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

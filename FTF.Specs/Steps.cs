@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using FTF.Core;
 using FTF.Core.Notes;
 using NUnit.Framework;
@@ -54,6 +55,12 @@ namespace FTF.Specs
         {
             Assert.NotNull(_error, "No error was produced");
             Assert.AreEqual(message, _error.Message);
+        }
+
+        [Then(@"the note should contain the tags:")]
+        public void NoteShouldContainTags(Table table)
+        {
+            table.CompareToInstance(_note.Tags);
         }
     }
 }

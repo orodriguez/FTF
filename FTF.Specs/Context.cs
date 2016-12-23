@@ -11,5 +11,10 @@ namespace FTF.Specs
         public Func<DateTime> GetCurrentDate { get; set; }
 
         public DbContextTransaction Transaction { get; set; }
+
+        public Context()
+        {
+            GetCurrentDate = () => DateTime.Now;
+        }
     }
 }
