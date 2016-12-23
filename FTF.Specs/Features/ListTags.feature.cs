@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FTF.Specs
+namespace FTF.Specs.Features
 {
     using TechTalk.SpecFlow;
     
@@ -89,10 +89,10 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Two Notes with the same tag")]
+        [NUnit.Framework.DescriptionAttribute("Two Notes with the same Tag")]
         public virtual void TwoNotesWithTheSameTag()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two Notes with the same tag", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two Notes with the same Tag", ((string[])(null)));
 #line 12
 this.ScenarioSetup(scenarioInfo);
 #line 13
@@ -110,6 +110,30 @@ this.ScenarioSetup(scenarioInfo);
                         "2"});
 #line 16
  testRunner.Then("the tags list should match:", ((string)(null)), table2, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Note with duplicated Tag")]
+        public virtual void NoteWithDuplicatedTag()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note with duplicated Tag", ((string[])(null)));
+#line 20
+this.ScenarioSetup(scenarioInfo);
+#line 21
+ testRunner.Given("I created a note with text \'#Read a book about how to #Read\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 22
+ testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "NotesCount"});
+            table3.AddRow(new string[] {
+                        "Read",
+                        "1"});
+#line 23
+ testRunner.Then("the tags list should match:", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

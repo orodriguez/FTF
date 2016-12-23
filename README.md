@@ -1,3 +1,6 @@
+### Features
+[Features](https://github.com/orodriguez/FTF/tree/master/FTF.Specs/Features)
+
 ### Setup
 
 ### Visual Studio Plugins
