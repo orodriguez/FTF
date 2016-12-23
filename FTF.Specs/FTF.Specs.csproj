@@ -57,6 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FtfDbContext.cs" />
+    <Compile Include="Note.cs" />
+    <Compile Include="Notes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetrieveNote.feature.cs">
       <AutoGen>True</AutoGen>

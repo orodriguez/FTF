@@ -1,8 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -66,64 +63,5 @@ namespace FTF.Specs
             _db.Dispose();
             _db = null;
         }
-    }
-
-    public class Note
-    {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-
-        public string Text { get; set; }
-
-        public DateTime CreationDate { get; set; }
-    }
-
-    public class Notes
-    {
-        private readonly Func<int> _generateId;
-
-        private readonly Func<DateTime> _getCurrentDate;
-
-        private readonly FtfDbContext _db;
-
-        public Notes(Func<int> generateId, Func<DateTime> getCurrentDate, FtfDbContext db)
-        {
-            _generateId = generateId;
-            _getCurrentDate = getCurrentDate;
-            _db = db;
-        }
-
-        public void Create(int id, string text)
-        {
-            _db.Notes.Add(new Note
-            {
-                Id = _generateId(),
-                Text = text,
-                CreationDate = _getCurrentDate()
-            });
-
-            _db.SaveChanges();
-        }
-
-        public Note Retrieve(int id)
-        {
-            var note = _db.Notes.FirstOrDefault(n => n.Id == id);
-
-            if (note == null)
-                throw new Exception($"Note #{id} does not exist");
-
-            return note;
-        }
-    }
-
-    public class FtfDbContext : DbContext
-    {
-        public FtfDbContext() : base("FTF.Tests")
-        {
-            Database.SetInitializer(new DropCreateDatabaseAlways<FtfDbContext>());
-        }
-
-        public IDbSet<Note> Notes { get; set; }
     }
 }
