@@ -58,9 +58,6 @@ namespace FTF.Specs
         }
 
         [Then(@"the note should contain the tags:")]
-        public void NoteShouldContainTags(Table table)
-        {
-            table.CompareToInstance(_note.Tags);
-        }
+        public void NoteShouldContainTags(Table table) => table.CompareToSet(_note.Tags);
     }
 }

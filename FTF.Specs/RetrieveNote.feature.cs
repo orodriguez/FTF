@@ -106,7 +106,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                        "TagName"});
+                        "Name"});
             table2.AddRow(new string[] {
                         "Buy"});
 #line 17

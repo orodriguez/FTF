@@ -15,8 +15,8 @@ Scenario: Note with Tags
 	Given I created the note number 101 with text '#Buy cheese'
 	When I retrieve the note number 101
 	Then the note should contain the tags:
-		| TagName |
-		| Buy     |
+		| Name |
+		| Buy  |
 
 Scenario: Note not found
 	When I retrieve the note number 101
