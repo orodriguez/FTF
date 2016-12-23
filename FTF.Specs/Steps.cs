@@ -24,7 +24,7 @@ namespace FTF.Specs
         [Given(@"today is '(.*)'")]
         public void TodayIs(string date) => _context.GetCurrentDate = () => DateTime.Parse(date);
 
-        [Given(@"I created a note \#(.*) with text '(.*)'")]
+        [Given(@"I created the note \#(.*) with text '(.*)'")]
         public void CreateNote(int id, string text) =>
             new CreateNote(
                 generateId: () => id, 
