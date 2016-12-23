@@ -14,7 +14,7 @@ namespace FTF.Core.Notes
 
         public Note Retrieve(int id)
         {
-            var note = _notes.FirstOrDefault<Note>(n => n.Id == id);
+            var note = _notes.FirstOrDefault(n => n.Id == id);
 
             if (note == null)
                 throw new Exception($"Note #{id} does not exist");
