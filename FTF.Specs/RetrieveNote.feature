@@ -12,11 +12,12 @@ Scenario: Note Exists
 		| CreationDate | Feb 20 1984 |
 
 Scenario: Note with Tags
-	Given I created the note number 101 with text '#Buy cheese'
+	Given I created the note number 101 with text '#Buy cheese at #SuperMarket'
 	When I retrieve the note number 101
 	Then the note should contain the tags:
-		| Name |
-		| Buy  |
+		| Name        |
+		| Buy         |
+		| SuperMarket |
 
 Scenario: Note not found
 	When I retrieve the note number 101
