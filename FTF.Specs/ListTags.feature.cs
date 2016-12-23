@@ -65,10 +65,10 @@ namespace FTF.Specs
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Create a Note")]
-        public virtual void CreateANote()
+        [NUnit.Framework.DescriptionAttribute("One Note with New Tag")]
+        public virtual void OneNoteWithNewTag()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create a Note", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One Note with New Tag", ((string[])(null)));
 #line 5
 this.ScenarioSetup(scenarioInfo);
 #line 6
@@ -84,6 +84,32 @@ this.ScenarioSetup(scenarioInfo);
                         "1"});
 #line 8
  testRunner.Then("the tags list should match:", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Two Notes with the same tag")]
+        public virtual void TwoNotesWithTheSameTag()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two Notes with the same tag", ((string[])(null)));
+#line 12
+this.ScenarioSetup(scenarioInfo);
+#line 13
+ testRunner.Given("I created a note with text \'#Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 14
+ testRunner.And("I created a note with text \'#Buy nachos\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 15
+ testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "NotesCount"});
+            table2.AddRow(new string[] {
+                        "Buy",
+                        "2"});
+#line 16
+ testRunner.Then("the tags list should match:", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

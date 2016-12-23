@@ -15,12 +15,20 @@ namespace FTF.Core.Notes
 
         private readonly Action _saveChanges;
 
-        public CreateNote(Func<int> generateId, Func<DateTime> getCurrentDate, Action<Note> saveNote, Action saveChanges)
+        private readonly IQueryable<Tag> _tags;
+
+        public CreateNote(
+            Func<int> generateId, 
+            Func<DateTime> getCurrentDate, 
+            Action<Note> saveNote, 
+            Action saveChanges, 
+            IQueryable<Tag> tags)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;
             _saveNote = saveNote;
             _saveChanges = saveChanges;
+            _tags = tags;
         }
 
         public void Create(string text)
@@ -30,17 +38,33 @@ namespace FTF.Core.Notes
                 Id = _generateId(),
                 Text = text,
                 CreationDate = _getCurrentDate(),
-                Tags = ParseTags(text)
+                Tags = ParseTags(text).ToArray()
             });
 
             _saveChanges();
         }
 
-        private ICollection<Tag> ParseTags(string text) => 
-            text
+        private IEnumerable<Tag> ParseTags(string text)
+        {
+            var tagNames = text
                 .ParseTagNames()
                 .Distinct()
-                .Select(_ => new Tag { Name = _ })
+                .ToArray();
+
+            var existingTags = FindExistingTags(tagNames);
+
+            var newTags = tagNames.Where(tagName => existingTags.All(t => t.Name != tagName))
+                .Select(tagName => new Tag { Name = tagName })
+                .ToArray();
+
+            return existingTags.Concat(newTags);
+        }
+
+        private List<Tag> FindExistingTags(IEnumerable<string> tagNames)
+        {
+            return _tags
+                .Where(t => tagNames.Contains(t.Name))
                 .ToList();
+        }
     }
 }

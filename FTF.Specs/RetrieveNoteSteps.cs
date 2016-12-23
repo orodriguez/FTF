@@ -34,7 +34,8 @@ namespace FTF.Specs
                 generateId: () => id, 
                 getCurrentDate: _context.GetCurrentDate, 
                 saveNote: note => _context.Db.Notes.Add(note), 
-                saveChanges: () => _context.Db.SaveChanges()
+                saveChanges: () => _context.Db.SaveChanges(),
+                tags: _context.Db.Tags
             ).Create(text);
 
         [Given(@"I created a note with text '(.*)'")]
@@ -44,7 +45,8 @@ namespace FTF.Specs
                 generateId: () => _context.Db.Notes.NextId(),
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),
-                saveChanges: () => _context.Db.SaveChanges()
+                saveChanges: () => _context.Db.SaveChanges(),
+                tags: _context.Db.Tags
             ).Create(text);
         }
 
