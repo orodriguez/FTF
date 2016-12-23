@@ -5,9 +5,15 @@ namespace FTF.Storage.EntityFramework
 {
     public class DbContext : System.Data.Entity.DbContext
     {
-        public DbContext(string nameOrConnectionString) : base(nameOrConnectionString)
+        public DbContext() : this("FTF",
+            initializer: new CreateDatabaseIfNotExists<DbContext>())
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<DbContext>());
+        }
+
+        public DbContext(string nameOrConnectionString, IDatabaseInitializer<DbContext> initializer) 
+            : base(nameOrConnectionString)
+        {
+            Database.SetInitializer(initializer);
         }
 
         public IDbSet<Note> Notes { get; set; }
