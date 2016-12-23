@@ -3,7 +3,7 @@ using FTF.Core;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
-namespace FTF.Specs
+namespace FTF.Specs.Steps
 {
     [Binding]
     public class ListTagsSteps

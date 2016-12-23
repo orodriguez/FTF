@@ -2,7 +2,7 @@
 using FTF.Core.Notes;
 using TechTalk.SpecFlow;
 
-namespace FTF.Specs
+namespace FTF.Specs.Steps
 {
     [Binding]
     public class NoteSteps

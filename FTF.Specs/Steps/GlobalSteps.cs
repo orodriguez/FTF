@@ -1,7 +1,7 @@
 using System;
 using TechTalk.SpecFlow;
 
-namespace FTF.Specs
+namespace FTF.Specs.Steps
 {
     [Binding]
     public class GlobalSteps
