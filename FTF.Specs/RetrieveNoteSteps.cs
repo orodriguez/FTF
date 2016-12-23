@@ -1,7 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using FTF.Core;
+using FTF.Core.Extensions;
 using FTF.Core.Notes;
+using FTF.Storage.EntityFramework;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -9,7 +12,7 @@ using TechTalk.SpecFlow.Assist;
 namespace FTF.Specs
 {
     [Binding]
-    public class Steps
+    public class RetrieveNoteSteps
     {
         private readonly Context _context;
 
@@ -17,7 +20,7 @@ namespace FTF.Specs
 
         private Exception _error;
 
-        public Steps(Context context)
+        public RetrieveNoteSteps(Context context)
         {
             _context = context;
         }
@@ -32,7 +35,18 @@ namespace FTF.Specs
                 getCurrentDate: _context.GetCurrentDate, 
                 saveNote: note => _context.Db.Notes.Add(note), 
                 saveChanges: () => _context.Db.SaveChanges()
-            ).Create(id, text);
+            ).Create(text);
+
+        [Given(@"I created a note with text '(.*)'")]
+        public void CreateNote(string text)
+        {
+            new CreateNote(
+                generateId: () => _context.Db.Notes.NextId(),
+                getCurrentDate: _context.GetCurrentDate,
+                saveNote: note => _context.Db.Notes.Add(note),
+                saveChanges: () => _context.Db.SaveChanges()
+            ).Create(text);
+        }
 
         [When(@"I retrieve the note number (.*)")]
         public void RetrieveNote(int id)

@@ -23,7 +23,7 @@ namespace FTF.Core.Notes
             _saveChanges = saveChanges;
         }
 
-        public void Create(int id, string text)
+        public void Create(string text)
         {
             _saveNote(new Note
             {

@@ -59,13 +59,19 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="Hooks.cs" />
+    <Compile Include="ListTagsSteps.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetrieveNote.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RetrieveNote.feature</DependentUpon>
     </Compile>
-    <Compile Include="Steps.cs" />
+    <Compile Include="ListTags.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListTags.feature</DependentUpon>
+    </Compile>
+    <Compile Include="RetrieveNoteSteps.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -73,6 +79,10 @@
     <None Include="RetrieveNote.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>RetrieveNote.feature.cs</LastGenOutput>
+    </None>
+    <None Include="ListTags.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>ListTags.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
