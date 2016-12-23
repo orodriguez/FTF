@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace FTF.Core.Notes
 {
@@ -26,10 +27,13 @@ namespace FTF.Core.Notes
             {
                 Id = _generateId(),
                 Text = text,
-                CreationDate = _getCurrentDate()
+                CreationDate = _getCurrentDate(),
+                Tags = ParseTags(text)
             });
 
             _saveChanges();
         }
+
+        private ICollection<Tag> ParseTags(string text) => new List<Tag> { new Tag { Name = "Buy"} };
     }
 }
