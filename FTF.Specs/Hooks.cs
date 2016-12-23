@@ -1,5 +1,4 @@
-﻿using FTF.Core;
-using FTF.Storage.EntityFramework;
+﻿using FTF.Storage.EntityFramework;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs
