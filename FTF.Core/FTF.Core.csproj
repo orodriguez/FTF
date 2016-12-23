@@ -49,7 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FtfDbContext.cs" />
+    <Compile Include="DbContext.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Notes\CreateNote.cs" />
     <Compile Include="Notes\Queries.cs" />

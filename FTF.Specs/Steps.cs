@@ -5,6 +5,7 @@ using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
+using DbContext = FTF.Core.DbContext;
 
 namespace FTF.Specs
 {
@@ -17,7 +18,7 @@ namespace FTF.Specs
 
         private Exception _error;
 
-        private FtfDbContext _db;
+        private DbContext _db;
 
         private DbContextTransaction _transation;
 
@@ -54,7 +55,7 @@ namespace FTF.Specs
         [BeforeScenario()]
         public void BeforeScenario()
         {
-            _db = new FtfDbContext("FTF.Tests");
+            _db = new DbContext("FTF.Tests");
             _transation = _db.Database.BeginTransaction();
         }
 

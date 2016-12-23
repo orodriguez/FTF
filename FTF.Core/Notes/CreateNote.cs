@@ -8,9 +8,9 @@ namespace FTF.Core.Notes
 
         private readonly Func<DateTime> _getCurrentDate;
 
-        private readonly FtfDbContext _db;
+        private readonly DbContext _db;
 
-        public CreateNote(Func<int> generateId, Func<DateTime> getCurrentDate, FtfDbContext db)
+        public CreateNote(Func<int> generateId, Func<DateTime> getCurrentDate, DbContext db)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;
