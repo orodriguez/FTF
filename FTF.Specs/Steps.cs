@@ -17,7 +17,9 @@ namespace FTF.Specs
         private Func<DateTime> _getCurrentDate;
 
         private Exception _error;
+
         private FtfDbContext _db;
+
         private DbContextTransaction _transation;
 
         [Given(@"today is '(.*)'")]
