@@ -24,7 +24,7 @@ namespace FTF.Specs
         [Given(@"today is '(.*)'")]
         public void TodayIs(string date) => _context.GetCurrentDate = () => DateTime.Parse(date);
 
-        [Given(@"I created the note \#(.*) with text '(.*)'")]
+        [Given(@"I created the note number (.*) with text '(.*)'")]
         public void CreateNote(int id, string text) =>
             new CreateNote(
                 generateId: () => id, 
@@ -33,7 +33,7 @@ namespace FTF.Specs
                 saveChanges: () => _context.Db.SaveChanges()
             ).Create(id, text);
 
-        [When(@"I retrieve the note \#(.*)")]
+        [When(@"I retrieve the note number (.*)")]
         public void RetrieveNote(int id)
         {
             try
