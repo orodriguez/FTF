@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FTF.Tests.Unit
 {
-    public class TagParserTest
+    public class TagNameParserTest
     {
         [Theory]
         [InlineData("", new string[0])]
