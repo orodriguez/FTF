@@ -9,6 +9,6 @@ namespace FTF.Api.Notes.Retrieve
         string Text { get; }
         DateTime CreationDate { get; }
         string UserName { get; }
-        ICollection<ITag> Tags { get; }
+        IEnumerable<ITag> Tags { get; }
     }
 }

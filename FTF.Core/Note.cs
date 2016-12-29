@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FTF.Api.Notes.Retrieve;
 
 namespace FTF.Core
 {
-    public class Note : IResponse
+    public class Note
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -21,13 +20,13 @@ namespace FTF.Core
 
         public virtual User User { get; set; }
 
-        public ICollection<ITag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
-        public Note() : this(new Collection<ITag>())
+        public Note() : this(new Collection<Tag>())
         {
         }
 
-        private Note(ICollection<ITag> tags)
+        private Note(ICollection<Tag> tags)
         {
             Tags = tags;
         }

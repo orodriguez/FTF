@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using FTF.Api.Notes.Retrieve;
+using FTF.Core.Notes.Retrieve;
 
 namespace FTF.Core.Notes
 {
@@ -12,14 +14,14 @@ namespace FTF.Core.Notes
             _notes = notes;
         }
 
-        public Note Retrieve(int id)
+        public IResponse Retrieve(int id)
         {
             var note = _notes.FirstOrDefault(n => n.Id == id);
 
             if (note == null)
                 throw new Exception($"Note #{id} does not exist");
 
-            return note;
+            return new Response(note);
         }
     }
 }
