@@ -2,11 +2,13 @@
 	In order to remember a note I saved
 	I want to be able to retrieve the information of a note
 
-Scenario: Note Exists
-	Given today is 'Feb 20 1984'
-	And I signup as 'orodriguez'
+Background:
+	Given today is 'Feb 20 1984' 
+	Given I signup as 'orodriguez'
 	And I signin as 'orodriguez'
-	And I created the note number 101 with text 'I was born'
+
+Scenario: Note Exists
+	Given I created the note number 101 with text 'I was born'
 	When I retrieve the note number 101
 	Then the note should match:
 		| Field			| Value       |
@@ -21,6 +23,14 @@ Scenario: Note with Tags
 		| Name        |
 		| Buy         |
 		| SuperMarket |
+
+Scenario: Note from another user
+	Given I signup as 'anotheruser'
+	And I signin as 'anotheruser'
+	And I created the note number 101 with text 'Note from another user'
+	And I signin as 'orodriguez'
+	When I retrieve the note number 101
+	Then it should show the error 'Note #101 does not exist'
 
 Scenario: Note not found
 	When I retrieve the note number 101

@@ -10,14 +10,19 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Note> _notes;
 
-        public Queries(IQueryable<Note> notes)
+        private readonly Func<int> _getCurrentUserId;
+
+        public Queries(IQueryable<Note> notes, Func<int> getCurrentUserId)
         {
             _notes = notes;
+            _getCurrentUserId = getCurrentUserId;
         }
 
         public INote Retrieve(int id)
         {
-            var note = _notes.FirstOrDefault(n => n.Id == id);
+            var currentUserId = _getCurrentUserId();
+
+            var note = _notes.FirstOrDefault(n => n.Id == id && n.User.Id == currentUserId);
 
             if (note == null)
                 throw new Exception($"Note #{id} does not exist");
