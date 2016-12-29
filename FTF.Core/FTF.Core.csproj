@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\SignUp\Handler.cs" />
     <Compile Include="Extensions\Queriable\NoteQueries.cs" />
     <Compile Include="Extensions\Queriable\TagQueries.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
