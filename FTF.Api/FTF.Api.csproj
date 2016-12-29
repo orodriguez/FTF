@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Auth\SignUp.cs" />
     <Compile Include="Notes\Create.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
