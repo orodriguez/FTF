@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using FTF.Core.Notes.Retrieve;
+using FTF.Api.Notes.Retrieve;
 
 namespace FTF.Core
 {
@@ -21,13 +21,13 @@ namespace FTF.Core
 
         public virtual User User { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<ITag> Tags { get; set; }
 
-        public Note() : this(new Collection<Tag>())
+        public Note() : this(new Collection<ITag>())
         {
         }
 
-        private Note(ICollection<Tag> tags)
+        private Note(ICollection<ITag> tags)
         {
             Tags = tags;
         }

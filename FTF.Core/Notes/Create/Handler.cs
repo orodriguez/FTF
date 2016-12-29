@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FTF.Api.Notes.Retrieve;
 using FTF.Core.Extensions;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Queries;
@@ -51,13 +52,13 @@ namespace FTF.Core.Notes.Create
             _saveChanges();
         }
 
-        private IEnumerable<Tag> MakeTags(string[] tagNames) => 
+        private IEnumerable<ITag> MakeTags(string[] tagNames) => 
             _tags
                 .ByName(tagNames)
                 .ToArray()
                 .Concat(MakeNewTags(tagNames));
 
-        private IEnumerable<Tag> MakeNewTags(string[] tagNames) => 
+        private IEnumerable<ITag> MakeNewTags(string[] tagNames) => 
             tagNames
                 .Except(_tags.ByName(tagNames).Names())
                 .Select(tagName => new Tag { Name = tagName })

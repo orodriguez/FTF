@@ -1,6 +1,6 @@
 ﻿using System;
+using FTF.Api.Notes.Retrieve;
 using FTF.Core.Notes;
-using FTF.Core.Notes.Retrieve;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;

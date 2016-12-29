@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FTF.Core.Notes.Retrieve
+namespace FTF.Api.Notes.Retrieve
 {
     public interface IResponse
     {
@@ -9,6 +9,6 @@ namespace FTF.Core.Notes.Retrieve
         string Text { get; }
         DateTime CreationDate { get; }
         string UserName { get; }
-        ICollection<Tag> Tags { get; }
+        ICollection<ITag> Tags { get; }
     }
 }

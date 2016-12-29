@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FTF.Core.Notes;
+using FTF.Api.Notes.Retrieve;
 
 namespace FTF.Core
 {
-    public class Tag : INameable
+    public class Tag : INameable, ITag
     {
         public int Id { get; set; }
 
