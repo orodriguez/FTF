@@ -169,6 +169,40 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Note updated")]
+        public virtual void NoteUpdated()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note updated", ((string[])(null)));
+#line 36
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 37
+ testRunner.Given("I created the note number 10 with text \'Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 38
+ testRunner.And("I updated the note number 10 with text \'Buy american cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 39
+ testRunner.When("I retrieve the note number 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table3.AddRow(new string[] {
+                        "Text",
+                        "Buy american cheese"});
+            table3.AddRow(new string[] {
+                        "CreationDate",
+                        "Feb 20 1984"});
+            table3.AddRow(new string[] {
+                        "UserName",
+                        "orodriguez"});
+#line 40
+ testRunner.Then("the note should match:", ((string)(null)), table3, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

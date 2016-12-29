@@ -71,6 +71,7 @@
     <Compile Include="Hooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AuthSteps.cs" />
+    <Compile Include="Steps\UpdateNoteSteps.cs" />
     <Compile Include="Steps\GlobalSteps.cs" />
     <Compile Include="Steps\ListTagsSteps.cs" />
     <Compile Include="Steps\NoteSteps.cs" />
