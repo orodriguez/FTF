@@ -1,6 +1,6 @@
 ﻿using System;
 using FTF.Api.Actions.Notes;
-using FTF.Api.Responses.Notes.Retrieve;
+using FTF.Api.Responses;
 using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -13,7 +13,7 @@ namespace FTF.Specs.Steps
     {
         private readonly Context _context;
 
-        private IResponse _response;
+        private INote _response;
 
         private Exception _error;
 

@@ -44,9 +44,10 @@
     <Compile Include="Actions\Auth\SignUp.cs" />
     <Compile Include="Actions\Notes\Create.cs" />
     <Compile Include="Actions\Notes\Retrieve.cs" />
+    <Compile Include="Actions\Tags\List.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Responses\Notes\Retrieve\IResponse.cs" />
-    <Compile Include="Responses\Notes\Retrieve\ITag.cs" />
+    <Compile Include="Responses\INote.cs" />
+    <Compile Include="Responses\ITag.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

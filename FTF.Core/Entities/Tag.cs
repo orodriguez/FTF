@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using FTF.Api.Responses.Notes.Retrieve;
+using FTF.Api.Responses;
 
 namespace FTF.Core.Entities
 {

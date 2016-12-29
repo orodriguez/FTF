@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using FTF.Api.Responses.Notes.Retrieve;
+using FTF.Api.Responses;
 using FTF.Core.Entities;
 using FTF.Core.Notes.Retrieve;
 
@@ -15,7 +15,7 @@ namespace FTF.Core.Notes
             _notes = notes;
         }
 
-        public IResponse Retrieve(int id)
+        public INote Retrieve(int id)
         {
             var note = _notes.FirstOrDefault(n => n.Id == id);
 

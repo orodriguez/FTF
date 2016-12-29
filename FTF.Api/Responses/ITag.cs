@@ -1,4 +1,4 @@
-namespace FTF.Api.Responses.Notes.Retrieve
+namespace FTF.Api.Responses
 {
     public interface ITag
     {

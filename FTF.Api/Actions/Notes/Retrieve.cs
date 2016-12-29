@@ -1,6 +1,6 @@
-﻿using FTF.Api.Responses.Notes.Retrieve;
+﻿using FTF.Api.Responses;
 
 namespace FTF.Api.Actions.Notes
 {
-    public delegate IResponse Retrieve(int id);
+    public delegate INote Retrieve(int id);
 }

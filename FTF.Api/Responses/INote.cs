@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace FTF.Api.Responses.Notes.Retrieve
+namespace FTF.Api.Responses
 {
-    public interface IResponse
+    public interface INote
     {
         int Id { get; }
         string Text { get; }

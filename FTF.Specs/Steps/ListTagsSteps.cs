@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using FTF.Api.Responses.Notes.Retrieve;
-using FTF.Core.Entities;
+using FTF.Api.Actions.Tags;
+using FTF.Api.Responses;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 
@@ -11,7 +11,7 @@ namespace FTF.Specs.Steps
     {
         private readonly Context _context;
 
-        private IEnumerable<ITag> _tags;
+        private IEnumerable<ITag> _response;
 
         public ListTagsSteps(Context context)
         {
@@ -21,10 +21,12 @@ namespace FTF.Specs.Steps
         [When(@"I list all tags")]
         public void ListTags()
         {
-            _tags = _context.Db.Tags;
+            List list = () => _context.Db.Tags;
+
+            _response = list();
         }
 
         [Then(@"the tags list should match:")]
-        public void TagsShouldMatch(Table table) => table.CompareToSet(_tags);
+        public void TagsShouldMatch(Table table) => table.CompareToSet(_response);
     }
 }
