@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Auth\SignIn.cs" />
     <Compile Include="Auth\SignUp.cs" />
+    <Compile Include="Delegates\Retrieve.cs" />
     <Compile Include="Notes\Create.cs" />
     <Compile Include="Notes\Retrieve\IResponse.cs" />
     <Compile Include="Notes\Retrieve\ITag.cs" />

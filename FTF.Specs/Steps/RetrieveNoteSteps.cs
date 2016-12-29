@@ -1,4 +1,5 @@
 ﻿using System;
+using FTF.Api.Delegates;
 using FTF.Api.Notes.Retrieve;
 using FTF.Core.Notes;
 using NUnit.Framework;
@@ -12,7 +13,7 @@ namespace FTF.Specs.Steps
     {
         private readonly Context _context;
 
-        private IResponse _note;
+        private IResponse _response;
 
         private Exception _error;
 
@@ -26,7 +27,9 @@ namespace FTF.Specs.Steps
         {
             try
             {
-                _note = new Queries(_context.Db.Notes).Retrieve(id);
+                Retrieve<IResponse> retrieve = new Queries(_context.Db.Notes).Retrieve;
+
+                _response = retrieve(id);
             }
             catch (Exception e)
             {
@@ -35,7 +38,7 @@ namespace FTF.Specs.Steps
         }
 
         [Then(@"the note should match:")]
-        public void NoteShouldMatch(Table table) => table.CompareToInstance(_note);
+        public void NoteShouldMatch(Table table) => table.CompareToInstance(_response);
 
         [Then(@"it should show the error '(.*)'")]
         public void ShouldShowError(string message)
@@ -45,6 +48,6 @@ namespace FTF.Specs.Steps
         }
 
         [Then(@"the note should contain the tags:")]
-        public void NoteShouldContainTags(Table table) => table.CompareToSet(_note.Tags);
+        public void NoteShouldContainTags(Table table) => table.CompareToSet(_response.Tags);
     }
 }
