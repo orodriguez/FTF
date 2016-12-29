@@ -90,7 +90,7 @@ this.ScenarioSetup(scenarioInfo);
                         "CreationDate",
                         "Feb 20 1984"});
             table1.AddRow(new string[] {
-                        "Creator",
+                        "UserName",
                         "orodriguez"});
 #line 10
  testRunner.Then("the note should match:", ((string)(null)), table1, "Then ");

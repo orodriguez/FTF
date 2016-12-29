@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using FTF.Core.Notes.Retrieve;
 
 namespace FTF.Core
 {
-    public class Note
+    public class Note : IResponse
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
