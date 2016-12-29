@@ -14,10 +14,10 @@ namespace FTF.Specs.Steps
         }
 
         [Given(@"I signup as '(.*)'")]
-        public void SignUp(string username) => 
+        public void SignUp(string userName) => 
             _context.Db.Users.Add(new User
             {
-                Username = username
+                Name = userName
             });
     }
 }

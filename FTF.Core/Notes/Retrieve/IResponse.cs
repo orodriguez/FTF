@@ -5,9 +5,10 @@ namespace FTF.Core.Notes.Retrieve
 {
     public interface IResponse
     {
-        int Id { get; set; }
-        string Text { get; set; }
-        DateTime CreationDate { get; set; }
-        ICollection<Tag> Tags { get; set; }
+        int Id { get; }
+        string Text { get; }
+        DateTime CreationDate { get; }
+        string UserName { get; }
+        ICollection<Tag> Tags { get; }
     }
 }

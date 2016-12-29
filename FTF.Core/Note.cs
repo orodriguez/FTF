@@ -17,6 +17,10 @@ namespace FTF.Core
 
         public DateTime CreationDate { get; set; }
 
+        public string UserName => User.Name;
+
+        public virtual User User { get; set; }
+
         public ICollection<Tag> Tags { get; set; }
 
         public Note() : this(new Collection<Tag>())

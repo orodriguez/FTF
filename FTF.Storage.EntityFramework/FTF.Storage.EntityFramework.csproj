@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201612291454546_AddUser.Designer.cs">
       <DependentUpon>201612291454546_AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612291504405_AddUserToNotes.cs" />
+    <Compile Include="Migrations\201612291504405_AddUserToNotes.Designer.cs">
+      <DependentUpon>201612291504405_AddUserToNotes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612291454546_AddUser.resx">
       <DependentUpon>201612291454546_AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612291504405_AddUserToNotes.resx">
+      <DependentUpon>201612291504405_AddUserToNotes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
