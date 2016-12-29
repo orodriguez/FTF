@@ -8,7 +8,7 @@ using FTF.Core.Queries;
 
 namespace FTF.Core.Notes.Create
 {
-    public class Handler
+    public class CreateHandler
     {
         private readonly Func<int> _generateId;
 
@@ -22,7 +22,7 @@ namespace FTF.Core.Notes.Create
 
         private readonly Func<User> _getCurrentUser;
 
-        public Handler(
+        public CreateHandler(
             Func<int> generateId, 
             Func<DateTime> getCurrentDate, 
             Action<Note> saveNote, 

@@ -18,7 +18,7 @@ namespace FTF.Specs.Steps
         [Given(@"I created the note number (.*) with text '(.*)'")]
         public void CreateNote(int id, string text)
         {
-            Create create = new Handler(
+            Create create = new CreateHandler(
                 generateId: () => id,
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),
@@ -33,7 +33,7 @@ namespace FTF.Specs.Steps
         [Given(@"I created a note with text '(.*)'")]
         public void CreateNote(string text)
         {
-            new Handler(
+            new CreateHandler(
                 generateId: () => _context.Db.Notes.NextId(),
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),

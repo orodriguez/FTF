@@ -1,16 +1,14 @@
 using System;
 using System.Collections.Generic;
-using FTF.Api.Actions.Notes;
 using FTF.Api.Responses;
-using FTF.Core.Entities;
 
-namespace FTF.Core.Notes.Retrieve
+namespace FTF.Core.Responses
 {
-    internal class Response : INote
+    internal class Note : INote
     {
-        private readonly Note _note;
+        private readonly Entities.Note _note;
 
-        public Response(Note note)
+        public Note(Entities.Note note)
         {
             _note = note;
         }

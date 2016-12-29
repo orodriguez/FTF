@@ -4,13 +4,13 @@ using FTF.Core.Entities;
 
 namespace FTF.Core.Notes.Update
 {
-    public class Handler
+    public class UpdateHandler
     {
         private readonly IQueryable<Note> _notes;
 
         private readonly Action _saveChanges;
 
-        public Handler(IQueryable<Note> notes, Action saveChanges)
+        public UpdateHandler(IQueryable<Note> notes, Action saveChanges)
         {
             _notes = notes;
             _saveChanges = saveChanges;
