@@ -48,7 +48,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="INameable.cs" />
     <Compile Include="Note.cs" />
-    <Compile Include="Notes\CreateNote.cs" />
+    <Compile Include="Notes\Create\Handler.cs" />
     <Compile Include="Notes\Queries.cs" />
     <Compile Include="Notes\Retrieve\IResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

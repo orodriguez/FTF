@@ -5,9 +5,9 @@ using FTF.Core.Extensions;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Queries;
 
-namespace FTF.Core.Notes
+namespace FTF.Core.Notes.Create
 {
-    public class CreateNote
+    public class Handler
     {
         private readonly Func<int> _generateId;
 
@@ -21,7 +21,7 @@ namespace FTF.Core.Notes
 
         private readonly Func<User> _getCurrentUser;
 
-        public CreateNote(
+        public Handler(
             Func<int> generateId, 
             Func<DateTime> getCurrentDate, 
             Action<Note> saveNote, 
