@@ -1,6 +1,6 @@
 using System;
 using System.Linq;
-using FTF.Api.Notes.Retrieve;
+using FTF.Api.Responses.Notes.Retrieve;
 using FTF.Core.Notes.Retrieve;
 
 namespace FTF.Core.Notes

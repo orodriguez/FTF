@@ -40,13 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Auth\SignIn.cs" />
-    <Compile Include="Auth\SignUp.cs" />
-    <Compile Include="Delegates\Retrieve.cs" />
-    <Compile Include="Notes\Create.cs" />
-    <Compile Include="Notes\Retrieve\IResponse.cs" />
-    <Compile Include="Notes\Retrieve\ITag.cs" />
+    <Compile Include="Actions\Auth\SignIn.cs" />
+    <Compile Include="Actions\Auth\SignUp.cs" />
+    <Compile Include="Actions\Notes\Create.cs" />
+    <Compile Include="Actions\Notes\Retrieve.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Responses\Notes\Retrieve\IResponse.cs" />
+    <Compile Include="Responses\Notes\Retrieve\ITag.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

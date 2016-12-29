@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using FTF.Api.Notes.Retrieve;
+using FTF.Api.Actions.Notes;
+using FTF.Api.Responses.Notes.Retrieve;
 
 namespace FTF.Core.Notes.Retrieve
 {

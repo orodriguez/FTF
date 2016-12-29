@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FTF.Api.Notes.Retrieve
+namespace FTF.Api.Responses.Notes.Retrieve
 {
     public interface IResponse
     {

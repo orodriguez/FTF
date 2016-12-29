@@ -1,4 +1,4 @@
-﻿using FTF.Api.Auth;
+﻿using FTF.Api.Actions.Auth;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs.Steps

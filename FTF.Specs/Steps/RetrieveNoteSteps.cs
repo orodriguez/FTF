@@ -1,6 +1,6 @@
 ﻿using System;
-using FTF.Api.Delegates;
-using FTF.Api.Notes.Retrieve;
+using FTF.Api.Actions.Notes;
+using FTF.Api.Responses.Notes.Retrieve;
 using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -27,7 +27,7 @@ namespace FTF.Specs.Steps
         {
             try
             {
-                Retrieve<IResponse> retrieve = new Queries(_context.Db.Notes).Retrieve;
+                Retrieve retrieve = new Queries(_context.Db.Notes).Retrieve;
 
                 _response = retrieve(id);
             }

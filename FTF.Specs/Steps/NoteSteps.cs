@@ -1,4 +1,4 @@
-﻿using FTF.Api.Notes;
+﻿using FTF.Api.Actions.Notes;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes.Create;
 using TechTalk.SpecFlow;

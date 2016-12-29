@@ -1,4 +1,4 @@
-﻿namespace FTF.Api.Notes
+﻿namespace FTF.Api.Actions.Notes
 {
     public delegate void Create(string text);
 }
