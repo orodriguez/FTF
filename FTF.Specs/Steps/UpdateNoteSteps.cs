@@ -1,5 +1,5 @@
 ﻿using FTF.Api.Actions.Notes;
-using FTF.Core.Notes.Update;
+using FTF.Core.Notes;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs.Steps

@@ -51,9 +51,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="INameable.cs" />
-    <Compile Include="Notes\Create\CreateHandler.cs" />
+    <Compile Include="Notes\CreateHandler.cs" />
     <Compile Include="Notes\Queries.cs" />
-    <Compile Include="Notes\Update\UpdateHandler.cs" />
+    <Compile Include="Notes\UpdateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\NameableQueries.cs" />
     <Compile Include="Responses\Note.cs" />

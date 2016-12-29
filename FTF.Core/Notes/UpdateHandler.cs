@@ -2,7 +2,7 @@
 using System.Linq;
 using FTF.Core.Entities;
 
-namespace FTF.Core.Notes.Update
+namespace FTF.Core.Notes
 {
     public class UpdateHandler
     {

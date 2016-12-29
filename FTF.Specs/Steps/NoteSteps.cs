@@ -1,6 +1,6 @@
 ﻿using FTF.Api.Actions.Notes;
 using FTF.Core.Extensions.Queriable;
-using FTF.Core.Notes.Create;
+using FTF.Core.Notes;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs.Steps

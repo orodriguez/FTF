@@ -6,7 +6,7 @@ using FTF.Core.Extensions;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Queries;
 
-namespace FTF.Core.Notes.Create
+namespace FTF.Core.Notes
 {
     public class CreateHandler
     {
