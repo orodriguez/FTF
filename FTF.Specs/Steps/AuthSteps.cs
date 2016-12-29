@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
-using FTF.Api.Auth;
-using FTF.Core.Auth.SignUp;
+﻿using FTF.Api.Auth;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs.Steps
@@ -20,7 +16,7 @@ namespace FTF.Specs.Steps
         [Given(@"I signup as '(.*)'")]
         public void SignUp(string userName)
         {
-            SignUp signUp = new Handler(
+            SignUp signUp = new Core.Auth.SignUp.Handler(
                 saveUser: user => _context.Db.Users.Add(user), 
                 saveChanges: () => _context.Db.SaveChanges()
             ).SignUp;
@@ -29,7 +25,14 @@ namespace FTF.Specs.Steps
         }
 
         [Given(@"I signin as '(.*)'")]
-        public void SignIn(string userName) => 
-            _context.CurrentUser = _context.Db.Users.First(u => u.Name == userName);
+        public void SignIn(string userName)
+        {
+            SignIn signIn = new Core.Auth.SignIn.Handler(
+                users: _context.Db.Users, 
+                setCurrentUser: user => _context.CurrentUser = user
+            ).SignIn;
+
+            signIn(userName);
+        }
     }
 }
