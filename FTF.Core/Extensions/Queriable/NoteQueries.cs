@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FTF.Core.Entities;
 
 namespace FTF.Core.Extensions.Queriable
 {

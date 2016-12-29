@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using FTF.Api.Actions.Notes;
 using FTF.Api.Responses.Notes.Retrieve;
+using FTF.Core.Entities;
 
 namespace FTF.Core.Notes.Retrieve
 {

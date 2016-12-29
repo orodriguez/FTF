@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using FTF.Core;
+using FTF.Core.Entities;
 
 namespace FTF.Storage.EntityFramework
 {

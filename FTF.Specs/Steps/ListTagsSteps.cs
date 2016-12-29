@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using FTF.Core;
+using FTF.Core.Entities;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using FTF.Core.Entities;
 
 namespace FTF.Core.Auth.SignUp
 {
