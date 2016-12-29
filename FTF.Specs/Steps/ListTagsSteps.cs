@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using FTF.Core;
+using FTF.Api.Responses.Notes.Retrieve;
 using FTF.Core.Entities;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -11,7 +11,7 @@ namespace FTF.Specs.Steps
     {
         private readonly Context _context;
 
-        private IEnumerable<Tag> _tags;
+        private IEnumerable<ITag> _tags;
 
         public ListTagsSteps(Context context)
         {
