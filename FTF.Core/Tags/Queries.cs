@@ -18,7 +18,11 @@ namespace FTF.Core.Tags
             _getCurrentUserId = getCurrentUserId;
         }
 
-        public IEnumerable<ITag> List() => 
-            _tags.Where(t => t.User.Id == _getCurrentUserId());
+        public IEnumerable<ITag> List()
+        {
+            var userId = _getCurrentUserId();
+
+            return _tags.Where(t => t.User.Id == userId);
+        }
     }
 }

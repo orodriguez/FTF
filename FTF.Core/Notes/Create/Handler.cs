@@ -61,7 +61,11 @@ namespace FTF.Core.Notes.Create
         private IEnumerable<Tag> MakeNewTags(string[] tagNames) => 
             tagNames
                 .Except(_tags.ByName(tagNames).Names())
-                .Select(tagName => new Tag { Name = tagName })
+                .Select(tagName => new Tag
+                {
+                    Name = tagName,
+                    User = _getCurrentUser()
+                })
                 .ToArray();
     }
 }
