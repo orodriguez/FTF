@@ -20,5 +20,7 @@ namespace FTF.Storage.EntityFramework
         public IDbSet<Note> Notes { get; set; }
 
         public IDbSet<Tag> Tags { get; set; }
+
+        public IDbSet<User> Users { get; set; }
     }
 }
