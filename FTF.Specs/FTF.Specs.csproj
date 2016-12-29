@@ -58,13 +58,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="Features\ListTags.feature.cs">
-      <DependentUpon>ListTags.feature</DependentUpon>
+    <Compile Include="Features\Notes\Retrieve.feature.cs">
+      <DependentUpon>Retrieve.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Features\RetrieveNote.feature.cs">
-      <DependentUpon>RetrieveNote.feature</DependentUpon>
+    <Compile Include="Features\Tags\List.feature.cs">
+      <DependentUpon>List.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -78,13 +78,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Features\ListTags.feature">
+    <None Include="Features\Notes\Retrieve.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>ListTags.feature.cs</LastGenOutput>
+      <LastGenOutput>Retrieve.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\RetrieveNote.feature">
+    <None Include="Features\Tags\List.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>RetrieveNote.feature.cs</LastGenOutput>
+      <LastGenOutput>List.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

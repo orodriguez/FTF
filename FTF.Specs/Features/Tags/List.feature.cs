@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace FTF.Specs.Features
+namespace FTF.Specs.Features.Tags
 {
     using TechTalk.SpecFlow;
     
@@ -24,7 +24,7 @@ namespace FTF.Specs.Features
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "ListTags.feature"
+#line 1 "List.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
