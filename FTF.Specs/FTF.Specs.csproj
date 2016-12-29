@@ -92,6 +92,10 @@
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FTF.Api\FTF.Api.csproj">
+      <Project>{15E623DF-5A5C-42A4-8DBA-4E4C0312BCA7}</Project>
+      <Name>FTF.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FTF.Core\FTF.Core.csproj">
       <Project>{B8BB0669-72D6-4CE9-872C-F041E367AB7C}</Project>
       <Name>FTF.Core</Name>

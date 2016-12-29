@@ -1,5 +1,5 @@
-﻿using FTF.Core.Extensions.Queriable;
-using FTF.Core.Notes;
+﻿using FTF.Api.Notes;
+using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes.Create;
 using TechTalk.SpecFlow;
 
@@ -18,7 +18,7 @@ namespace FTF.Specs.Steps
         [Given(@"I created the note number (.*) with text '(.*)'")]
         public void CreateNote(int id, string text)
         {
-            CreateDel create = new Handler(
+            Create create = new Handler(
                 generateId: () => id,
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),
