@@ -76,8 +76,10 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.And("I signup as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 8
- testRunner.And("I created the note number 101 with text \'I was born\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I signin as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
+ testRunner.And("I created the note number 101 with text \'I was born\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 10
  testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -92,7 +94,7 @@ this.ScenarioSetup(scenarioInfo);
             table1.AddRow(new string[] {
                         "UserName",
                         "orodriguez"});
-#line 10
+#line 11
  testRunner.Then("the note should match:", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -103,11 +105,11 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NoteWithTags()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note with Tags", ((string[])(null)));
-#line 16
-this.ScenarioSetup(scenarioInfo);
 #line 17
- testRunner.Given("I created the note number 101 with text \'#Buy cheese at #SuperMarket\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+this.ScenarioSetup(scenarioInfo);
 #line 18
+ testRunner.Given("I created the note number 101 with text \'#Buy cheese at #SuperMarket\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 19
  testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -116,7 +118,7 @@ this.ScenarioSetup(scenarioInfo);
                         "Buy"});
             table2.AddRow(new string[] {
                         "SuperMarket"});
-#line 19
+#line 20
  testRunner.Then("the note should contain the tags:", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -127,11 +129,11 @@ this.ScenarioSetup(scenarioInfo);
         public virtual void NoteNotFound()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note not found", ((string[])(null)));
-#line 24
-this.ScenarioSetup(scenarioInfo);
 #line 25
- testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+this.ScenarioSetup(scenarioInfo);
 #line 26
+ testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 27
  testRunner.Then("it should show the error \'Note #101 does not exist\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

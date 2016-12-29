@@ -1,4 +1,5 @@
-﻿using FTF.Core.Extensions.Queriable;
+﻿using FTF.Core;
+using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
 using TechTalk.SpecFlow;
 
@@ -21,8 +22,9 @@ namespace FTF.Specs.Steps
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),
                 saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags
-                ).Create(text);
+                tags: _context.Db.Tags,
+                getCurrentUser: () => _context.CurrentUser
+            ).Create(text);
 
         [Given(@"I created a note with text '(.*)'")]
         public void CreateNote(string text)
@@ -32,8 +34,9 @@ namespace FTF.Specs.Steps
                 getCurrentDate: _context.GetCurrentDate,
                 saveNote: note => _context.Db.Notes.Add(note),
                 saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags
-                ).Create(text);
+                tags: _context.Db.Tags,
+                getCurrentUser: () => _context.CurrentUser
+            ).Create(text);
         }
     }
 }

@@ -19,18 +19,22 @@ namespace FTF.Core.Notes
 
         private readonly IQueryable<Tag> _tags;
 
+        private readonly Func<User> _getCurrentUser;
+
         public CreateNote(
             Func<int> generateId, 
             Func<DateTime> getCurrentDate, 
             Action<Note> saveNote, 
             Action saveChanges, 
-            IQueryable<Tag> tags)
+            IQueryable<Tag> tags, 
+            Func<User> getCurrentUser)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;
             _saveNote = saveNote;
             _saveChanges = saveChanges;
             _tags = tags;
+            _getCurrentUser = getCurrentUser;
         }
 
         public void Create(string text)
@@ -40,7 +44,8 @@ namespace FTF.Core.Notes
                 Id = _generateId(),
                 Text = text,
                 CreationDate = _getCurrentDate(),
-                Tags = MakeTags(text.ParseTagNames()).ToList()
+                Tags = MakeTags(text.ParseTagNames()).ToList(),
+                User = _getCurrentUser()
             });
 
             _saveChanges();

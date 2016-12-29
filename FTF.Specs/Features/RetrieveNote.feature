@@ -5,6 +5,7 @@
 Scenario: Note Exists
 	Given today is 'Feb 20 1984'
 	And I signup as 'orodriguez'
+	And I signin as 'orodriguez'
 	And I created the note number 101 with text 'I was born'
 	When I retrieve the note number 101
 	Then the note should match:
