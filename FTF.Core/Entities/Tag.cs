@@ -12,15 +12,17 @@ namespace FTF.Core.Entities
 
         public ICollection<Note> Notes { get; set; }
 
+        public virtual User User { get; set; }
+
         public Tag() : this(new Collection<Note>())
         {
         }
-
-        public int NotesCount => Notes.Count;
 
         private Tag(Collection<Note> notes)
         {
             Notes = notes;
         }
+
+        public int NotesCount => Notes.Count;
     }
 }

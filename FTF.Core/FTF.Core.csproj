@@ -56,13 +56,12 @@
     <Compile Include="Notes\Retrieve\Response.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\NameableQueries.cs" />
+    <Compile Include="Tags\Queries.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Tags\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\FTF.Api\FTF.Api.csproj">
       <Project>{15E623DF-5A5C-42A4-8DBA-4E4C0312BCA7}</Project>
