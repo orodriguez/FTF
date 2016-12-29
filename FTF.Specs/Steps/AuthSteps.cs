@@ -34,5 +34,12 @@ namespace FTF.Specs.Steps
 
             signIn(userName);
         }
+
+        [Given(@"I signup and signin as '(.*)'")]
+        public void SignUpAndSignIn(string userName)
+        {
+            SignUp(userName);
+            SignIn(userName);
+        }
     }
 }

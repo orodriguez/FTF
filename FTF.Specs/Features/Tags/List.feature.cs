@@ -70,9 +70,7 @@ namespace FTF.Specs.Features.Tags
 #line 6
  testRunner.Given("today is \'Feb 20 1984\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 7
- testRunner.Given("I signup as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 8
- testRunner.And("I signin as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("I signup and signin as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
@@ -81,13 +79,13 @@ namespace FTF.Specs.Features.Tags
         public virtual void OneNoteWithNewTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One Note with New Tag", ((string[])(null)));
-#line 10
+#line 9
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 11
+#line 10
  testRunner.Given("I created a note with text \'#Read Athlas Shrugged\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 12
+#line 11
  testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
@@ -96,7 +94,7 @@ this.FeatureBackground();
             table1.AddRow(new string[] {
                         "Read",
                         "1"});
-#line 13
+#line 12
  testRunner.Then("the tags list should match:", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -107,15 +105,15 @@ this.FeatureBackground();
         public virtual void TwoNotesWithTheSameTag()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Two Notes with the same Tag", ((string[])(null)));
-#line 17
+#line 16
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 18
+#line 17
  testRunner.Given("I created a note with text \'#Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 19
+#line 18
  testRunner.And("I created a note with text \'#Buy nachos\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 20
+#line 19
  testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
@@ -124,7 +122,7 @@ this.FeatureBackground();
             table2.AddRow(new string[] {
                         "Buy",
                         "2"});
-#line 21
+#line 20
  testRunner.Then("the tags list should match:", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -135,19 +133,17 @@ this.FeatureBackground();
         public virtual void OneTagFromDifferentUser()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One Tag from different user", ((string[])(null)));
-#line 25
+#line 24
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 26
+#line 25
  testRunner.Given("I created a note with text \'#Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 26
+ testRunner.And("I signup and signin as \'anotheruser\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 27
- testRunner.And("I signup as \'anotheruser\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 28
- testRunner.And("I signin as \'anotheruser\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 29
  testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 30
+#line 28
  testRunner.Then("the tags list should be empty", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

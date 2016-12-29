@@ -4,8 +4,7 @@
 
 Background:
 	Given today is 'Feb 20 1984' 
-	And I signup as 'orodriguez'
-	And I signin as 'orodriguez'
+	And I signup and signin as 'orodriguez'
 
 Scenario: Note Exists
 	Given I created the note number 101 with text 'I was born'
@@ -26,8 +25,7 @@ Scenario: Note with Tags
 
 Scenario: Note from another user
 	Given I created the note number 101 with text 'Note from another user'
-	And I signup as 'anotheruser'
-	And I signin as 'anotheruser'		
+	And I signup and signin as 'anotheruser'
 	When I retrieve the note number 101
 	Then it should show the error 'Note #101 does not exist'
 

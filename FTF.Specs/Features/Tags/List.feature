@@ -4,8 +4,7 @@
 
 Background:
 	Given today is 'Feb 20 1984' 
-	Given I signup as 'orodriguez'
-	And I signin as 'orodriguez'
+	And I signup and signin as 'orodriguez'
 
 Scenario: One Note with New Tag
 	Given I created a note with text '#Read Athlas Shrugged'
@@ -24,7 +23,6 @@ Scenario: Two Notes with the same Tag
 
 Scenario: One Tag from different user
 	Given I created a note with text '#Buy cheese'
-	And I signup as 'anotheruser'
-	And I signin as 'anotheruser'
+	And I signup and signin as 'anotheruser'
 	When I list all tags
 	Then the tags list should be empty
