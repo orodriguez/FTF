@@ -24,7 +24,7 @@ Scenario: Note with Tags
 		| SuperMarket |
 
 Scenario: Note from another user
-	Given I created the note number 101 with text 'Note from another user'
+	Given I created the note number 101 with text 'A Note'
 	And I signup and signin as 'anotheruser'
 	When I retrieve the note number 101
 	Then it should show the error 'Note #101 does not exist'

@@ -142,7 +142,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
 #line 27
- testRunner.Given("I created the note number 101 with text \'Note from another user\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("I created the note number 101 with text \'A Note\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 28
  testRunner.And("I signup and signin as \'anotheruser\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 29
