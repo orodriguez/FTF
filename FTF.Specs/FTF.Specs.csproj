@@ -63,8 +63,8 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Features\Tags\List.feature.cs">
-      <DependentUpon>List.feature</DependentUpon>
+    <Compile Include="Features\Tags\ListAll.feature.cs">
+      <DependentUpon>ListAll.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -83,9 +83,9 @@
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Retrieve.feature.cs</LastGenOutput>
     </None>
-    <None Include="Features\Tags\List.feature">
+    <None Include="Features\Tags\ListAll.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>List.feature.cs</LastGenOutput>
+      <LastGenOutput>ListAll.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

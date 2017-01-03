@@ -3,5 +3,5 @@ using FTF.Api.Responses;
 
 namespace FTF.Api.Actions.Tags
 {
-    public delegate IEnumerable<ITag> List();
+    public delegate IEnumerable<ITag> ListAll();
 }

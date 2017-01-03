@@ -18,7 +18,7 @@ namespace FTF.Core.Tags
             _getCurrentUserId = getCurrentUserId;
         }
 
-        public IEnumerable<ITag> List()
+        public IEnumerable<ITag> ListAll()
         {
             var userId = _getCurrentUserId();
 

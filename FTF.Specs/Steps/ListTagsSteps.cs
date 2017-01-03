@@ -1,10 +1,10 @@
 using System.Collections.Generic;
+using FTF.Api.Actions.Tags;
 using FTF.Api.Responses;
 using FTF.Core.Tags;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
 using static NUnit.Framework.Assert;
-using List = FTF.Api.Actions.Tags.List;
 
 namespace FTF.Specs.Steps
 {
@@ -23,12 +23,12 @@ namespace FTF.Specs.Steps
         [When(@"I list all tags")]
         public void ListTags()
         {
-            List list = new Queries(
+            ListAll listAll = new Queries(
                 tags: _context.Db.Tags, 
                 getCurrentUserId: () => _context.CurrentUser.Id
-            ).List;
+            ).ListAll;
 
-            _response = list();
+            _response = listAll();
         }
 
         [Then(@"the tags list should match:")]
