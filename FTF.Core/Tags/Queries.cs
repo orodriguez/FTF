@@ -23,7 +23,11 @@ namespace FTF.Core.Tags
         {
             var userId = _getCurrentUserId();
 
-            return _tags.Where(t => t.User.Id == userId);
+            return _tags
+                .Where(t => t.User.Id == userId)
+                .Select(t => new { Tag = t, NotesCount = t.Notes.Count })
+                .ToArray()
+                .Select(arg => new Response(arg.Tag, arg.NotesCount));
         }
 
         public IEnumerable<ITag> ListJoint(string tagname)
@@ -33,7 +37,7 @@ namespace FTF.Core.Tags
             var notesCount = tag.Notes.Count();
 
             if (notesCount == 0)
-                return new ITag[] { new JointTag(tag, notesCount) };
+                return new ITag[] { new Response(tag, notesCount) };
 
             var notesInTag = tag.Notes.Select(n => n.Id);
 
@@ -49,14 +53,14 @@ namespace FTF.Core.Tags
                     NotesCount = t.Notes.Count(n => notesInTag.Contains(n.Id))
                 })
                 .ToArray()
-                .Select(g => new JointTag(g.Tag, g.NotesCount));
+                .Select(g => new Response(g.Tag, g.NotesCount));
         }
 
-        private class JointTag : ITag
+        private class Response : ITag
         {
             private readonly Tag _tag;
 
-            public JointTag(Tag tag, int notesCount)
+            public Response(Tag tag, int notesCount)
             {
                 _tag = tag;
                 NotesCount = notesCount;

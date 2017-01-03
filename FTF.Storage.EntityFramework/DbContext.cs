@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Diagnostics;
 using FTF.Core.Entities;
 
 namespace FTF.Storage.EntityFramework
@@ -14,6 +15,8 @@ namespace FTF.Storage.EntityFramework
             : base(nameOrConnectionString)
         {
             Database.SetInitializer(initializer);
+
+            Database.Log = s => Debug.Write(s);
         }
 
         public IDbSet<Note> Notes { get; set; }
