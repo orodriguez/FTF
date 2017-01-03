@@ -33,7 +33,7 @@ namespace FTF.Core.Tags
             var notesCount = tag.Notes.Count();
 
             if (notesCount == 0)
-                return new ITag[] { new PrecomputedJointTag(tag, notesCount) };
+                return new ITag[] { new JointTag(tag, notesCount) };
 
             var notesInTag = tag.Notes.Select(n => n.Id);
 
@@ -49,33 +49,14 @@ namespace FTF.Core.Tags
                     NotesCount = t.Notes.Count(n => notesInTag.Contains(n.Id))
                 })
                 .ToArray()
-                .Select(g => new PrecomputedJointTag(g.Tag, g.NotesCount));
+                .Select(g => new JointTag(g.Tag, g.NotesCount));
         }
 
-        private class TagJoint : ITag
+        private class JointTag : ITag
         {
             private readonly Tag _tag;
 
-            private readonly IEnumerable<int> _countFilter;
-
-            public TagJoint(Tag tag, IEnumerable<int> countFilter)
-            {
-                _tag = tag;
-                _countFilter = countFilter;
-            }
-
-            public int Id => _tag.Id;
-
-            public string Name => _tag.Name;
-
-            public int NotesCount => _tag.Notes.Count(note => _countFilter.Contains(note.Id));
-        }
-
-        private class PrecomputedJointTag : ITag
-        {
-            private readonly Tag _tag;
-
-            public PrecomputedJointTag(Tag tag, int notesCount)
+            public JointTag(Tag tag, int notesCount)
             {
                 _tag = tag;
                 NotesCount = notesCount;
