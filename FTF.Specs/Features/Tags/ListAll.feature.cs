@@ -31,8 +31,8 @@ namespace FTF.Specs.Features.Tags
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "List All Tags", "\tIn order to how I have my notes clasified\r\n\tI want to be able to see all the tag" +
-                    "s I have registered", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "List All Tags", "\tIn order to know how I have my notes clasified\r\n\tI want to be able to see all th" +
+                    "e tags I have registered", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         

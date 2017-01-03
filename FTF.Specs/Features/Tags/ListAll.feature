@@ -1,5 +1,5 @@
 ﻿Feature: List All Tags
-	In order to how I have my notes clasified
+	In order to know how I have my notes clasified
 	I want to be able to see all the tags I have registered
 
 Background:
