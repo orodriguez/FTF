@@ -75,10 +75,10 @@ namespace FTF.Specs.Features.Tags
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("One Tag without notes and 2 Tags related to the same note")]
-        public virtual void OneTagWithoutNotesAnd2TagsRelatedToTheSameNote()
+        [NUnit.Framework.DescriptionAttribute("1 Notes, 3 Tags : t1(n1), t2(n1), t3()")]
+        public virtual void _1Notes3TagsT1N1T2N1T3()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("One Tag without notes and 2 Tags related to the same note", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("1 Notes, 3 Tags : t1(n1), t2(n1), t3()", ((string[])(null)));
 #line 9
 this.ScenarioSetup(scenarioInfo);
 #line 5
@@ -101,6 +101,42 @@ this.FeatureBackground();
                         "1"});
 #line 13
  testRunner.Then("the tags list should match:", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("3 Notes, 3 Tags : t1(n1, n2), t2(n2, n3), t1(n3, n1)")]
+        public virtual void _3Notes3TagsT1N1N2T2N2N3T1N3N1()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("3 Notes, 3 Tags : t1(n1, n2), t2(n2, n3), t1(n3, n1)", ((string[])(null)));
+#line 18
+this.ScenarioSetup(scenarioInfo);
+#line 5
+this.FeatureBackground();
+#line 19
+ testRunner.Given("I created a note with text \'#Read artible about #Programming\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 20
+ testRunner.And("I created a note with text \'Write sample application #Programming #FTF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 21
+ testRunner.And("I created a note with text \'#FTF #Read about design principles\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 22
+ testRunner.When("I list all tags that joint the tag \'Read\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "NotesCount"});
+            table2.AddRow(new string[] {
+                        "Read",
+                        "2"});
+            table2.AddRow(new string[] {
+                        "Programming",
+                        "2"});
+            table2.AddRow(new string[] {
+                        "FTF",
+                        "2"});
+#line 23
+ testRunner.Then("the tags list should match:", ((string)(null)), table2, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
