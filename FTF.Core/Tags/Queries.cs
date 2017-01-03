@@ -34,7 +34,28 @@ namespace FTF.Core.Tags
 
             return _tags
                 .Where(t => t.User.Id == userId)
-                .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)));
+                .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
+                .ToArray()
+                .Select(tag => new TagJoint(tag, notesInTag));
+        }
+
+        public class TagJoint : ITag
+        {
+            private readonly Tag _tag;
+
+            private readonly IEnumerable<int> _countFilter;
+
+            public TagJoint(Tag tag, IEnumerable<int> countFilter)
+            {
+                _tag = tag;
+                _countFilter = countFilter;
+            }
+
+            public int Id => _tag.Id;
+
+            public string Name => _tag.Name;
+
+            public int NotesCount => _tag.Notes.Count(note => _countFilter.Contains(note.Id));
         }
     }
 }

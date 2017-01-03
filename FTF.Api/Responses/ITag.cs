@@ -2,8 +2,8 @@ namespace FTF.Api.Responses
 {
     public interface ITag
     {
-        int Id { get; set; }
-        string Name { get; set; }
+        int Id { get; }
+        string Name { get; }
         int NotesCount { get; }
     }
 }
