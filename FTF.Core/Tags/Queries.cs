@@ -42,8 +42,14 @@ namespace FTF.Core.Tags
             return _tags
                 .Where(t => t.User.Id == userId)
                 .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
+                .Select(t => new
+                {
+                    Tag = t,
+                    t.Notes,
+                    NotesCount = t.Notes.Count(n => notesInTag.Contains(n.Id))
+                })
                 .ToArray()
-                .Select(t => new TagJoint(t, tag.Notes.Select(n => n.Id)));
+                .Select(g => new PrecomputedJointTag(g.Tag, g.NotesCount));
         }
 
         private class TagJoint : ITag
