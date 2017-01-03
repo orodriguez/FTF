@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Responses;
 using FTF.Core.Entities;
+using FTF.Core.Extensions.Queriable;
 
 namespace FTF.Core.Tags
 {
@@ -23,6 +24,17 @@ namespace FTF.Core.Tags
             var userId = _getCurrentUserId();
 
             return _tags.Where(t => t.User.Id == userId);
+        }
+
+        public IEnumerable<ITag> ListJoint(string tagname)
+        {
+            var notesInTag = _tags.FirstByName(tagname).Notes.Select(n => n.Id);
+
+            var userId = _getCurrentUserId();
+
+            return _tags
+                .Where(t => t.User.Id == userId)
+                .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)));
         }
     }
 }

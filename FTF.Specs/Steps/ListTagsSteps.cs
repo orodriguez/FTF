@@ -45,7 +45,12 @@ namespace FTF.Specs.Steps
         [When(@"I list all tags that joint the tag '(.*)'")]
         public void ListJointTags(string tagName)
         {
-            ScenarioContext.Current.Pending();
+            ListJoint listJoint = new Queries(
+                tags: _context.Db.Tags,
+                getCurrentUserId: () => _context.CurrentUser.Id
+            ).ListJoint;
+
+            _response = listJoint(tagName);
         }
 
         [Then(@"the tags list should match:")]

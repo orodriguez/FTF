@@ -54,13 +54,13 @@ namespace FTF.Core.Notes
 
         private IEnumerable<Tag> MakeTags(string[] tagNames) => 
             _tags
-                .ByName(tagNames)
+                .WhereNameContains(tagNames)
                 .ToArray()
                 .Concat(MakeNewTags(tagNames));
 
         private IEnumerable<Tag> MakeNewTags(string[] tagNames) => 
             tagNames
-                .Except(_tags.ByName(tagNames).Names())
+                .Except(_tags.WhereNameContains(tagNames).Names())
                 .Select(tagName => new Tag
                 {
                     Name = tagName,
