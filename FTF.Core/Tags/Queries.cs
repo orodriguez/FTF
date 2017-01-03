@@ -34,7 +34,7 @@ namespace FTF.Core.Tags
         {
             var tag = _tags.FirstByName(tagname);
 
-            var notesCount = tag.Notes.Count();
+            var notesCount = tag.Notes.Count;
 
             if (notesCount == 0)
                 return new ITag[] { new Response(tag, notesCount) };
