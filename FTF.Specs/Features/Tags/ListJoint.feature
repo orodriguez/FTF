@@ -16,7 +16,9 @@ Scenario: 1 Notes, 3 Tags : Read(n1), Piano(n1), Empty()
 		| Piano | 1          |
 
 Scenario: 3 Notes, 3 Tags : Read(n1, n3), Programming(n1, n2), FTF(n2, n3)
-	Given I created a note with text '#Read article about #Programming'
+	Given I created the following notes:
+		| Text                             |
+		| #Read article about #Programming |
 	And I created a note with text 'Write sample application #Programming #FTF'
 	And I created a note with text '#FTF #Read about design principles'
 	When I list all tags that joint the tag 'Read'

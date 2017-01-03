@@ -1,7 +1,9 @@
-﻿using FTF.Api.Actions.Notes;
+﻿using System.Linq;
+using FTF.Api.Actions.Notes;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
 using TechTalk.SpecFlow;
+using TechTalk.SpecFlow.Assist;
 
 namespace FTF.Specs.Steps
 {
@@ -41,6 +43,17 @@ namespace FTF.Specs.Steps
                 tags: _context.Db.Tags,
                 getCurrentUser: () => _context.CurrentUser
             ).Create(text);
+        }
+
+        [Given(@"I created the following notes:")]
+        public void CreateNotes(Table table)
+        {
+            table.CreateSet<Row>().ToList().ForEach(r => CreateNote(r.Text));
+        }
+
+        private class Row
+        {
+            public string Text { get; set; }
         }
     }
 }

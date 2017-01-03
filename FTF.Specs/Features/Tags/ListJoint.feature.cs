@@ -114,29 +114,34 @@ this.FeatureBackground();
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 19
- testRunner.Given("I created a note with text \'#Read article about #Programming\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 20
- testRunner.And("I created a note with text \'Write sample application #Programming #FTF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 21
- testRunner.And("I created a note with text \'#FTF #Read about design principles\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 22
- testRunner.When("I list all tags that joint the tag \'Read\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Text"});
+            table2.AddRow(new string[] {
+                        "#Read article about #Programming"});
+#line 19
+ testRunner.Given("I created the following notes:", ((string)(null)), table2, "Given ");
+#line 22
+ testRunner.And("I created a note with text \'Write sample application #Programming #FTF\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 23
+ testRunner.And("I created a note with text \'#FTF #Read about design principles\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 24
+ testRunner.When("I list all tags that joint the tag \'Read\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "NotesCount"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Read",
                         "2"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "Programming",
                         "1"});
-            table2.AddRow(new string[] {
+            table3.AddRow(new string[] {
                         "FTF",
                         "1"});
-#line 23
- testRunner.Then("the tags list should match:", ((string)(null)), table2, "Then ");
+#line 25
+ testRunner.Then("the tags list should match:", ((string)(null)), table3, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -146,28 +151,28 @@ this.FeatureBackground();
         public virtual void _2Notes3TagsBuyN1CarN1MaryN2()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("2 Notes, 3 Tags : Buy(n1), Car(n1), Mary(n2)", ((string[])(null)));
-#line 29
+#line 31
 this.ScenarioSetup(scenarioInfo);
 #line 5
 this.FeatureBackground();
-#line 30
- testRunner.Given("I created a note with text \'#Buy tire #Car\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 31
- testRunner.And("I created a note with text \'#Buy gift for #Mary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 32
+ testRunner.Given("I created a note with text \'#Buy tire #Car\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 33
+ testRunner.And("I created a note with text \'#Buy gift for #Mary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
  testRunner.When("I list all tags that joint the tag \'Mary\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                         "Name",
                         "NotesCount"});
-            table3.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "Mary",
                         "1"});
-            table3.AddRow(new string[] {
+            table4.AddRow(new string[] {
                         "Buy",
                         "1"});
-#line 33
- testRunner.Then("the tags list should match:", ((string)(null)), table3, "Then ");
+#line 35
+ testRunner.Then("the tags list should match:", ((string)(null)), table4, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
