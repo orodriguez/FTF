@@ -30,24 +30,19 @@ namespace FTF.Core.Tags
         {
             var tag = _tags.FirstByName(tagname);
 
+            var notesCount = tag.Notes.Count();
+
+            if (notesCount == 0)
+                return new ITag[] { new PrecomputedJointTag(tag, notesCount) };
+
             var notesInTag = tag.Notes.Select(n => n.Id);
 
             var userId = _getCurrentUserId();
 
-            var tags = _tags
+            return _tags
                 .Where(t => t.User.Id == userId)
                 .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
-                .ToArray();
-
-            return MakeResponse(tags, tag);
-        }
-
-        private static IEnumerable<ITag> MakeResponse(Tag[] tags, Tag tag)
-        {
-            if (!tags.Any())
-                return new ITag[] { new EmptyTagJoint(tag) };
-
-            return tags
+                .ToArray()
                 .Select(t => new TagJoint(t, tag.Notes.Select(n => n.Id)));
         }
 
@@ -70,18 +65,21 @@ namespace FTF.Core.Tags
             public int NotesCount => _tag.Notes.Count(note => _countFilter.Contains(note.Id));
         }
 
-        private class EmptyTagJoint : ITag
+        private class PrecomputedJointTag : ITag
         {
             private readonly Tag _tag;
 
-            public EmptyTagJoint(Tag tag)
+            public PrecomputedJointTag(Tag tag, int notesCount)
             {
                 _tag = tag;
+                NotesCount = notesCount;
             }
 
             public int Id => _tag.Id;
+
             public string Name => _tag.Name;
-            public int NotesCount => 0;
+
+            public int NotesCount { get; }
         }
     }
 }
