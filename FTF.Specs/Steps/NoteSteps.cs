@@ -33,8 +33,7 @@ namespace FTF.Specs.Steps
         }
 
         [Given(@"I created a note with text '(.*)'")]
-        public void CreateNote(string text)
-        {
+        public void CreateNote(string text) => 
             new CreateHandler(
                 generateId: () => _context.Db.Notes.NextId(),
                 getCurrentDate: _context.GetCurrentDate,
@@ -43,13 +42,12 @@ namespace FTF.Specs.Steps
                 tags: _context.Db.Tags,
                 getCurrentUser: () => _context.CurrentUser
             ).Create(text);
-        }
 
         [Given(@"I created the following notes:")]
-        public void CreateNotes(Table table)
-        {
-            table.CreateSet<Row>().ToList().ForEach(r => CreateNote(r.Text));
-        }
+        public void CreateNotes(Table table) => 
+            table.CreateSet<Row>()
+                .ToList()
+                .ForEach(r => CreateNote(r.Text));
 
         private class Row
         {
