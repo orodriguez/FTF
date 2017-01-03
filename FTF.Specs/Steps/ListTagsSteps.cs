@@ -20,6 +20,17 @@ namespace FTF.Specs.Steps
             _context = context;
         }
 
+        [Given(@"I created a tag with name '(.*)'")]
+        public void CreateTag(string name)
+        {
+            Create create = new CreateTagHandler(
+                save: tag => _context.Db.Tags.Add(tag), 
+                saveChanges: () => _context.Db.SaveChanges()
+            ).Create;
+
+            create(name);
+        }
+
         [When(@"I list all tags")]
         public void ListTags()
         {
@@ -29,6 +40,12 @@ namespace FTF.Specs.Steps
             ).ListAll;
 
             _response = listAll();
+        }
+
+        [When(@"I list all tags that joint the tag '(.*)'")]
+        public void ListJointTags(string tagName)
+        {
+            ScenarioContext.Current.Pending();
         }
 
         [Then(@"the tags list should match:")]

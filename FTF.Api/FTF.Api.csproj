@@ -45,6 +45,7 @@
     <Compile Include="Actions\Notes\Create.cs" />
     <Compile Include="Actions\Notes\Retrieve.cs" />
     <Compile Include="Actions\Notes\Update.cs" />
+    <Compile Include="Actions\Tags\Create.cs" />
     <Compile Include="Actions\Tags\ListAll.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\INote.cs" />
