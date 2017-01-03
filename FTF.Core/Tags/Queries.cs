@@ -28,18 +28,30 @@ namespace FTF.Core.Tags
 
         public IEnumerable<ITag> ListJoint(string tagname)
         {
-            var notesInTag = _tags.FirstByName(tagname).Notes.Select(n => n.Id);
+            var tag = _tags.FirstByName(tagname);
+
+            var notesInTag = tag.Notes.Select(n => n.Id);
 
             var userId = _getCurrentUserId();
 
-            return _tags
+            var tags = _tags
                 .Where(t => t.User.Id == userId)
                 .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
-                .ToArray()
-                .Select(tag => new TagJoint(tag, notesInTag));
+                .ToArray();
+
+            return MakeResponse(tags, tag);
         }
 
-        public class TagJoint : ITag
+        private static IEnumerable<ITag> MakeResponse(Tag[] tags, Tag tag)
+        {
+            if (!tags.Any())
+                return new ITag[] { new EmptyTagJoint(tag) };
+
+            return tags
+                .Select(t => new TagJoint(t, tag.Notes.Select(n => n.Id)));
+        }
+
+        private class TagJoint : ITag
         {
             private readonly Tag _tag;
 
@@ -56,6 +68,20 @@ namespace FTF.Core.Tags
             public string Name => _tag.Name;
 
             public int NotesCount => _tag.Notes.Count(note => _countFilter.Contains(note.Id));
+        }
+
+        private class EmptyTagJoint : ITag
+        {
+            private readonly Tag _tag;
+
+            public EmptyTagJoint(Tag tag)
+            {
+                _tag = tag;
+            }
+
+            public int Id => _tag.Id;
+            public string Name => _tag.Name;
+            public int NotesCount => 0;
         }
     }
 }

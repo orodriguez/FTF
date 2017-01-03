@@ -40,3 +40,10 @@ Scenario: 2 Notes, 3 Tags : Buy(n1), Car(n1), Mary(n2)
 		| Name | NotesCount |
 		| Mary | 1          |
 		| Buy  | 1          |
+
+Scenario: 0 Notes, 1 Tag
+	Given I created a tag with name 'SomeTag'
+	When I list all tags that joint the tag 'SomeTag'
+	Then the tags list should match:
+		| Name    | NotesCount |
+		| SomeTag | 0          |
