@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using FTF.Api.Actions.Notes;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
@@ -33,15 +34,20 @@ namespace FTF.Specs.Steps
         }
 
         [Given(@"I created a note with text '(.*)'")]
-        public void CreateNote(string text) => 
-            new CreateHandler(
-                generateId: () => _context.Db.Notes.NextId(),
-                getCurrentDate: _context.GetCurrentDate,
-                saveNote: note => _context.Db.Notes.Add(note),
-                saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags,
-                getCurrentUser: () => _context.CurrentUser
-            ).Create(text);
+        [When(@"I create a note with text '(.*)'")]
+        public void CreateNote(string text)
+        {
+            _context.StoreException(() => {
+                new CreateHandler(
+                    generateId: () => _context.Db.Notes.NextId(),
+                    getCurrentDate: _context.GetCurrentDate,
+                    saveNote: note => _context.Db.Notes.Add(note),
+                    saveChanges: () => _context.Db.SaveChanges(),
+                    tags: _context.Db.Tags,
+                    getCurrentUser: () => _context.CurrentUser
+                    ).Create(text);
+            });
+        }
 
         [Given(@"I created the following notes:")]
         public void CreateNotes(Table table) => 

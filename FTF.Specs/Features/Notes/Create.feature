@@ -4,7 +4,7 @@ Background:
 	Given today is 'Feb 20 1984' 
 	And I signup and signin as 'orodriguez'
 
-Scenario: Note without Tags
+Scenario: Simple
 	Given I created the note number 101 with text 'I was born'
 	When I retrieve the note number 101
 	Then the note should match:
@@ -13,10 +13,14 @@ Scenario: Note without Tags
 		| CreationDate	| Feb 20 1984 |
 		| UserName		| orodriguez  |
 
-Scenario: Note with Tags
+Scenario: With Tags
 	Given I created the note number 101 with text '#Buy cheese at #SuperMarket'
 	When I retrieve the note number 101
 	Then the note should contain the tags:
 		| Name        |
 		| Buy         |
 		| SuperMarket |
+
+Scenario: Empty Text
+	When I create a note with text ''
+	Then it should show the error 'Text can not be empty'

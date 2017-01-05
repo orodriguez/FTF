@@ -74,10 +74,10 @@ namespace FTF.Specs.Features.Notes
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Note without Tags")]
-        public virtual void NoteWithoutTags()
+        [NUnit.Framework.DescriptionAttribute("Simple")]
+        public virtual void Simple()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note without Tags", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple", ((string[])(null)));
 #line 7
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -106,10 +106,10 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Note with Tags")]
-        public virtual void NoteWithTags()
+        [NUnit.Framework.DescriptionAttribute("With Tags")]
+        public virtual void WithTags()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note with Tags", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With Tags", ((string[])(null)));
 #line 16
 this.ScenarioSetup(scenarioInfo);
 #line 3
@@ -127,6 +127,23 @@ this.FeatureBackground();
                         "SuperMarket"});
 #line 19
  testRunner.Then("the note should contain the tags:", ((string)(null)), table2, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Empty Text")]
+        public virtual void EmptyText()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty Text", ((string[])(null)));
+#line 24
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 25
+ testRunner.When("I create a note with text \'\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 26
+ testRunner.Then("it should show the error \'Text can not be empty\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

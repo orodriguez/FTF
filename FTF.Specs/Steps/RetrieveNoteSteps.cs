@@ -15,8 +15,6 @@ namespace FTF.Specs.Steps
 
         private INote _response;
 
-        private Exception _error;
-
         public RetrieveNoteSteps(Context context)
         {
             _context = context;
@@ -25,18 +23,14 @@ namespace FTF.Specs.Steps
         [When(@"I retrieve the note number (.*)")]
         public void RetrieveNote(int id)
         {
-            try
+            _context.StoreException(() =>
             {
                 Retrieve retrieve = new Queries(
-                    notes: _context.Db.Notes, 
+                    notes: _context.Db.Notes,
                     getCurrentUserId: () => _context.CurrentUser.Id).Retrieve;
 
                 _response = retrieve(id);
-            }
-            catch (Exception e)
-            {
-                _error = e;
-            }
+            });
         }
 
         [Then(@"the note should match:")]
@@ -45,8 +39,8 @@ namespace FTF.Specs.Steps
         [Then(@"it should show the error '(.*)'")]
         public void ShouldShowError(string message)
         {
-            Assert.NotNull(_error, "No error was produced");
-            Assert.AreEqual(message, _error.Message);
+            Assert.NotNull(_context.Exception, "No error was produced");
+            Assert.AreEqual(message, _context.Exception.Message);
         }
 
         [Then(@"the note should contain the tags:")]

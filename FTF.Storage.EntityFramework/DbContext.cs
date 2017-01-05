@@ -16,7 +16,7 @@ namespace FTF.Storage.EntityFramework
         {
             Database.SetInitializer(initializer);
 
-            Database.Log = s => Debug.Write(s);
+            // Database.Log = s => Debug.Write(s);
         }
 
         public IDbSet<Note> Notes { get; set; }

@@ -15,9 +15,23 @@ namespace FTF.Specs
 
         public DbContextTransaction Transaction { get; set; }
 
+        public Exception Exception { get; private set; }
+
         public Context()
         {
             GetCurrentDate = () => DateTime.Now;
+        }
+
+        public void StoreException(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch (Exception e)
+            {
+                Exception = e;
+            }
         }
     }
 }
