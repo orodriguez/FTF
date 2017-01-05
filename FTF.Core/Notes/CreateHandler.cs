@@ -40,6 +40,9 @@ namespace FTF.Core.Notes
 
         public void Create(string text)
         {
+            if (string.IsNullOrEmpty(text))
+                throw new Exception("Note can not be empty");
+
             _saveNote(new Note
             {
                 Id = _generateId(),
