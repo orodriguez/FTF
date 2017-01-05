@@ -8,13 +8,13 @@ namespace FTF.Core.Tags
 {
     public class Queries
     {
-        private readonly IQueryable<Tagging> _taggedTaggetNotes;
+        private readonly IQueryable<Tagging> _taggings;
 
         private readonly Func<int> _getCurrentUserId;
 
         public Queries(IQueryable<Tagging> taggetNotes, Func<int> getCurrentUserId)
         {
-            _taggedTaggetNotes = taggetNotes;
+            _taggings = taggetNotes;
             _getCurrentUserId = getCurrentUserId;
         }
 
@@ -22,13 +22,13 @@ namespace FTF.Core.Tags
         {
             var userId = _getCurrentUserId();
 
-            var notesInTrash = _taggedTaggetNotes
+            var notesInTrash = _taggings
                 .Where(t => t.Note.User.Id == userId)
                 .Where(t => t.Tag.Name == "Trash")
                 .Select(tn => tn.Note.Id)
                 .ToArray();
 
-            return _taggedTaggetNotes
+            return _taggings
                 .Where(tn => tn.Tag.User.Id == userId)
                 .GroupBy(tn => tn.Tag)
                 .Select(g => new
@@ -42,29 +42,31 @@ namespace FTF.Core.Tags
 
         public IEnumerable<ITag> ListJoint(string tagname)
         {
-            throw new NotImplementedException();
-            /*var tag = _taggedTaggetNotes.FirstByName(tagname);
-
-            var notesCount = tag.Notes.Count;
-
-            if (notesCount == 0)
-                return new ITag[] { new Response(tag, notesCount) };
-
-            var notesInTag = tag.Notes.Select(n => n.Id);
-
             var userId = _getCurrentUserId();
 
-            return _taggedTaggetNotes
-                .Where(t => t.User.Id == userId)
-                .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
-                .Select(t => new
+            var notesInTrash = _taggings
+                .Where(t => t.Note.User.Id == userId)
+                .Where(t => t.Tag.Name == "Trash")
+                .Select(tn => tn.Note.Id)
+                .ToArray();
+
+            var notesWithTag = _taggings
+                .Where(t => t.Note.User.Id == userId)
+                .Where(t => t.Tag.Name == tagname)
+                .Select(t => t.Note.Id)
+                .ToArray();
+
+            return _taggings
+                .Where(tn => tn.Tag.User.Id == userId)
+                .Where(tn => notesWithTag.Contains(tn.Note.Id))
+                .GroupBy(tn => tn.Tag)
+                .Select(g => new
                 {
-                    Tag = t,
-                    t.Notes,
-                    NotesCount = t.Notes.Count(n => notesInTag.Contains(n.Id))
+                    Tag = g.Key,
+                    NotesCount = g.Count(tagging => !notesInTrash.Contains(tagging.Note.Id))
                 })
                 .ToArray()
-                .Select(g => new Response(g.Tag, g.NotesCount));*/
+                .Select(t => new Response(t.Tag, t.NotesCount));
         }
 
         private class Response : ITag

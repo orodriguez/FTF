@@ -186,32 +186,6 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("0 Notes, 1 Tag")]
-        public virtual void _0Notes1Tag()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("0 Notes, 1 Tag", ((string[])(null)));
-#line 44
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 45
- testRunner.Given("I created a tag with name \'SomeTag\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 46
- testRunner.When("I list all tags that joint the tag \'SomeTag\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
-                        "Name",
-                        "NotesCount"});
-            table7.AddRow(new string[] {
-                        "SomeTag",
-                        "0"});
-#line 47
- testRunner.Then("the tags list should match:", ((string)(null)), table7, "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore
