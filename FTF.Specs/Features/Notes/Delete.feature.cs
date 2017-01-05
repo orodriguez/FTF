@@ -93,6 +93,34 @@ this.FeatureBackground();
 #line hidden
             this.ScenarioCleanup();
         }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With Tags")]
+        public virtual void WithTags()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With Tags", ((string[])(null)));
+#line 13
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 14
+ testRunner.Given("I created the note number 10 with text \'#Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 15
+ testRunner.And("I deleted the note 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 16
+ testRunner.When("I list all tags", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Name",
+                        "NotesCount"});
+            table1.AddRow(new string[] {
+                        "Buy",
+                        "0"});
+#line 17
+ testRunner.Then("the tags list should match:", ((string)(null)), table1, "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
     }
 }
 #pragma warning restore

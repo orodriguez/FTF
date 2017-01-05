@@ -25,7 +25,11 @@ namespace FTF.Core.Tags
 
             return _tags
                 .Where(t => t.User.Id == userId)
-                .Select(t => new { Tag = t, NotesCount = t.Notes.Count })
+                .Select(t => new
+                {
+                    Tag = t,
+                    NotesCount = t.Notes.Count(n => n.Tags.All(ta => ta.Name != "Trash"))
+                })
                 .ToArray()
                 .Select(arg => new Response(arg.Tag, arg.NotesCount));
         }
