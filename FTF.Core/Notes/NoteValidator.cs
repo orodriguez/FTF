@@ -7,7 +7,7 @@ namespace FTF.Core.Notes
         public static void Validate(string text)
         {
             if (string.IsNullOrEmpty(text))
-                throw new Exception("Note can not be empty");
+                throw new ValidationException("Note can not be empty");
         }
     }
 }

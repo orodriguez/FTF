@@ -27,7 +27,8 @@ namespace FTF.Specs.Steps
             {
                 Retrieve retrieve = new Queries(
                     notes: _context.Db.Notes,
-                    getCurrentUserId: () => _context.CurrentUser.Id).Retrieve;
+                    getCurrentUserId: () => _context.CurrentUser.Id
+                ).Retrieve;
 
                 _response = retrieve(id);
             });

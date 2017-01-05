@@ -10,16 +10,21 @@ namespace FTF.Core.Notes
 
         private readonly Action _saveChanges;
 
-        public UpdateHandler(IQueryable<Note> notes, Action saveChanges)
+        private readonly Action<string> _validate;
+
+        public UpdateHandler(
+            IQueryable<Note> notes, 
+            Action<string> validate, 
+            Action saveChanges)
         {
             _notes = notes;
+            _validate = validate;
             _saveChanges = saveChanges;
         }
 
         public void Update(int id, string text)
         {
-            if (string.IsNullOrEmpty(text))
-                throw new Exception("Note can not be empty");
+            _validate(text);
 
             var noteToUpdate = _notes.First(n => n.Id == id);
 

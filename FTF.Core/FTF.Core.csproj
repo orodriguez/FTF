@@ -58,9 +58,11 @@
     <Compile Include="Notes\UpdateHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\NameableQueries.cs" />
+    <Compile Include="RecordNotFoundException.cs" />
     <Compile Include="Responses\Note.cs" />
     <Compile Include="Tags\CreateTagHandler.cs" />
     <Compile Include="Tags\Queries.cs" />
+    <Compile Include="ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

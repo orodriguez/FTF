@@ -10,8 +10,8 @@ Scenario: Note from another user
 	Given I created the note number 101 with text 'A Note'
 	And I signup and signin as 'anotheruser'
 	When I retrieve the note number 101
-	Then it should show the error 'Note #101 does not exist'
+	Then it should show the error 'Note with id #101 does not exist'
 
 Scenario: Note not found
 	When I retrieve the note number 101
-	Then it should show the error 'Note #101 does not exist'
+	Then it should show the error 'Note with id #101 does not exist'

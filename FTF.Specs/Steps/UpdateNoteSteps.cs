@@ -22,6 +22,7 @@ namespace FTF.Specs.Steps
             {
                 Update update = new UpdateHandler(
                     notes: _context.Db.Notes,
+                    validate: NoteValidator.Validate,
                     saveChanges: () => _context.Db.SaveChanges()
                 ).Update;
 

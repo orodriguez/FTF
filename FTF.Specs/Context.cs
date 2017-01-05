@@ -15,7 +15,7 @@ namespace FTF.Specs
 
         public DbContextTransaction Transaction { get; set; }
 
-        public Exception Exception { get; private set; }
+        public System.Exception Exception { get; private set; }
 
         public Context()
         {
@@ -28,7 +28,7 @@ namespace FTF.Specs
             {
                 action();
             }
-            catch (Exception e)
+            catch (ApplicationException e)
             {
                 Exception = e;
             }
