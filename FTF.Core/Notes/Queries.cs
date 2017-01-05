@@ -23,7 +23,7 @@ namespace FTF.Core.Notes
 
             var note = _notes.FirstOrDefault(n => n.Id == id && n.User.Id == currentUserId);
 
-            if (note == null)
+            if (note == null || note.Tags.Any(t => t.Name == "Trash"))
                 throw new RecordNotFoundException(id, nameof(Note));
 
             return new Note(note);

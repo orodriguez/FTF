@@ -7,7 +7,7 @@ namespace FTF.Specs
 {
     public class Context
     {
-        public User CurrentUser { get; set; }
+        private User _currentUser;
 
         public DbContext Db { get; set; }
 
@@ -16,6 +16,18 @@ namespace FTF.Specs
         public DbContextTransaction Transaction { get; set; }
 
         public System.Exception Exception { get; private set; }
+
+        public User CurrentUser
+        {
+            get
+            {
+                if (_currentUser == null)
+                    throw new Exception("No user is logged in");
+
+                return _currentUser;
+            }
+            set { _currentUser = value; }
+        }
 
         public Context()
         {
