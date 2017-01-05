@@ -23,12 +23,12 @@ namespace FTF.Core.Tags
             var userId = _getCurrentUserId();
 
             var notesInTrash = _taggings
-                .Where(t => t.Tag.Name == "Trash")
+                .Where(Tagging.Trash)
                 .Select(tn => tn.Note.Id)
                 .ToArray();
 
             return _taggings
-                .Where(tn => tn.Tag.User.Id == userId)
+                .Where(Tagging.TagCreatedByUser(userId))
                 .GroupBy(tn => tn.Tag)
                 .Select(g => new
                 {
@@ -44,13 +44,11 @@ namespace FTF.Core.Tags
             var userId = _getCurrentUserId();
 
             var notesInTrash = _taggings
-                .Where(t => t.Note.User.Id == userId)
-                .Where(t => t.Tag.Name == "Trash")
+                .Where(Tagging.Trash)
                 .Select(tn => tn.Note.Id)
                 .ToArray();
 
             var notesWithTag = _taggings
-                .Where(t => t.Note.User.Id == userId)
                 .Where(t => t.Tag.Name == tagname)
                 .Select(t => t.Note.Id)
                 .ToArray();
