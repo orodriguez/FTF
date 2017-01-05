@@ -64,8 +64,8 @@ namespace FTF.Core.Notes
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) => 
             _tags
                 .WhereNameContains(tagNames)
-                .Select(tag => new Tagging { Note = note, Tag = tag })
                 .ToArray()
+                .Select(tag => new Tagging { Note = note, Tag = tag })
                 .Concat(MakeNewTaggings(note, tagNames));
 
         private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) => 

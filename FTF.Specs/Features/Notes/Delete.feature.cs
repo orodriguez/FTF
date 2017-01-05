@@ -95,10 +95,10 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("With Tags")]
-        public virtual void WithTags()
+        [NUnit.Framework.DescriptionAttribute("With a Tag")]
+        public virtual void WithATag()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With Tags", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With a Tag", ((string[])(null)));
 #line 13
 this.ScenarioSetup(scenarioInfo);
 #line 3
