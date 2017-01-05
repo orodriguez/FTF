@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using FTF.Api.Responses;
 
 namespace FTF.Core.Entities
@@ -10,19 +10,12 @@ namespace FTF.Core.Entities
 
         public string Name { get; set; }
 
-        public ICollection<Note> Notes { get; set; }
-
         public virtual User User { get; set; }
 
-        public Tag() : this(new Collection<Note>())
-        {
-        }
+        public int NotesCount => Notes.Count();
 
-        private Tag(Collection<Note> notes)
-        {
-            Notes = notes;
-        }
+        public virtual ICollection<Tagging> Taggings { get; set; }
 
-        public int NotesCount => Notes.Count;
+        public IEnumerable<Note> Notes => Taggings.Select(t => t.Note);
     }
 }

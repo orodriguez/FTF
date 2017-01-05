@@ -78,6 +78,10 @@
     <Compile Include="Migrations\201612291919044_AddUserToTags.Designer.cs">
       <DependentUpon>201612291919044_AddUserToTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs" />
+    <Compile Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.Designer.cs">
+      <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -112,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612291919044_AddUserToTags.resx">
       <DependentUpon>201612291919044_AddUserToTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.resx">
+      <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
