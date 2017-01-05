@@ -22,13 +22,16 @@ namespace FTF.Core.Notes
 
         private readonly Func<User> _getCurrentUser;
 
+        private readonly Action<string> _validate;
+
         public CreateHandler(
             Func<int> generateId, 
             Func<DateTime> getCurrentDate, 
             Action<Note> saveNote, 
             Action saveChanges, 
             IQueryable<Tag> tags, 
-            Func<User> getCurrentUser)
+            Func<User> getCurrentUser, 
+            Action<string> validate)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;
@@ -36,12 +39,12 @@ namespace FTF.Core.Notes
             _saveChanges = saveChanges;
             _tags = tags;
             _getCurrentUser = getCurrentUser;
+            _validate = validate;
         }
 
         public void Create(string text)
         {
-            if (string.IsNullOrEmpty(text))
-                throw new Exception("Note can not be empty");
+            _validate(text);
 
             _saveNote(new Note
             {

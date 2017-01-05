@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FTF.Api.Actions.Notes;
 using FTF.Core.Extensions.Queriable;
 using FTF.Core.Notes;
@@ -27,8 +26,9 @@ namespace FTF.Specs.Steps
                 saveNote: note => _context.Db.Notes.Add(note),
                 saveChanges: () => _context.Db.SaveChanges(),
                 tags: _context.Db.Tags,
-                getCurrentUser: () => _context.CurrentUser
-                ).Create;
+                getCurrentUser: () => _context.CurrentUser,
+                validate: NoteValidator.Validate
+            ).Create;
 
             create(text);
         }
@@ -44,8 +44,9 @@ namespace FTF.Specs.Steps
                     saveNote: note => _context.Db.Notes.Add(note),
                     saveChanges: () => _context.Db.SaveChanges(),
                     tags: _context.Db.Tags,
-                    getCurrentUser: () => _context.CurrentUser
-                    ).Create(text);
+                    getCurrentUser: () => _context.CurrentUser,
+                    validate: NoteValidator.Validate
+                ).Create(text);
             });
         }
 
