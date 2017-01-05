@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace FTF.Core.Entities
 {
@@ -20,15 +21,8 @@ namespace FTF.Core.Entities
 
         public virtual User User { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public virtual ICollection<Tagging> Taggings { get; set; }
 
-        public Note() : this(new Collection<Tag>())
-        {
-        }
-
-        private Note(ICollection<Tag> tags)
-        {
-            Tags = tags;
-        }
+        public IEnumerable<Tag> Tags => Taggings.Select(tn => tn.Tag);
     }
 }

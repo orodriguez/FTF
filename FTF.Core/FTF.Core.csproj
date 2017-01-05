@@ -45,6 +45,7 @@
     <Compile Include="Auth\SignUp\Handler.cs" />
     <Compile Include="Entities\Note.cs" />
     <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Entities\Tagging.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Extensions\Queriable\NoteQueries.cs" />
     <Compile Include="Extensions\Queriable\TagQueries.cs" />

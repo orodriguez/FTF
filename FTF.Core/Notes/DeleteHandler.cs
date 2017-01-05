@@ -26,7 +26,11 @@ namespace FTF.Core.Notes
 
             var trashTag = _tags.FirstOrDefault(t => t.Name == "Trash") ?? new Tag { Name = "Trash" };
 
-            note.Tags.Add(trashTag);
+            note.Taggings.Add(new Tagging
+            {
+                Note = note,
+                Tag = trashTag
+            });
 
             _saveChanges();
         }

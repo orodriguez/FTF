@@ -35,7 +35,7 @@ namespace FTF.Specs.Steps
         public void ListTags()
         {
             ListAll listAll = new Queries(
-                tags: _context.Db.Tags, 
+                taggetNotes: _context.Db.TaggedNotes, 
                 getCurrentUserId: () => _context.CurrentUser.Id
             ).ListAll;
 
@@ -46,7 +46,7 @@ namespace FTF.Specs.Steps
         public void ListJointTags(string tagName)
         {
             ListJoint listJoint = new Queries(
-                tags: _context.Db.Tags,
+                taggetNotes: _context.Db.TaggedNotes,
                 getCurrentUserId: () => _context.CurrentUser.Id
             ).ListJoint;
 

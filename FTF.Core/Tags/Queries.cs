@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Responses;
 using FTF.Core.Entities;
-using FTF.Core.Extensions.Queriable;
 
 namespace FTF.Core.Tags
 {
     public class Queries
     {
-        private readonly IQueryable<Tag> _tags;
+        private readonly IQueryable<Tagging> _taggedTaggetNotes;
 
         private readonly Func<int> _getCurrentUserId;
 
-        public Queries(IQueryable<Tag> tags, Func<int> getCurrentUserId)
+        public Queries(IQueryable<Tagging> taggetNotes, Func<int> getCurrentUserId)
         {
-            _tags = tags;
+            _taggedTaggetNotes = taggetNotes;
             _getCurrentUserId = getCurrentUserId;
         }
 
@@ -23,20 +22,23 @@ namespace FTF.Core.Tags
         {
             var userId = _getCurrentUserId();
 
-            return _tags
-                .Where(t => t.User.Id == userId)
-                .Select(t => new
+            return _taggedTaggetNotes
+                .Where(tn => tn.Note.User.Id == userId)
+                .Where(tn => tn.Tag.Name != "Trash")
+                .GroupBy(tn => tn.Tag)
+                .Select(g => new
                 {
-                    Tag = t,
-                    NotesCount = t.Notes.Count(n => n.Tags.All(ta => ta.Name != "Trash"))
+                    Tag = g.Key,
+                    NotesCount = g.Count()
                 })
                 .ToArray()
-                .Select(arg => new Response(arg.Tag, arg.NotesCount));
+                .Select(t => new Response(t.Tag, t.NotesCount));
         }
 
         public IEnumerable<ITag> ListJoint(string tagname)
         {
-            var tag = _tags.FirstByName(tagname);
+            throw new NotImplementedException();
+            /*var tag = _taggedTaggetNotes.FirstByName(tagname);
 
             var notesCount = tag.Notes.Count;
 
@@ -47,7 +49,7 @@ namespace FTF.Core.Tags
 
             var userId = _getCurrentUserId();
 
-            return _tags
+            return _taggedTaggetNotes
                 .Where(t => t.User.Id == userId)
                 .Where(t => t.Notes.Any(note => notesInTag.Contains(note.Id)))
                 .Select(t => new
@@ -57,7 +59,7 @@ namespace FTF.Core.Tags
                     NotesCount = t.Notes.Count(n => notesInTag.Contains(n.Id))
                 })
                 .ToArray()
-                .Select(g => new Response(g.Tag, g.NotesCount));
+                .Select(g => new Response(g.Tag, g.NotesCount));*/
         }
 
         private class Response : ITag

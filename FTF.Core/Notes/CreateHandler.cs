@@ -46,31 +46,39 @@ namespace FTF.Core.Notes
         {
             _validate(text);
 
-            _saveNote(new Note
+            var note = new Note
             {
                 Id = _generateId(),
                 Text = text,
                 CreationDate = _getCurrentDate(),
-                Tags = MakeTags(text.ParseTagNames()).ToList(),
                 User = _getCurrentUser()
-            });
+            };
+
+            note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
+
+            _saveNote(note);
 
             _saveChanges();
         }
 
-        private IEnumerable<Tag> MakeTags(string[] tagNames) => 
+        private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) => 
             _tags
                 .WhereNameContains(tagNames)
+                .Select(tag => new Tagging { Note = note, Tag = tag })
                 .ToArray()
-                .Concat(MakeNewTags(tagNames));
+                .Concat(MakeNewTaggings(note, tagNames));
 
-        private IEnumerable<Tag> MakeNewTags(string[] tagNames) => 
+        private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) => 
             tagNames
                 .Except(_tags.WhereNameContains(tagNames).Names())
-                .Select(tagName => new Tag
+                .Select(tagName => new Tagging
                 {
-                    Name = tagName,
-                    User = _getCurrentUser()
+                    Note = note,
+                    Tag = new Tag
+                    {
+                        Name = tagName,
+                        User = _getCurrentUser()
+                    }
                 })
                 .ToArray();
     }
