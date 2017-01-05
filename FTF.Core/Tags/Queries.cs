@@ -23,7 +23,6 @@ namespace FTF.Core.Tags
             var userId = _getCurrentUserId();
 
             var notesInTrash = _taggings
-                .Where(t => t.Note.User.Id == userId)
                 .Where(t => t.Tag.Name == "Trash")
                 .Select(tn => tn.Note.Id)
                 .ToArray();

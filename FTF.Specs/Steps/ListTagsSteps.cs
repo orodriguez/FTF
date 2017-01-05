@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Data.Entity;
 using FTF.Api.Actions.Tags;
 using FTF.Api.Responses;
+using FTF.Core;
+using FTF.Core.QueriableFilters;
 using FTF.Core.Tags;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -35,7 +38,7 @@ namespace FTF.Specs.Steps
         public void ListTags()
         {
             ListAll listAll = new Queries(
-                taggetNotes: _context.Db.TaggedNotes, 
+                taggetNotes: new TagginsFilteredByUser(_context.Db.TaggedNotes, () => _context.CurrentUser.Id), 
                 getCurrentUserId: () => _context.CurrentUser.Id
             ).ListAll;
 
