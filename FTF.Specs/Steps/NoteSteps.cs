@@ -53,7 +53,11 @@ namespace FTF.Specs.Steps
         [Given(@"I deleted the note (.*)")]
         public void DeleteNote(int id)
         {
-            DeleteNoted delete = new DeleteHandler().Delete;
+            DeleteNoted delete = new DeleteHandler(
+                notes: _context.Db.Notes, 
+                tags: _context.Db.Tags,
+                saveChanges:() => _context.Db.SaveChanges()
+            ).Delete;
 
             delete(id);
         }
