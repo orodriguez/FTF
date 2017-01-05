@@ -18,21 +18,20 @@ namespace FTF.Specs.Features.Notes
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "2.1.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Retrieve Note")]
-    public partial class RetrieveNoteFeature
+    [NUnit.Framework.DescriptionAttribute("Update Note")]
+    public partial class UpdateNoteFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
-#line 1 "Retrieve.feature"
+#line 1 "Update.feature"
 #line hidden
         
         [NUnit.Framework.TestFixtureSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Retrieve Note", "\tIn order to remember a note I saved\r\n\tI want to be able to retrieve the informat" +
-                    "ion of a note", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Update Note", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -66,48 +65,44 @@ namespace FTF.Specs.Features.Notes
         
         public virtual void FeatureBackground()
         {
-#line 5
-#line 6
+#line 3
+#line 4
  testRunner.Given("today is \'Feb 20 1984\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 7
+#line 5
  testRunner.And("I signup and signin as \'orodriguez\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Note from another user")]
-        public virtual void NoteFromAnotherUser()
+        [NUnit.Framework.DescriptionAttribute("Simple text Update")]
+        public virtual void SimpleTextUpdate()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note from another user", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Simple text Update", ((string[])(null)));
+#line 7
+this.ScenarioSetup(scenarioInfo);
+#line 3
+this.FeatureBackground();
+#line 8
+ testRunner.Given("I created the note number 10 with text \'Buy cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 9
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
+ testRunner.And("I updated the note number 10 with text \'Buy american cheese\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
- testRunner.Given("I created the note number 101 with text \'A Note\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 11
- testRunner.And("I signup and signin as \'anotheruser\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 12
- testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 13
- testRunner.Then("it should show the error \'Note #101 does not exist\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("I retrieve the note number 10", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Note not found")]
-        public virtual void NoteNotFound()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Note not found", ((string[])(null)));
-#line 15
-this.ScenarioSetup(scenarioInfo);
-#line 5
-this.FeatureBackground();
-#line 16
- testRunner.When("I retrieve the note number 101", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 17
- testRunner.Then("it should show the error \'Note #101 does not exist\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "Field",
+                        "Value"});
+            table1.AddRow(new string[] {
+                        "Text",
+                        "Buy american cheese"});
+            table1.AddRow(new string[] {
+                        "CreationDate",
+                        "Feb 20 1984"});
+            table1.AddRow(new string[] {
+                        "UserName",
+                        "orodriguez"});
+#line 11
+ testRunner.Then("the note should match:", ((string)(null)), table1, "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

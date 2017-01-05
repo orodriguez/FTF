@@ -58,10 +58,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Features\Notes\Create.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Create.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Notes\Retrieve.feature.cs">
       <DependentUpon>Retrieve.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Features\Notes\Update.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Update.feature</DependentUpon>
     </Compile>
     <Compile Include="Features\Tags\ListAll.feature.cs">
       <DependentUpon>ListAll.feature</DependentUpon>
@@ -84,9 +94,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Features\Notes\Create.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Create.feature.cs</LastGenOutput>
+    </None>
     <None Include="Features\Notes\Retrieve.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Retrieve.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Notes\Update.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Update.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Tags\ListJoint.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
