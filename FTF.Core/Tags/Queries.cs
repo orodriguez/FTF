@@ -22,14 +22,19 @@ namespace FTF.Core.Tags
         {
             var userId = _getCurrentUserId();
 
+            var notesInTrash = _taggedTaggetNotes
+                .Where(t => t.Note.User.Id == userId)
+                .Where(t => t.Tag.Name == "Trash")
+                .Select(tn => tn.Note.Id)
+                .ToArray();
+
             return _taggedTaggetNotes
-                .Where(tn => tn.Note.User.Id == userId)
-                .Where(tn => tn.Tag.Name != "Trash")
+                .Where(tn => tn.Tag.User.Id == userId)
                 .GroupBy(tn => tn.Tag)
                 .Select(g => new
                 {
                     Tag = g.Key,
-                    NotesCount = g.Count()
+                    NotesCount = g.Count(tagging => !notesInTrash.Contains(tagging.Note.Id))
                 })
                 .ToArray()
                 .Select(t => new Response(t.Tag, t.NotesCount));
