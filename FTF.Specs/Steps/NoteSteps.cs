@@ -50,6 +50,14 @@ namespace FTF.Specs.Steps
             });
         }
 
+        [Given(@"I deleted the note (.*)")]
+        public void DeleteNote(int id)
+        {
+            DeleteNoted delete = new DeleteHandler().Delete;
+
+            delete(id);
+        }
+
         [Given(@"I created the following notes:")]
         public void CreateNotes(Table table) => 
             table.CreateSet<Row>()

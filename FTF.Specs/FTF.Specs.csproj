@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Create.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\Notes\Delete.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Delete.feature</DependentUpon>
+    </Compile>
     <Compile Include="Features\Notes\Retrieve.feature.cs">
       <DependentUpon>Retrieve.feature</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -97,6 +102,10 @@
     <None Include="Features\Notes\Create.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>Create.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\Notes\Delete.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>Delete.feature.cs</LastGenOutput>
     </None>
     <None Include="Features\Notes\Retrieve.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>

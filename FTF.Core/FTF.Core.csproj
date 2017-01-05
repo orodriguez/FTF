@@ -52,6 +52,7 @@
     <Compile Include="IEntity.cs" />
     <Compile Include="INameable.cs" />
     <Compile Include="Notes\CreateHandler.cs" />
+    <Compile Include="Notes\DeleteHandler.cs" />
     <Compile Include="Notes\NoteValidator.cs" />
     <Compile Include="Notes\Queries.cs" />
     <Compile Include="Notes\UpdateHandler.cs" />
