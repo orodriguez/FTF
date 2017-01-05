@@ -22,5 +22,5 @@ Scenario: With Tags
 		| SuperMarket |
 
 Scenario: Empty Text
-	When I create a note with text 'Note can not be empty'
-	Then it should show the error 'Text can not be empty'
+	When I create a note with text ''
+	Then it should show the error 'Note can not be empty'

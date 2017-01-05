@@ -13,3 +13,8 @@ Scenario: Simple text Update
 		| Text         | Buy american cheese |
 		| CreationDate | Feb 20 1984         |
 		| UserName     | orodriguez          |
+
+Scenario: Empty Text
+	Given I created the note number 10 with text 'Buy cheese'
+	When I updated the note number 10 with text ''
+	Then it should show the error 'Note can not be empty'

@@ -15,14 +15,18 @@ namespace FTF.Specs.Steps
         }
 
         [Given(@"I updated the note number (.*) with text '(.*)'")]
+        [When(@"I updated the note number (.*) with text '(.*)'")]
         public void UpdateNote(int id, string text)
         {
-            Update update = new UpdateHandler(
-                notes: _context.Db.Notes, 
-                saveChanges: () => _context.Db.SaveChanges()
-            ).Update;
+            _context.StoreException(() =>
+            {
+                Update update = new UpdateHandler(
+                    notes: _context.Db.Notes,
+                    saveChanges: () => _context.Db.SaveChanges()
+                ).Update;
 
-            update(id, text);
+                update(id, text);
+            });
         }
     }
 }

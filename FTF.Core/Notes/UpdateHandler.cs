@@ -18,6 +18,9 @@ namespace FTF.Core.Notes
 
         public void Update(int id, string text)
         {
+            if (string.IsNullOrEmpty(text))
+                throw new Exception("Note can not be empty");
+
             var noteToUpdate = _notes.First(n => n.Id == id);
 
             noteToUpdate.Text = text;
