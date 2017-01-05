@@ -20,9 +20,13 @@ namespace FTF.Core.Tags
 
         public IEnumerable<ITag> ListAll()
         {
-            var notesInTrash = NotesInTrash();
-
             var userId = _getCurrentUserId();
+
+            var notesInTrash = _taggings
+                .Where(t => t.Note.User.Id == userId)
+                .Where(t => t.Tag.Name == "Trash")
+                .Select(tn => tn.Note.Id)
+                .ToArray();
 
             return _taggings
                 .Where(tn => tn.Tag.User.Id == userId)
@@ -38,9 +42,13 @@ namespace FTF.Core.Tags
 
         public IEnumerable<ITag> ListJoint(string tagname)
         {
-            var notesInTrash = NotesInTrash();
-
             var userId = _getCurrentUserId();
+
+            var notesInTrash = _taggings
+                .Where(t => t.Note.User.Id == userId)
+                .Where(t => t.Tag.Name == "Trash")
+                .Select(tn => tn.Note.Id)
+                .ToArray();
 
             var notesWithTag = _taggings
                 .Where(t => t.Note.User.Id == userId)
@@ -59,17 +67,6 @@ namespace FTF.Core.Tags
                 })
                 .ToArray()
                 .Select(t => new Response(t.Tag, t.NotesCount));
-        }
-
-        private int[] NotesInTrash()
-        {
-            var userId = _getCurrentUserId();
-
-            return _taggings
-                .Where(t => t.Note.User.Id == userId)
-                .Where(t => t.Tag.Name == "Trash")
-                .Select(tn => tn.Note.Id)
-                .ToArray();
         }
 
         private class Response : ITag
