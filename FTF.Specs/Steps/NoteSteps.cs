@@ -8,13 +8,10 @@ using TechTalk.SpecFlow.Assist;
 namespace FTF.Specs.Steps
 {
     [Binding]
-    public class NoteSteps
+    public class NoteSteps : Steps
     {
-        private readonly Context _context;
-
-        public NoteSteps(Context context)
+        public NoteSteps(Context context) : base(context)
         {
-            _context = context;
         }
 
         [Given(@"I created the note number (.*) with text '(.*)'")]
@@ -22,11 +19,11 @@ namespace FTF.Specs.Steps
         {
             Create create = new CreateHandler(
                 generateId: () => id,
-                getCurrentDate: _context.GetCurrentDate,
-                saveNote: note => _context.Db.Notes.Add(note),
-                saveChanges: () => _context.Db.SaveChanges(),
-                tags: _context.Db.Tags,
-                getCurrentUser: () => _context.CurrentUser,
+                getCurrentDate: Context.GetCurrentDate,
+                saveNote: note => Context.Db.Notes.Add(note),
+                saveChanges: () => Context.Db.SaveChanges(),
+                tags: Context.Db.Tags,
+                getCurrentUser: () => Context.CurrentUser,
                 validate: NoteValidator.Validate
             ).Create;
 
@@ -35,28 +32,15 @@ namespace FTF.Specs.Steps
 
         [Given(@"I created a note with text '(.*)'")]
         [When(@"I create a note with text '(.*)'")]
-        public void CreateNote(string text)
-        {
-            _context.StoreException(() => {
-                new CreateHandler(
-                    generateId: () => _context.Db.Notes.NextId(),
-                    getCurrentDate: _context.GetCurrentDate,
-                    saveNote: note => _context.Db.Notes.Add(note),
-                    saveChanges: () => _context.Db.SaveChanges(),
-                    tags: _context.Db.Tags,
-                    getCurrentUser: () => _context.CurrentUser,
-                    validate: NoteValidator.Validate
-                ).Create(text);
-            });
-        }
+        public void CreateNote(string text) => Exec<Create>(f => f(text));
 
         [Given(@"I deleted the note (.*)")]
         public void DeleteNote(int id)
         {
             DeleteNoted delete = new DeleteHandler(
-                notes: _context.Db.Notes, 
-                tags: _context.Db.Tags,
-                saveChanges:() => _context.Db.SaveChanges()
+                notes: Context.Db.Notes, 
+                tags: Context.Db.Tags,
+                saveChanges:() => Context.Db.SaveChanges()
             ).Delete;
 
             delete(id);
