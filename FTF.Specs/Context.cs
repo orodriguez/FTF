@@ -61,16 +61,19 @@ namespace FTF.Specs
             _container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()), Lifestyle.Scoped);
             _container.Register<Delete>(() => _container.GetInstance<DeleteHandler>().Delete);
             _container.Register<DeleteHandler>();
+            _container.Register<Retrieve>(() => _container.GetInstance<Queries>().Retrieve);
+            _container.Register<Queries>();
+            _container.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
 
             _scope = _container.BeginLifetimeScope();
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
         }
 
-        public void StoreException(Action action)
+        public void StoreException(Action func)
         {
             try
             {
-                action();
+                func();
             }
             catch (ApplicationException e)
             {
@@ -78,8 +81,25 @@ namespace FTF.Specs
             }
         }
 
+        public TReturn StoreExceptionAndReturn<TReturn>(Func<TReturn> func) where TReturn : class
+        {
+            TReturn result = null; 
+            try
+            {
+                result =  func();
+            }
+            catch (ApplicationException e)
+            {
+                Exception = e;
+            }
+            return result;
+        }
+
         public void Exec<T>(Action<T> action) where T : class => 
             StoreException(() => action(_container.GetInstance<T>()));
+
+        public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class =>
+            StoreExceptionAndReturn(() => func(_container.GetInstance<T>()));
 
         public void Dispose()
         {
