@@ -19,7 +19,7 @@ namespace FTF.Specs.Steps
         {
             Create create = new CreateHandler(
                 generateId: () => id,
-                getCurrentDate: Context.GetCurrentDate,
+                getCurrentDate: () => Context.GetCurrentDate(),
                 saveNote: note => Context.Db.Notes.Add(note),
                 saveChanges: () => Context.Db.SaveChanges(),
                 tags: Context.Db.Tags,

@@ -1,8 +1,5 @@
 using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
 using FTF.Core.Entities;
-using FTF.Core.Tags;
 
 namespace FTF.Storage.EntityFramework
 {

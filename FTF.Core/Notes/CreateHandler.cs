@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Extensions;
 using FTF.Core.Extensions.Queriable;
@@ -10,28 +11,28 @@ namespace FTF.Core.Notes
 {
     public class CreateHandler
     {
-        private readonly Func<int> _generateId;
+        private readonly GenerateNoteId _generateId;
 
-        private readonly Func<DateTime> _getCurrentDate;
+        private readonly GetCurrentDate _getCurrentDate;
 
-        private readonly Action<Note> _saveNote;
+        private readonly Save<Note> _saveNote;
 
-        private readonly Action _saveChanges;
+        private readonly SaveChanges _saveChanges;
 
         private readonly IQueryable<Tag> _tags;
 
-        private readonly Func<User> _getCurrentUser;
+        private readonly GetCurrentUser _getCurrentUser;
 
-        private readonly Action<string> _validate;
+        private readonly ValidateNote _validate;
 
         public CreateHandler(
-            Func<int> generateId, 
-            Func<DateTime> getCurrentDate, 
-            Action<Note> saveNote, 
-            Action saveChanges, 
+            GenerateNoteId generateId, 
+            GetCurrentDate getCurrentDate, 
+            Save<Note> saveNote, 
+            SaveChanges saveChanges, 
             IQueryable<Tag> tags, 
-            Func<User> getCurrentUser, 
-            Action<string> validate)
+            GetCurrentUser getCurrentUser, 
+            ValidateNote validate)
         {
             _generateId = generateId;
             _getCurrentDate = getCurrentDate;

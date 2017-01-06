@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 
@@ -11,7 +12,7 @@ namespace FTF.Specs
 
         public DbContext Db { get; set; }
 
-        public Func<DateTime> GetCurrentDate { get; set; }
+        public GetCurrentDate GetCurrentDate { get; set; }
 
         public DbContextTransaction Transaction { get; set; }
 

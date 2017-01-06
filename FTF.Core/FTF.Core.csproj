@@ -43,6 +43,12 @@
   <ItemGroup>
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />
+    <Compile Include="Delegates\GenerateNoteId.cs" />
+    <Compile Include="Delegates\GetCurrentDate.cs" />
+    <Compile Include="Delegates\GetCurrentUser.cs" />
+    <Compile Include="Delegates\Save.cs" />
+    <Compile Include="Delegates\SaveChanges.cs" />
+    <Compile Include="Delegates\ValidateNote.cs" />
     <Compile Include="Entities\Note.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\Tagging.cs" />
