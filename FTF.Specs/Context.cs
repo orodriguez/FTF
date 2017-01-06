@@ -22,7 +22,7 @@ namespace FTF.Specs
 
         public DbContextTransaction Transaction { get; set; }
 
-        public System.Exception Exception { get; private set; }
+        public Exception Exception { get; private set; }
 
         public User CurrentUser
         {
@@ -40,14 +40,17 @@ namespace FTF.Specs
 
         private readonly Scope _scope;
 
+        public GenerateNoteId NextId { get; set; }
+
         public Context()
         {
             GetCurrentDate = () => DateTime.Now;
+            NextId = () => _container.GetInstance<IQueryable<Note>>().NextId();
             _container = new Container();
             _container.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
             _container.Register<Create>(() => _container.GetInstance<CreateHandler>().Create);
             _container.Register<CreateHandler>();
-            _container.Register<GenerateNoteId>(() => _container.GetInstance<IQueryable<Note>>().NextId);
+            _container.Register(() => NextId);
             _container.Register(() => GetCurrentDate);
             _container.Register<Save<Note>>(() => e => _container.GetInstance<DbContext>().Notes.Add(e));
             _container.Register<SaveChanges>(() => _container.GetInstance<DbContext>().SaveChanges);
