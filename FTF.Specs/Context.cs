@@ -59,6 +59,8 @@ namespace FTF.Specs
             _container.Register<ValidateNote>(() => NoteValidator.Validate);
             _container.Register<IQueryable<Note>>(() => _container.GetInstance<DbContext>().Notes);
             _container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()), Lifestyle.Scoped);
+            _container.Register<Delete>(() => _container.GetInstance<DeleteHandler>().Delete);
+            _container.Register<DeleteHandler>();
 
             _scope = _container.BeginLifetimeScope();
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
