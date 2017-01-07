@@ -1,4 +1,7 @@
+using System;
+using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using FTF.Api.Actions.Auth;
 using FTF.Api.Actions.Notes;
 using FTF.Api.Actions.Tags;
@@ -63,15 +66,37 @@ namespace FTF.Specs
                 Lifestyle.Scoped);
             c.Register<SaveChanges>(() => c.GetInstance<DbContext>().SaveChanges);
 
-            // Save delegates
-            c.Register<Save<Note>>(() => c.GetInstance<DbContext>().Notes.Add);
-            c.Register<Save<User>>(() => c.GetInstance<DbContext>().Users.Add);
+            // Save<TEntity> delegates
+            c.RegisterSaveDelegates();
 
             // Queriables
             c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
 
             // Validators
             c.Register<ValidateNote>(() => NoteValidator.Validate);
+        }
+
+        private static void RegisterSaveDelegates(this Container c)
+        {
+            c.ResolveUnregisteredType += (sender, e) =>
+            {
+                var type = e.UnregisteredServiceType;
+
+                if (type.GetGenericTypeDefinition() == typeof (Save<>))
+                {
+                    var db = c.GetInstance<DbContext>();
+
+                    var setMethod = db.GetType()
+                        .GetMethod("Set", new Type[0])
+                        .MakeGenericMethod(type.GetGenericArguments());
+
+                    var dbSet = setMethod.Invoke(db, null);
+
+                    var addMethod = dbSet.GetType().GetMethod("Add");
+
+                    e.Register(() => Delegate.CreateDelegate(type, dbSet, addMethod));
+                }
+            };
         }
     }
 }
