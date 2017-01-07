@@ -12,6 +12,7 @@ using SimpleInjector;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 using FTF.Core.Extensions.Queriable;
 using SimpleInjector.Extensions.LifetimeScoping;
+using TechTalk.SpecFlow;
 using Create = FTF.Api.Actions.Notes.Create;
 
 namespace FTF.Specs
@@ -26,7 +27,7 @@ namespace FTF.Specs
 
         public DbContextTransaction Transaction { get; set; }
 
-        public Exception Exception { get; private set; }
+        public ApplicationException Exception { get; private set; }
 
         public User CurrentUser
         {
@@ -125,11 +126,40 @@ namespace FTF.Specs
             return result;
         }
 
-        public void Exec<T>(Action<T> action) where T : class =>
-            action(_container.GetInstance<T>());
+        public void Exec<T>(Action<T> action) where T : class
+        {
+            var instance = _container.GetInstance<T>();
 
-        public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class =>
-            func(_container.GetInstance<T>());
+            if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
+                try
+                {
+                    action(instance);
+                }
+                catch (ApplicationException ae)
+                {
+                    Exception = ae;
+                }
+            else
+                action(instance);
+        }
+
+        public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class
+        {
+            var instance = _container.GetInstance<T>();
+
+            if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
+                try
+                {
+                    return func(instance);
+                }
+                catch (ApplicationException ae)
+                {
+                    Exception = ae;
+                    return null;
+                }
+
+            return func(instance);
+        }
 
         public void Dispose()
         {

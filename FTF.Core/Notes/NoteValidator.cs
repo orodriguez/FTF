@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FTF.Core.Notes
+﻿namespace FTF.Core.Notes
 {
     public class NoteValidator
     {

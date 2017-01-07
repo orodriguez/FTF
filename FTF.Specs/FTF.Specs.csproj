@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ListJoint.feature</DependentUpon>
     </Compile>
+    <Compile Include="Hooks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Steps\AuthSteps.cs" />
     <Compile Include="Steps\Steps.cs" />

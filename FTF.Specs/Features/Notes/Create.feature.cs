@@ -133,9 +133,11 @@ this.FeatureBackground();
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Empty Text")]
+        [NUnit.Framework.CategoryAttribute("error")]
         public virtual void EmptyText()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty Text", ((string[])(null)));
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Empty Text", new string[] {
+                        "error"});
 #line 24
 this.ScenarioSetup(scenarioInfo);
 #line 3

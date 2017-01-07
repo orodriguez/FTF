@@ -4,6 +4,7 @@ Background:
 	Given today is 'Feb 20 1984' 
 	And I signup and signin as 'orodriguez'
 
+@error
 Scenario: Simple
 	Given I created the note number 101 with text 'I was born'
 	And I deleted the note 101
