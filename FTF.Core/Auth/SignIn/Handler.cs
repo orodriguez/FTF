@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Auth.SignIn
@@ -8,9 +8,9 @@ namespace FTF.Core.Auth.SignIn
     {
         private readonly IQueryable<User> _users;
 
-        private readonly Action<User> _setCurrentUser;
+        private readonly SetCurrentUser _setCurrentUser;
 
-        public Handler(IQueryable<User> users, Action<User> setCurrentUser)
+        public Handler(IQueryable<User> users, SetCurrentUser setCurrentUser)
         {
             _users = users;
             _setCurrentUser = setCurrentUser;

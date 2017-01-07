@@ -1,17 +1,18 @@
 ﻿using System;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Auth.SignUp
 {
     public class Handler
     {
-        private readonly Action<User> _saveUser;
+        private readonly Save<User> _saveUser;
 
-        private readonly Action _saveChanges;
+        private readonly SaveChanges _saveChanges;
 
         public Handler(
-            Action<User> saveUser, 
-            Action saveChanges)
+            Save<User> saveUser, 
+            SaveChanges saveChanges)
         {
             _saveUser = saveUser;
             _saveChanges = saveChanges;

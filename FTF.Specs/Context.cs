@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using FTF.Api.Actions.Auth;
 using FTF.Api.Actions.Notes;
+using FTF.Core.Auth.SignUp;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Notes;
@@ -52,7 +54,7 @@ namespace FTF.Specs
             _container.Register<CreateHandler>();
             _container.Register(() => NextId);
             _container.Register(() => GetCurrentDate);
-            _container.Register<Save<Note>>(() => e => _container.GetInstance<DbContext>().Notes.Add(e));
+            _container.Register<Save<Note>>(() => _container.GetInstance<DbContext>().Notes.Add);
             _container.Register<SaveChanges>(() => _container.GetInstance<DbContext>().SaveChanges);
             _container.Register<IQueryable<Tag>>(() => _container.GetInstance<DbContext>().Tags);
             _container.Register<GetCurrentUser>(() => () => CurrentUser);
@@ -64,6 +66,13 @@ namespace FTF.Specs
             _container.Register<Retrieve>(() => _container.GetInstance<Queries>().Retrieve);
             _container.Register<Queries>();
             _container.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
+            _container.Register<SignUp>(() => _container.GetInstance<Handler>().SignUp);
+            _container.Register<Handler>();
+            _container.Register<SignIn>(() => _container.GetInstance<Core.Auth.SignIn.Handler>().SignIn);
+            _container.Register<Core.Auth.SignIn.Handler>();
+            _container.Register<Save<User>>(() => _container.GetInstance<DbContext>().Users.Add);
+            _container.Register<IQueryable<User>>(() => _container.GetInstance<DbContext>().Users);
+            _container.Register<SetCurrentUser>(() => user => CurrentUser = user);
 
             _scope = _container.BeginLifetimeScope();
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();

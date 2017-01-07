@@ -1,4 +1,4 @@
 namespace FTF.Core.Delegates
 {
-    public delegate void Save<in TEntity>(TEntity entity);
+    public delegate TEntity Save<TEntity>(TEntity entity);
 }

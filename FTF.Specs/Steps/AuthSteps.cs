@@ -4,37 +4,18 @@ using TechTalk.SpecFlow;
 namespace FTF.Specs.Steps
 {
     [Binding]
-    public class AuthSteps
+    public class AuthSteps : Steps
     {
-        private readonly Context _context;
-
-        public AuthSteps(Context context)
+        public AuthSteps(Context context) : base(context)
         {
-            _context = context;
         }
 
         [Given(@"I signup as '(.*)'")]
-        public void SignUp(string userName)
-        {
-            SignUp signUp = new Core.Auth.SignUp.Handler(
-                saveUser: user => _context.Db.Users.Add(user), 
-                saveChanges: () => _context.Db.SaveChanges()
-            ).SignUp;
-
-            signUp(userName);
-        }
+        public void SignUp(string userName) => Exec<SignUp>(f => f(userName));
 
         [Given(@"I signin as '(.*)'")]
-        public void SignIn(string userName)
-        {
-            SignIn signIn = new Core.Auth.SignIn.Handler(
-                users: _context.Db.Users, 
-                setCurrentUser: user => _context.CurrentUser = user
-            ).SignIn;
-
-            signIn(userName);
-        }
-
+        public void SignIn(string userName) => Exec<SignIn>(f => f(userName));
+        
         [Given(@"I signup and signin as '(.*)'")]
         public void SignUpAndSignIn(string userName)
         {

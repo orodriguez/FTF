@@ -48,6 +48,7 @@
     <Compile Include="Delegates\GetCurrentUser.cs" />
     <Compile Include="Delegates\Save.cs" />
     <Compile Include="Delegates\SaveChanges.cs" />
+    <Compile Include="Delegates\SetCurrentUser.cs" />
     <Compile Include="Delegates\ValidateNote.cs" />
     <Compile Include="Entities\Note.cs" />
     <Compile Include="Entities\Tag.cs" />
