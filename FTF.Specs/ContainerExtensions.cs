@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using FTF.Api.Actions.Auth;
 using FTF.Api.Actions.Notes;
@@ -11,11 +10,13 @@ using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
 using Create = FTF.Api.Actions.Notes.Create;
+using DbContext = FTF.Storage.EntityFramework.DbContext;
 
 namespace FTF.Specs
 {
     static internal class ContainerExtensions
     {
+        // TODO: Refactor: Too many parameters
         public static void RegisterTypes(this Container c, 
             GenerateNoteId generateNoteId, 
             GetCurrentDate getCurrentDate, 
@@ -67,10 +68,7 @@ namespace FTF.Specs
             c.Register<Save<User>>(() => c.GetInstance<DbContext>().Users.Add);
 
             // Queriables
-            c.Register<IQueryable<Tag>>(() => c.GetInstance<DbContext>().Tags);
-            c.Register<IQueryable<Note>>(() => c.GetInstance<DbContext>().Notes);
-            c.Register<IQueryable<User>>(() => c.GetInstance<DbContext>().Users);
-            c.Register<IQueryable<Tagging>>(() => c.GetInstance<DbContext>().Taggings);
+            c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
 
             // Validators
             c.Register<ValidateNote>(() => NoteValidator.Validate);
