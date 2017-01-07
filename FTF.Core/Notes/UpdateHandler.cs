@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Notes
@@ -8,14 +9,14 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Note> _notes;
 
-        private readonly Action _saveChanges;
+        private readonly SaveChanges _saveChanges;
 
-        private readonly Action<string> _validate;
+        private readonly ValidateNote _validate;
 
         public UpdateHandler(
             IQueryable<Note> notes, 
-            Action<string> validate, 
-            Action saveChanges)
+            ValidateNote validate, 
+            SaveChanges saveChanges)
         {
             _notes = notes;
             _validate = validate;

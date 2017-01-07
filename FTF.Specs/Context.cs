@@ -79,6 +79,8 @@ namespace FTF.Specs
             _container.Register<Core.Tags.Queries>();
             _container.Register<ListJoint>(() => _container.GetInstance<Core.Tags.Queries>().ListJoint);
             _container.Register<IQueryable<Tagging>>(() => _container.GetInstance<DbContext>().Taggings);
+            _container.Register<Update>(() => _container.GetInstance<UpdateHandler>().Update);
+            _container.Register<UpdateHandler>();
 
             _scope = _container.BeginLifetimeScope();
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
