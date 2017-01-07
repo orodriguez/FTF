@@ -1,4 +1,4 @@
-﻿using System;
+﻿using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
@@ -18,6 +18,7 @@ namespace FTF.Core.Auth.SignUp
             _saveChanges = saveChanges;
         }
 
+        [ApiAction(typeof(Api.Actions.Auth.SignUp))]
         public void SignUp(string userName)
         {
             _saveUser(new User

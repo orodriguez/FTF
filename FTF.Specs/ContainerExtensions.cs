@@ -1,10 +1,10 @@
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using FTF.Api.Actions.Auth;
 using FTF.Api.Actions.Notes;
 using FTF.Api.Actions.Tags;
+using FTF.Core.Attributes;
 using FTF.Core.Auth.SignUp;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
@@ -37,9 +37,36 @@ namespace FTF.Specs
             c.Register(() => setCurrentUser);
 
             // Actions delegates
+            var methods = typeof(Note).Assembly
+                .GetExportedTypes()
+                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+                .Where(method => method.GetCustomAttributes<ApiActionAttribute>(inherit: false).Any())
+                .ToArray();
+
+            var declaringTypes = methods.Select(m => m.DeclaringType).Distinct();
+
+            foreach (var type in declaringTypes)
+                c.Register(type);
+
+            foreach (var method in methods)
+            {
+                var delegateType = method
+                    .GetCustomAttribute<ApiActionAttribute>()
+                    .DelegateType;
+
+                c.Register(
+                    delegateType,
+                    () =>
+                    {
+                        var instance = c.GetInstance(method.DeclaringType);
+
+                        return Delegate.CreateDelegate(delegateType, instance, method);
+                    });
+            }
+
 
             // Auth
-            c.Register<SignUp>(() => c.GetInstance<Handler>().SignUp);
+            // c.Register<SignUp>(() => c.GetInstance<Handler>().SignUp);
             c.Register<SignIn>(() => c.GetInstance<FTF.Core.Auth.SignIn.Handler>().SignIn);
 
             // Notes
@@ -53,7 +80,7 @@ namespace FTF.Specs
             c.Register<ListJoint>(() => c.GetInstance<FTF.Core.Tags.Queries>().ListJoint);
 
             // Actions implementations
-            c.Register<Handler>();
+            // c.Register<Handler>();
             c.Register<Core.Auth.SignIn.Handler>();
             c.Register<CreateHandler>();
             c.Register<UpdateHandler>();
@@ -82,7 +109,7 @@ namespace FTF.Specs
             {
                 var type = e.UnregisteredServiceType;
 
-                if (type.GetGenericTypeDefinition() == typeof (Save<>))
+                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Save<>))
                 {
                     var db = c.GetInstance<DbContext>();
 
