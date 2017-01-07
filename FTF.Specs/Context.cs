@@ -53,7 +53,7 @@ namespace FTF.Specs
 
             _container = new Container();
             RegisterTypes(_container, 
-                generateNoteId: NextId, 
+                generateNoteId: () => NextId(), 
                 getCurrentDate: GetCurrentDate, 
                 getCurrentUser: () => CurrentUser, 
                 getCurrentUserId: () => CurrentUser.Id, 
@@ -126,10 +126,10 @@ namespace FTF.Specs
         }
 
         public void Exec<T>(Action<T> action) where T : class =>
-            StoreException(() => action(_container.GetInstance<T>()));
+            action(_container.GetInstance<T>());
 
         public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class =>
-            StoreExceptionAndReturn(() => func(_container.GetInstance<T>()));
+            func(_container.GetInstance<T>());
 
         public void Dispose()
         {

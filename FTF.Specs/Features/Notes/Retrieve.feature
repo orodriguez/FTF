@@ -12,6 +12,7 @@ Scenario: Note from another user
 	When I retrieve the note number 101
 	Then it should show the error 'Note with id #101 does not exist'
 
+@exception
 Scenario: Note not found
 	When I retrieve the note number 101
 	Then it should show the error 'Note with id #101 does not exist'
