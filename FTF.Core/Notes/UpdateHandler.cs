@@ -6,6 +6,7 @@ using FTF.Core.Entities;
 
 namespace FTF.Core.Notes
 {
+    [Concrete]
     public class UpdateHandler
     {
         private readonly IQueryable<Note> _notes;
@@ -24,7 +25,7 @@ namespace FTF.Core.Notes
             _saveChanges = saveChanges;
         }
 
-        [Action(typeof(Update))]
+        [Delegate(typeof(Update))]
         public void Update(int id, string text)
         {
             _validate(text);

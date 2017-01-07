@@ -9,6 +9,7 @@ using FTF.Core.Queries;
 
 namespace FTF.Core.Notes
 {
+    [Concrete]
     public class CreateHandler
     {
         private readonly GenerateNoteId _generateId;
@@ -43,7 +44,7 @@ namespace FTF.Core.Notes
             _validate = validate;
         }
 
-        [Action(typeof(Api.Actions.Notes.Create))]
+        [Delegate(typeof(Api.Actions.Notes.Create))]
         public void Create(string text)
         {
             _validate(text);

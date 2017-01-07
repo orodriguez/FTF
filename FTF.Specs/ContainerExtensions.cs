@@ -1,14 +1,15 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Notes;
 using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
-using Action = FTF.Core.Attributes.Action;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
+using Delegate = FTF.Core.Attributes.Delegate;
 
 namespace FTF.Specs
 {
@@ -31,22 +32,29 @@ namespace FTF.Specs
             c.Register(() => getCurrentUserId);
             c.Register(() => setCurrentUser);
 
-            // Actions delegates
-            var methods = typeof(Note).Assembly
-                .GetExportedTypes()
-                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-                .Where(method => method.GetCustomAttributes<Action>(inherit: false).Any())
+            var assemblies = new[]
+            {
+                typeof (Note).Assembly,
+                typeof (DbContext).Assembly
+            };
+
+            var concreteTypes = assemblies
+                .SelectMany(a => a.GetExportedTypes())
+                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
                 .ToArray();
 
-            var declaringTypes = methods.Select(m => m.DeclaringType).Distinct();
-
-            foreach (var type in declaringTypes)
+            foreach (var type in concreteTypes)
                 c.Register(type);
 
-            foreach (var method in methods)
+            var delegateMethods = concreteTypes
+                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
+                .ToArray();
+
+            foreach (var method in delegateMethods)
             {
                 var delegateType = method
-                    .GetCustomAttribute<Action>()
+                    .GetCustomAttribute<Delegate>()
                     .DelegateType;
 
                 c.Register(
@@ -55,7 +63,7 @@ namespace FTF.Specs
                     {
                         var instance = c.GetInstance(method.DeclaringType);
 
-                        return Delegate.CreateDelegate(delegateType, instance, method);
+                        return System.Delegate.CreateDelegate(delegateType, instance, method);
                     });
             }
 
@@ -92,7 +100,7 @@ namespace FTF.Specs
 
                     var addMethod = dbSet.GetType().GetMethod("Add");
 
-                    e.Register(() => Delegate.CreateDelegate(type, dbSet, addMethod));
+                    e.Register(() => System.Delegate.CreateDelegate(type, dbSet, addMethod));
                 }
             };
         }

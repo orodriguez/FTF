@@ -6,6 +6,7 @@ using FTF.Core.Entities;
 
 namespace FTF.Core.Notes
 {
+    [Concrete]
     public class DeleteHandler
     {
         private readonly IQueryable<Note> _notes;
@@ -23,7 +24,7 @@ namespace FTF.Core.Notes
             _tags = tags;
         }
 
-        [Action(typeof(Delete))]
+        [Delegate(typeof(Delete))]
         public void Delete(int id)
         {
             var note = _notes.First(n => n.Id == id);
