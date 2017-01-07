@@ -16,7 +16,12 @@ namespace FTF.Specs
 {
     static internal class ContainerExtensions
     {
-        public static void RegisterTypes(this Container c, GenerateNoteId generateNoteId, GetCurrentDate getCurrentDate, GetCurrentUser getCurrentUser, GetCurrentUserId getCurrentUserId, SetCurrentUser setCurrentUser)
+        public static void RegisterTypes(this Container c, 
+            GenerateNoteId generateNoteId, 
+            GetCurrentDate getCurrentDate, 
+            GetCurrentUser getCurrentUser, 
+            GetCurrentUserId getCurrentUserId, 
+            SetCurrentUser setCurrentUser)
         {
             c.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
 
