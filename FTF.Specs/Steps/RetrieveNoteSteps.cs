@@ -16,10 +16,7 @@ namespace FTF.Specs.Steps
         }
 
         [When(@"I retrieve the note number (.*)")]
-        public void RetrieveNote(int id)
-        {
-            _response = Query<Retrieve, INote>(f => f(id));
-        }
+        public void RetrieveNote(int id) => _response = Query<Retrieve, INote>(f => f(id));
 
         [Then(@"the note should match:")]
         public void NoteShouldMatch(Table table) => table.CompareToInstance(_response);
