@@ -9,15 +9,18 @@ namespace FTF.Specs.Steps
     [Binding]
     public class NoteSteps : Steps
     {
-        public NoteSteps(Context context) : base(context)
+        private readonly Create _createNote;
+
+        public NoteSteps(Context context, Create createNote) : base(context)
         {
+            _createNote = createNote;
         }
 
         [Given(@"I created the note number (.*) with text '(.*)'")]
         public void CreateNote(int id, string text)
         {
             Context.NextId = () => id;
-            Exec<Create>(f => f(text));
+            _createNote(text);
         }
 
         [Given(@"I created a note with text '(.*)'")]

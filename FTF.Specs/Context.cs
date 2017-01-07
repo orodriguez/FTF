@@ -21,7 +21,7 @@ namespace FTF.Specs
     {
         private User _currentUser;
 
-        public DbContext Db => _container.GetInstance<DbContext>();
+        public DbContext Db => Container.GetInstance<DbContext>();
 
         public GetCurrentDate GetCurrentDate { get; set; }
 
@@ -41,7 +41,7 @@ namespace FTF.Specs
             set { _currentUser = value; }
         }
 
-        private readonly Container _container;
+        public Container Container { get; }
 
         private readonly Scope _scope;
 
@@ -50,18 +50,18 @@ namespace FTF.Specs
         public Context()
         {
             GetCurrentDate = () => DateTime.Now;
-            NextId = () => _container.GetInstance<IQueryable<Note>>().NextId();
+            NextId = () => Container.GetInstance<IQueryable<Note>>().NextId();
 
-            _container = new Container();
-            _container.RegisterTypes(generateNoteId: () => NextId(), 
+            Container = new Container();
+            Container.RegisterTypes(generateNoteId: () => NextId(), 
                 getCurrentDate: () => GetCurrentDate(), 
                 getCurrentUser: () => CurrentUser, 
                 getCurrentUserId: () => CurrentUser.Id, 
                 setCurrentUser: user => CurrentUser = user);
 
-            _scope = _container.BeginLifetimeScope();
+            _scope = Container.BeginLifetimeScope();
 
-            Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
+            Transaction = Container.GetInstance<DbContext>().Database.BeginTransaction();
         }
 
         public void StoreException(Action func)
@@ -92,7 +92,7 @@ namespace FTF.Specs
 
         public void Exec<T>(Action<T> action) where T : class
         {
-            var instance = _container.GetInstance<T>();
+            var instance = Container.GetInstance<T>();
 
             if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
                 try
@@ -109,7 +109,7 @@ namespace FTF.Specs
 
         public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class
         {
-            var instance = _container.GetInstance<T>();
+            var instance = Container.GetInstance<T>();
 
             if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
                 try
