@@ -40,9 +40,9 @@ namespace FTF.Specs
             set { _currentUser = value; }
         }
 
-        private readonly Container _container;
+        private Container _container;
 
-        private readonly Scope _scope;
+        private Scope _scope;
 
         public GenerateNoteId NextId { get; set; }
 
@@ -50,6 +50,13 @@ namespace FTF.Specs
         {
             GetCurrentDate = () => DateTime.Now;
             NextId = () => _container.GetInstance<IQueryable<Note>>().NextId();
+            _container = RegisterTypes();
+
+            Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
+        }
+
+        private Container RegisterTypes()
+        {
             _container = new Container();
             _container.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
             _container.Register<Create>(() => _container.GetInstance<CreateHandler>().Create);
@@ -62,7 +69,8 @@ namespace FTF.Specs
             _container.Register<GetCurrentUser>(() => () => CurrentUser);
             _container.Register<ValidateNote>(() => NoteValidator.Validate);
             _container.Register<IQueryable<Note>>(() => _container.GetInstance<DbContext>().Notes);
-            _container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()), Lifestyle.Scoped);
+            _container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()),
+                Lifestyle.Scoped);
             _container.Register<Delete>(() => _container.GetInstance<DeleteHandler>().Delete);
             _container.Register<DeleteHandler>();
             _container.Register<Retrieve>(() => _container.GetInstance<Queries>().Retrieve);
@@ -83,7 +91,8 @@ namespace FTF.Specs
             _container.Register<UpdateHandler>();
 
             _scope = _container.BeginLifetimeScope();
-            Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
+
+            return _container;
         }
 
         public void StoreException(Action func)
