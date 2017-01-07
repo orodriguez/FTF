@@ -40,7 +40,7 @@ namespace FTF.Specs
             set { _currentUser = value; }
         }
 
-        private Container _container;
+        private readonly Container _container;
 
         private Scope _scope;
 
@@ -50,49 +50,49 @@ namespace FTF.Specs
         {
             GetCurrentDate = () => DateTime.Now;
             NextId = () => _container.GetInstance<IQueryable<Note>>().NextId();
-            _container = RegisterTypes();
+
+            _container = RegisterTypes(new Container());
 
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
         }
 
-        private Container RegisterTypes()
+        private Container RegisterTypes(Container container)
         {
-            _container = new Container();
-            _container.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
-            _container.Register<Create>(() => _container.GetInstance<CreateHandler>().Create);
-            _container.Register<CreateHandler>();
-            _container.Register(() => NextId);
-            _container.Register(() => GetCurrentDate);
-            _container.Register<Save<Note>>(() => _container.GetInstance<DbContext>().Notes.Add);
-            _container.Register<SaveChanges>(() => _container.GetInstance<DbContext>().SaveChanges);
-            _container.Register<IQueryable<Tag>>(() => _container.GetInstance<DbContext>().Tags);
-            _container.Register<GetCurrentUser>(() => () => CurrentUser);
-            _container.Register<ValidateNote>(() => NoteValidator.Validate);
-            _container.Register<IQueryable<Note>>(() => _container.GetInstance<DbContext>().Notes);
-            _container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()),
-                Lifestyle.Scoped);
-            _container.Register<Delete>(() => _container.GetInstance<DeleteHandler>().Delete);
-            _container.Register<DeleteHandler>();
-            _container.Register<Retrieve>(() => _container.GetInstance<Queries>().Retrieve);
-            _container.Register<Queries>();
-            _container.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
-            _container.Register<SignUp>(() => _container.GetInstance<Handler>().SignUp);
-            _container.Register<Handler>();
-            _container.Register<SignIn>(() => _container.GetInstance<Core.Auth.SignIn.Handler>().SignIn);
-            _container.Register<Core.Auth.SignIn.Handler>();
-            _container.Register<Save<User>>(() => _container.GetInstance<DbContext>().Users.Add);
-            _container.Register<IQueryable<User>>(() => _container.GetInstance<DbContext>().Users);
-            _container.Register<SetCurrentUser>(() => user => CurrentUser = user);
-            _container.Register<ListAll>(() => _container.GetInstance<Core.Tags.Queries>().ListAll);
-            _container.Register<Core.Tags.Queries>();
-            _container.Register<ListJoint>(() => _container.GetInstance<Core.Tags.Queries>().ListJoint);
-            _container.Register<IQueryable<Tagging>>(() => _container.GetInstance<DbContext>().Taggings);
-            _container.Register<Update>(() => _container.GetInstance<UpdateHandler>().Update);
-            _container.Register<UpdateHandler>();
+            container.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
+            container.Register<Create>(() => container.GetInstance<CreateHandler>().Create);
+            container.Register<CreateHandler>();
+            container.Register(() => NextId);
+            container.Register(() => GetCurrentDate);
+            container.Register<Save<Note>>(() => container.GetInstance<DbContext>().Notes.Add);
+            container.Register<SaveChanges>(() => container.GetInstance<DbContext>().SaveChanges);
+            container.Register<IQueryable<Tag>>(() => container.GetInstance<DbContext>().Tags);
+            container.Register<GetCurrentUser>(() => () => CurrentUser);
+            container.Register<ValidateNote>(() => NoteValidator.Validate);
+            container.Register<IQueryable<Note>>(() => container.GetInstance<DbContext>().Notes);
+            container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()),
+               Lifestyle.Scoped);
+            container.Register<Delete>(() => container.GetInstance<DeleteHandler>().Delete);
+            container.Register<DeleteHandler>();
+            container.Register<Retrieve>(() => container.GetInstance<Queries>().Retrieve);
+            container.Register<Queries>();
+            container.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
+            container.Register<SignUp>(() => container.GetInstance<Handler>().SignUp);
+            container.Register<Handler>();
+            container.Register<SignIn>(() => container.GetInstance<Core.Auth.SignIn.Handler>().SignIn);
+            container.Register<Core.Auth.SignIn.Handler>();
+            container.Register<Save<User>>(() => container.GetInstance<DbContext>().Users.Add);
+            container.Register<IQueryable<User>>(() => container.GetInstance<DbContext>().Users);
+            container.Register<SetCurrentUser>(() => user => CurrentUser = user);
+            container.Register<ListAll>(() => container.GetInstance<Core.Tags.Queries>().ListAll);
+            container.Register<Core.Tags.Queries>();
+            container.Register<ListJoint>(() => container.GetInstance<Core.Tags.Queries>().ListJoint);
+            container.Register<IQueryable<Tagging>>(() => container.GetInstance<DbContext>().Taggings);
+            container.Register<Update>(() => container.GetInstance<UpdateHandler>().Update);
+            container.Register<UpdateHandler>();
 
-            _scope = _container.BeginLifetimeScope();
+            _scope = container.BeginLifetimeScope();
 
-            return _container;
+            return container;
         }
 
         public void StoreException(Action func)
@@ -109,10 +109,10 @@ namespace FTF.Specs
 
         public TReturn StoreExceptionAndReturn<TReturn>(Func<TReturn> func) where TReturn : class
         {
-            TReturn result = null; 
+            TReturn result = null;
             try
             {
-                result =  func();
+                result = func();
             }
             catch (ApplicationException e)
             {
@@ -121,7 +121,7 @@ namespace FTF.Specs
             return result;
         }
 
-        public void Exec<T>(Action<T> action) where T : class => 
+        public void Exec<T>(Action<T> action) where T : class =>
             StoreException(() => action(_container.GetInstance<T>()));
 
         public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class =>
