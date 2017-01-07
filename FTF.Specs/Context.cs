@@ -42,7 +42,7 @@ namespace FTF.Specs
 
         private readonly Container _container;
 
-        private Scope _scope;
+        private readonly Scope _scope;
 
         public GenerateNoteId NextId { get; set; }
 
@@ -54,7 +54,7 @@ namespace FTF.Specs
             _container = new Container();
             RegisterTypes(_container, 
                 generateNoteId: () => NextId(), 
-                getCurrentDate: GetCurrentDate, 
+                getCurrentDate: () => GetCurrentDate(), 
                 getCurrentUser: () => CurrentUser, 
                 getCurrentUserId: () => CurrentUser.Id, 
                 setCurrentUser: user => CurrentUser = user);
