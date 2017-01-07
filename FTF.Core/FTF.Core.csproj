@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\ApiActionAttribute.cs" />
+    <Compile Include="Attributes\Action.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />
     <Compile Include="Delegates\GenerateNoteId.cs" />

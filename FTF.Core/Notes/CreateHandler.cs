@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Extensions;
@@ -43,6 +43,7 @@ namespace FTF.Core.Notes
             _validate = validate;
         }
 
+        [Action(typeof(Api.Actions.Notes.Create))]
         public void Create(string text)
         {
             _validate(text);

@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
-using FTF.Api.Actions.Auth;
-using FTF.Api.Actions.Notes;
-using FTF.Api.Actions.Tags;
-using FTF.Core.Auth.SignUp;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
-using FTF.Core.Notes;
 using SimpleInjector;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 using FTF.Core.Extensions.Queriable;
-using SimpleInjector.Extensions.LifetimeScoping;
 using TechTalk.SpecFlow;
-using Create = FTF.Api.Actions.Notes.Create;
 
 namespace FTF.Specs
 {

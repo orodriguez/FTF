@@ -1,4 +1,6 @@
 ﻿using System.Linq;
+using FTF.Api.Actions.Notes;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
@@ -21,6 +23,7 @@ namespace FTF.Core.Notes
             _tags = tags;
         }
 
+        [Action(typeof(Delete))]
         public void Delete(int id)
         {
             var note = _notes.First(n => n.Id == id);

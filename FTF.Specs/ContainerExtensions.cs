@@ -12,6 +12,7 @@ using FTF.Core.Notes;
 using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
+using Action = FTF.Core.Attributes.Action;
 using Create = FTF.Api.Actions.Notes.Create;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 
@@ -40,7 +41,7 @@ namespace FTF.Specs
             var methods = typeof(Note).Assembly
                 .GetExportedTypes()
                 .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-                .Where(method => method.GetCustomAttributes<ApiActionAttribute>(inherit: false).Any())
+                .Where(method => method.GetCustomAttributes<Action>(inherit: false).Any())
                 .ToArray();
 
             var declaringTypes = methods.Select(m => m.DeclaringType).Distinct();
@@ -51,42 +52,18 @@ namespace FTF.Specs
             foreach (var method in methods)
             {
                 var delegateType = method
-                    .GetCustomAttribute<ApiActionAttribute>()
+                    .GetCustomAttribute<Action>()
                     .DelegateType;
 
                 c.Register(
                     delegateType,
-                    () =>
+                    instanceCreator: () =>
                     {
                         var instance = c.GetInstance(method.DeclaringType);
 
                         return Delegate.CreateDelegate(delegateType, instance, method);
                     });
             }
-
-
-            // Auth
-            // c.Register<SignUp>(() => c.GetInstance<Handler>().SignUp);
-            c.Register<SignIn>(() => c.GetInstance<FTF.Core.Auth.SignIn.Handler>().SignIn);
-
-            // Notes
-            c.Register<Create>(() => c.GetInstance<CreateHandler>().Create);
-            c.Register<Retrieve>(() => c.GetInstance<Queries>().Retrieve);
-            c.Register<Update>(() => c.GetInstance<UpdateHandler>().Update);
-            c.Register<Delete>(() => c.GetInstance<DeleteHandler>().Delete);
-
-            // Tags
-            c.Register<ListAll>(() => c.GetInstance<Core.Tags.Queries>().ListAll);
-            c.Register<ListJoint>(() => c.GetInstance<FTF.Core.Tags.Queries>().ListJoint);
-
-            // Actions implementations
-            // c.Register<Handler>();
-            c.Register<Core.Auth.SignIn.Handler>();
-            c.Register<CreateHandler>();
-            c.Register<UpdateHandler>();
-            c.Register<DeleteHandler>();
-            c.Register<Queries>();
-            c.Register<Core.Tags.Queries>();
 
             // Storage.EntityFramework
             c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>()),

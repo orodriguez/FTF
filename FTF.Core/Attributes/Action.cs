@@ -2,11 +2,11 @@
 
 namespace FTF.Core.Attributes
 {
-    public class ApiActionAttribute : Attribute
+    public class Action : Attribute
     {
         public Type DelegateType { get; }
 
-        public ApiActionAttribute(Type delegateType)
+        public Action(Type delegateType)
         {
             DelegateType = delegateType;
         }

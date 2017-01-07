@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
@@ -16,6 +17,7 @@ namespace FTF.Core.Auth.SignIn
             _setCurrentUser = setCurrentUser;
         }
 
+        [Action(typeof(Api.Actions.Auth.SignIn))]
         public void SignIn(string username)
         {
             var user = _users.First(u => u.Name == username);

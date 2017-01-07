@@ -1,5 +1,6 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using FTF.Api.Actions.Notes;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
@@ -23,6 +24,7 @@ namespace FTF.Core.Notes
             _saveChanges = saveChanges;
         }
 
+        [Action(typeof(Update))]
         public void Update(int id, string text)
         {
             _validate(text);

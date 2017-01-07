@@ -1,5 +1,7 @@
 using System.Linq;
+using FTF.Api.Actions.Notes;
 using FTF.Api.Responses;
+using FTF.Core.Attributes;
 
 namespace FTF.Core.Notes
 {
@@ -16,6 +18,7 @@ namespace FTF.Core.Notes
             _getCurrentUserId = getCurrentUserId;
         }
 
+        [Action(typeof(Retrieve))]
         public INote Retrieve(int id)
         {
             var currentUserId = _getCurrentUserId();
