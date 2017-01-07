@@ -1,11 +1,6 @@
 using System;
 using System.Linq;
 using System.Reflection;
-using FTF.Api.Actions.Auth;
-using FTF.Api.Actions.Notes;
-using FTF.Api.Actions.Tags;
-using FTF.Core.Attributes;
-using FTF.Core.Auth.SignUp;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Notes;
@@ -13,7 +8,6 @@ using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
 using Action = FTF.Core.Attributes.Action;
-using Create = FTF.Api.Actions.Notes.Create;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 
 namespace FTF.Specs
