@@ -1,7 +1,5 @@
-﻿using System;
-using FTF.Api.Actions.Notes;
+﻿using FTF.Api.Actions.Notes;
 using FTF.Api.Responses;
-using FTF.Core.Notes;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;
@@ -9,29 +7,18 @@ using TechTalk.SpecFlow.Assist;
 namespace FTF.Specs.Steps
 {
     [Binding]
-    public class RetrieveNoteSteps
+    public class RetrieveNoteSteps : Steps
     {
-        private readonly Context _context;
-
         private INote _response;
 
-        public RetrieveNoteSteps(Context context)
+        public RetrieveNoteSteps(Context context) : base(context)
         {
-            _context = context;
         }
 
         [When(@"I retrieve the note number (.*)")]
         public void RetrieveNote(int id)
         {
-            _context.StoreException(() =>
-            {
-                Retrieve retrieve = new Queries(
-                    notes: _context.Db.Notes,
-                    getCurrentUserId: () => _context.CurrentUser.Id
-                ).Retrieve;
-
-                _response = retrieve(id);
-            });
+            _response = Query<Retrieve, INote>(f => f(id));
         }
 
         [Then(@"the note should match:")]
@@ -40,8 +27,8 @@ namespace FTF.Specs.Steps
         [Then(@"it should show the error '(.*)'")]
         public void ShouldShowError(string message)
         {
-            Assert.NotNull(_context.Exception, "No error was produced");
-            Assert.AreEqual(message, _context.Exception.Message);
+            Assert.NotNull(Exception, "No error was produced");
+            Assert.AreEqual(message, Exception.Message);
         }
 
         [Then(@"the note should contain the tags:")]

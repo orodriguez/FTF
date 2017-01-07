@@ -5,29 +5,14 @@ using TechTalk.SpecFlow;
 namespace FTF.Specs.Steps
 {
     [Binding]
-    public class UpdateNoteSteps
+    public class UpdateNoteSteps : Steps
     {
-        private readonly Context _context;
-
-        public UpdateNoteSteps(Context context)
+        public UpdateNoteSteps(Context context) : base(context)
         {
-            _context = context;
         }
 
         [Given(@"I updated the note number (.*) with text '(.*)'")]
         [When(@"I updated the note number (.*) with text '(.*)'")]
-        public void UpdateNote(int id, string text)
-        {
-            _context.StoreException(() =>
-            {
-                Update update = new UpdateHandler(
-                    notes: _context.Db.Notes,
-                    validate: NoteValidator.Validate,
-                    saveChanges: () => _context.Db.SaveChanges()
-                ).Update;
-
-                update(id, text);
-            });
-        }
+        public void UpdateNote(int id, string text) => Exec<Update>(f => f(id, text));
     }
 }

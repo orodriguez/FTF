@@ -43,7 +43,7 @@
     <Compile Include="Actions\Auth\SignIn.cs" />
     <Compile Include="Actions\Auth\SignUp.cs" />
     <Compile Include="Actions\Notes\Create.cs" />
-    <Compile Include="Actions\Notes\DeleteNoted.cs" />
+    <Compile Include="Actions\Notes\Delete.cs" />
     <Compile Include="Actions\Notes\Retrieve.cs" />
     <Compile Include="Actions\Notes\Update.cs" />
     <Compile Include="Actions\Tags\Create.cs" />

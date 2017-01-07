@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Notes
@@ -8,12 +8,13 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Note> _notes;
 
-        private readonly Action _saveChanges;
+        private readonly SaveChanges _saveChanges;
+
         private readonly IQueryable<Tag> _tags;
 
         public DeleteHandler(
             IQueryable<Note> notes, 
-            Action saveChanges, IQueryable<Tag> tags)
+            SaveChanges saveChanges, IQueryable<Tag> tags)
         {
             _notes = notes;
             _saveChanges = saveChanges;

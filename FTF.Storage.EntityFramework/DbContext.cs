@@ -1,8 +1,5 @@
 using System.Data.Entity;
-using System.Diagnostics;
-using System.Linq;
 using FTF.Core.Entities;
-using FTF.Core.Tags;
 
 namespace FTF.Storage.EntityFramework
 {
@@ -27,6 +24,6 @@ namespace FTF.Storage.EntityFramework
 
         public IDbSet<User> Users { get; set; }
 
-        public IDbSet<Tagging> TaggedNotes { get; set; }
+        public IDbSet<Tagging> Taggings { get; set; }
     }
 }

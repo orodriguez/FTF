@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Responses;
 using FTF.Core.Entities;
+using FTF.Core.Notes;
 
 namespace FTF.Core.Tags
 {
@@ -10,9 +11,9 @@ namespace FTF.Core.Tags
     {
         private readonly IQueryable<Tagging> _taggings;
 
-        private readonly Func<int> _getCurrentUserId;
+        private readonly GetCurrentUserId _getCurrentUserId;
 
-        public Queries(IQueryable<Tagging> taggetNotes, Func<int> getCurrentUserId)
+        public Queries(IQueryable<Tagging> taggetNotes, GetCurrentUserId getCurrentUserId)
         {
             _taggings = taggetNotes;
             _getCurrentUserId = getCurrentUserId;
