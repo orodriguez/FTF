@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using BoDi;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs
@@ -7,5 +6,16 @@ namespace FTF.Specs
     [Binding]
     public class Hooks
     {
+        private IObjectContainer _container;
+
+        public Hooks(IObjectContainer container, Context context)
+        {
+            _container = container;
+        }
+
+        [BeforeScenario]
+        public void BeforeScenario()
+        {
+        }
     }
 }

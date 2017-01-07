@@ -65,6 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContainerExtensions.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Features\Notes\Create.feature.cs">
       <AutoGen>True</AutoGen>
