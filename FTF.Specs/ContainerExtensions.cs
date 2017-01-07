@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FTF.Core.Attributes;
@@ -38,18 +39,21 @@ namespace FTF.Specs
                 typeof (DbContext).Assembly
             };
 
-            var concreteTypes = assemblies
+            var allTypes = assemblies
                 .SelectMany(a => a.GetExportedTypes())
+                .ToArray();
+
+            var concreteTypes = allTypes
                 .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
+                .ToArray();
+
+            var delegateMethods = allTypes
+                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
+                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
                 .ToArray();
 
             foreach (var type in concreteTypes)
                 c.Register(type);
-
-            var delegateMethods = concreteTypes
-                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
-                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
-                .ToArray();
 
             foreach (var method in delegateMethods)
             {
@@ -62,6 +66,9 @@ namespace FTF.Specs
                     instanceCreator: () =>
                     {
                         var instance = c.GetInstance(method.DeclaringType);
+
+                        if (method.IsStatic)
+                            return System.Delegate.CreateDelegate(delegateType, method);
 
                         return System.Delegate.CreateDelegate(delegateType, instance, method);
                     });
@@ -77,9 +84,6 @@ namespace FTF.Specs
 
             // Queriables
             c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
-
-            // Validators
-            c.Register<ValidateNote>(() => NoteValidator.Validate);
         }
 
         private static void RegisterSaveDelegates(this Container c)

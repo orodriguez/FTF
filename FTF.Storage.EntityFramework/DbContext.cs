@@ -28,7 +28,5 @@ namespace FTF.Storage.EntityFramework
 
         public IDbSet<Tagging> Taggings { get; set; }
 
-        [Delegate(typeof(Save<>))]
-        public TEntity Add<TEntity>(TEntity entity) where TEntity : class => Set<TEntity>().Add(entity);
     }
 }
