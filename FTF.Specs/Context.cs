@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using FTF.Api.Actions.Auth;
 using FTF.Api.Actions.Notes;
+using FTF.Api.Actions.Tags;
 using FTF.Core.Auth.SignUp;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
@@ -11,6 +12,7 @@ using SimpleInjector;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 using FTF.Core.Extensions.Queriable;
 using SimpleInjector.Extensions.LifetimeScoping;
+using Create = FTF.Api.Actions.Notes.Create;
 
 namespace FTF.Specs
 {
@@ -73,6 +75,10 @@ namespace FTF.Specs
             _container.Register<Save<User>>(() => _container.GetInstance<DbContext>().Users.Add);
             _container.Register<IQueryable<User>>(() => _container.GetInstance<DbContext>().Users);
             _container.Register<SetCurrentUser>(() => user => CurrentUser = user);
+            _container.Register<ListAll>(() => _container.GetInstance<Core.Tags.Queries>().ListAll);
+            _container.Register<Core.Tags.Queries>();
+            _container.Register<ListJoint>(() => _container.GetInstance<Core.Tags.Queries>().ListJoint);
+            _container.Register<IQueryable<Tagging>>(() => _container.GetInstance<DbContext>().Taggings);
 
             _scope = _container.BeginLifetimeScope();
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
