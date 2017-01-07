@@ -56,43 +56,43 @@ namespace FTF.Specs
             Transaction = _container.GetInstance<DbContext>().Database.BeginTransaction();
         }
 
-        private Container RegisterTypes(Container container)
+        private Container RegisterTypes(Container c)
         {
-            container.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
-            container.Register<Create>(() => container.GetInstance<CreateHandler>().Create);
-            container.Register<CreateHandler>();
-            container.Register(() => NextId);
-            container.Register(() => GetCurrentDate);
-            container.Register<Save<Note>>(() => container.GetInstance<DbContext>().Notes.Add);
-            container.Register<SaveChanges>(() => container.GetInstance<DbContext>().SaveChanges);
-            container.Register<IQueryable<Tag>>(() => container.GetInstance<DbContext>().Tags);
-            container.Register<GetCurrentUser>(() => () => CurrentUser);
-            container.Register<ValidateNote>(() => NoteValidator.Validate);
-            container.Register<IQueryable<Note>>(() => container.GetInstance<DbContext>().Notes);
-            container.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()),
+            c.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
+            c.Register<Create>(() => c.GetInstance<CreateHandler>().Create);
+            c.Register<CreateHandler>();
+            c.Register(() => NextId);
+            c.Register(() => GetCurrentDate);
+            c.Register<Save<Note>>(() => c.GetInstance<DbContext>().Notes.Add);
+            c.Register<SaveChanges>(() => c.GetInstance<DbContext>().SaveChanges);
+            c.Register<IQueryable<Tag>>(() => c.GetInstance<DbContext>().Tags);
+            c.Register<GetCurrentUser>(() => () => CurrentUser);
+            c.Register<ValidateNote>(() => NoteValidator.Validate);
+            c.Register<IQueryable<Note>>(() => c.GetInstance<DbContext>().Notes);
+            c.Register(() => new DbContext("name=FTF.Tests", new DropCreateDatabaseAlways<DbContext>()),
                Lifestyle.Scoped);
-            container.Register<Delete>(() => container.GetInstance<DeleteHandler>().Delete);
-            container.Register<DeleteHandler>();
-            container.Register<Retrieve>(() => container.GetInstance<Queries>().Retrieve);
-            container.Register<Queries>();
-            container.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
-            container.Register<SignUp>(() => container.GetInstance<Handler>().SignUp);
-            container.Register<Handler>();
-            container.Register<SignIn>(() => container.GetInstance<Core.Auth.SignIn.Handler>().SignIn);
-            container.Register<Core.Auth.SignIn.Handler>();
-            container.Register<Save<User>>(() => container.GetInstance<DbContext>().Users.Add);
-            container.Register<IQueryable<User>>(() => container.GetInstance<DbContext>().Users);
-            container.Register<SetCurrentUser>(() => user => CurrentUser = user);
-            container.Register<ListAll>(() => container.GetInstance<Core.Tags.Queries>().ListAll);
-            container.Register<Core.Tags.Queries>();
-            container.Register<ListJoint>(() => container.GetInstance<Core.Tags.Queries>().ListJoint);
-            container.Register<IQueryable<Tagging>>(() => container.GetInstance<DbContext>().Taggings);
-            container.Register<Update>(() => container.GetInstance<UpdateHandler>().Update);
-            container.Register<UpdateHandler>();
+            c.Register<Delete>(() => c.GetInstance<DeleteHandler>().Delete);
+            c.Register<DeleteHandler>();
+            c.Register<Retrieve>(() => c.GetInstance<Queries>().Retrieve);
+            c.Register<Queries>();
+            c.Register<GetCurrentUserId>(() => () => CurrentUser.Id);
+            c.Register<SignUp>(() => c.GetInstance<Handler>().SignUp);
+            c.Register<Handler>();
+            c.Register<SignIn>(() => c.GetInstance<Core.Auth.SignIn.Handler>().SignIn);
+            c.Register<Core.Auth.SignIn.Handler>();
+            c.Register<Save<User>>(() => c.GetInstance<DbContext>().Users.Add);
+            c.Register<IQueryable<User>>(() => c.GetInstance<DbContext>().Users);
+            c.Register<SetCurrentUser>(() => user => CurrentUser = user);
+            c.Register<ListAll>(() => c.GetInstance<Core.Tags.Queries>().ListAll);
+            c.Register<Core.Tags.Queries>();
+            c.Register<ListJoint>(() => c.GetInstance<Core.Tags.Queries>().ListJoint);
+            c.Register<IQueryable<Tagging>>(() => c.GetInstance<DbContext>().Taggings);
+            c.Register<Update>(() => c.GetInstance<UpdateHandler>().Update);
+            c.Register<UpdateHandler>();
 
-            _scope = container.BeginLifetimeScope();
+            _scope = c.BeginLifetimeScope();
 
-            return container;
+            return c;
         }
 
         public void StoreException(Action func)
