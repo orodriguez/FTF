@@ -46,10 +46,10 @@ namespace FTF.Specs
             NextId = () => Container.GetInstance<IQueryable<Note>>().NextId();
 
             Container = new Container();
-            Container.RegisterTypes(generateNoteId: () => NextId(), 
-                getCurrentDate: () => GetCurrentDate(), 
-                getCurrentUser: () => CurrentUser, 
-                getCurrentUserId: () => CurrentUser.Id, 
+            Container.RegisterTypes(generateNoteId: () => NextId(),
+                getCurrentDate: () => GetCurrentDate(),
+                getCurrentUser: () => CurrentUser,
+                getCurrentUserId: () => CurrentUser.Id,
                 setCurrentUser: user => CurrentUser = user);
 
             _scope = Container.BeginLifetimeScope();
@@ -100,22 +100,23 @@ namespace FTF.Specs
                 action(instance);
         }
 
-        public TReturn Query<T, TReturn>(Func<T, TReturn> func) where T : class where TReturn : class
+        public TReturn Catch<TReturn>(Func<TReturn> func) 
+            where TReturn : class
         {
-            var instance = Container.GetInstance<T>();
+            TReturn result = null;
 
             if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
-                try
-                {
-                    return func(instance);
-                }
-                catch (ApplicationException ae)
-                {
-                    Exception = ae;
-                    return null;
-                }
+                try { result = func(); }
+                catch (ApplicationException ae) { Exception = ae; }
 
-            return func(instance);
+            return result;
+        }
+
+        public void Catch(Action action)
+        {
+            if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
+                try { action(); }
+                catch (ApplicationException ae) { Exception = ae; }
         }
 
         public void Dispose()

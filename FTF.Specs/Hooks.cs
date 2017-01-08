@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using BoDi;
-using FTF.Api.Actions.Notes;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs
@@ -8,13 +7,13 @@ namespace FTF.Specs
     [Binding]
     public class Hooks
     {
-        private readonly IObjectContainer _container;
+        private readonly IObjectContainer _specFlowContainer;
 
         private readonly Context _context;
 
-        public Hooks(IObjectContainer container, Context context)
+        public Hooks(IObjectContainer specFlowContainer, Context context)
         {
-            _container = container;
+            _specFlowContainer = specFlowContainer;
             _context = context;
         }
 
@@ -28,7 +27,7 @@ namespace FTF.Specs
                     && t.Namespace.StartsWith("FTF.Api.Actions"));
 
             foreach (var action in allActions)
-                _container.RegisterInstanceAs(_context.Container.GetInstance(action));
+                _specFlowContainer.RegisterInstanceAs(_context.Container.GetInstance(action));
         }
     }
 }

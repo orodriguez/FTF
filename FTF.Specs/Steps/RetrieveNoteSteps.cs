@@ -1,4 +1,5 @@
-﻿using FTF.Api.Actions.Notes;
+﻿using System;
+using FTF.Api.Actions.Notes;
 using FTF.Api.Responses;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -19,7 +20,7 @@ namespace FTF.Specs.Steps
         }
 
         [When(@"I retrieve the note number (.*)")]
-        public void RetrieveNote(int id) => _response = _retrieveNote(id);
+        public void RetrieveNote(int id) => _response = Catch(() => _retrieveNote(id));
 
         [Then(@"the note should match:")]
         public void NoteShouldMatch(Table table) => table.CompareToInstance(_response);

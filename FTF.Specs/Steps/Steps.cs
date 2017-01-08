@@ -11,11 +11,12 @@ namespace FTF.Specs.Steps
             Context = context;
         }
 
-        protected void Exec<T>(Action<T> action) where T : class => Context.Exec(action);
+        protected TReturn Catch<TReturn>(Func<TReturn> func)
+            where TReturn : class 
+            => Context.Catch(func);
 
-        protected TReturn Query<T, TReturn>(Func<T, TReturn> func) 
-            where T : class
-            where TReturn : class => Context.Query(func);
+        protected void Catch(Action action)
+            => Context.Catch(action);
 
         protected ApplicationException Exception => Context.Exception;
     }

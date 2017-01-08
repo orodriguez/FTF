@@ -10,24 +10,27 @@ namespace FTF.Specs.Steps
     {
         private readonly Create _createNote;
 
-        public NoteSteps(Context context, Create createNote) : base(context)
+        private readonly Delete _delete;
+
+        public NoteSteps(Context context, Create createNote, Delete delete) : base(context)
         {
             _createNote = createNote;
+            _delete = delete;
         }
 
         [Given(@"I created the note number (.*) with text '(.*)'")]
         public void CreateNote(int id, string text)
         {
             Context.NextId = () => id;
-            _createNote(text);
+            Catch(() => _createNote(text));
         }
 
         [Given(@"I created a note with text '(.*)'")]
         [When(@"I create a note with text '(.*)'")]
-        public void CreateNote(string text) => Exec<Create>(f => f(text));
+        public void CreateNote(string text) => Catch(() => _createNote(text));
 
         [Given(@"I deleted the note (.*)")]
-        public void DeleteNote(int id) => Exec<Delete>(f => f(id));
+        public void DeleteNote(int id) => _delete(id);
 
         [Given(@"I created the following notes:")]
         public void CreateNotes(Table table) => 
