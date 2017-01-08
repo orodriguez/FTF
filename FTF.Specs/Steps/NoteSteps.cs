@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using FTF.Api.Actions.Notes;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Assist;

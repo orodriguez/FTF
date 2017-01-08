@@ -11,12 +11,15 @@ namespace FTF.Specs.Steps
     {
         private INote _response;
 
-        public RetrieveNoteSteps(Context context) : base(context)
+        private readonly Retrieve _retrieveNote;
+
+        public RetrieveNoteSteps(Context context, Retrieve retrieveNote) : base(context)
         {
+            _retrieveNote = retrieveNote;
         }
 
         [When(@"I retrieve the note number (.*)")]
-        public void RetrieveNote(int id) => _response = Query<Retrieve, INote>(f => f(id));
+        public void RetrieveNote(int id) => _response = _retrieveNote(id);
 
         [Then(@"the note should match:")]
         public void NoteShouldMatch(Table table) => table.CompareToInstance(_response);
