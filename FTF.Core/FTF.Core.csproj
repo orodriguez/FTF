@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Attributes\Delegate.cs" />
+    <Compile Include="Attributes\Role.cs" />
     <Compile Include="Attributes\ConcreteAttribute.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />

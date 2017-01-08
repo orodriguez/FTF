@@ -24,7 +24,7 @@ namespace FTF.Core.Notes
             _tags = tags;
         }
 
-        [Delegate(typeof(Delete))]
+        [Role(typeof(Delete))]
         public void Delete(int id)
         {
             var note = _notes.First(n => n.Id == id);

@@ -1,23 +1,24 @@
-using System;
+using FTF.Api.Actions.Tags;
 using FTF.Core.Attributes;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
-using Action = System.Action;
 
 namespace FTF.Core.Tags
 {
     [Concrete]
     public class CreateTagHandler
     {
-        private readonly Action<Tag> _save;
+        private readonly Save<Tag> _save;
 
-        private readonly Action _saveChanges;
+        private readonly SaveChanges _saveChanges;
 
-        public CreateTagHandler(Action<Tag> save, Action saveChanges)
+        public CreateTagHandler(Save<Tag> save, SaveChanges saveChanges)
         {
             _save = save;
             _saveChanges = saveChanges;
         }
 
+        [Role(typeof(Create))]
         public void Create(string name)
         {
             _save(new Tag

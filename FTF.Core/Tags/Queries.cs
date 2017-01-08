@@ -21,7 +21,7 @@ namespace FTF.Core.Tags
             _getCurrentUserId = getCurrentUserId;
         }
 
-        [Delegate(typeof(ListAll))]
+        [Role(typeof(ListAll))]
         public IEnumerable<ITag> ListAll()
         {
             var userId = _getCurrentUserId();
@@ -43,7 +43,7 @@ namespace FTF.Core.Tags
                 .Select(t => new Response(t.Tag, t.NotesCount));
         }
 
-        [Delegate(typeof(ListJoint))]
+        [Role(typeof(ListJoint))]
         public IEnumerable<ITag> ListJoint(string tagname)
         {
             var userId = _getCurrentUserId();

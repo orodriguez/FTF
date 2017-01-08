@@ -19,7 +19,7 @@ namespace FTF.Core.Auth.SignUp
             _saveChanges = saveChanges;
         }
 
-        [Delegate(typeof(Api.Actions.Auth.SignUp))]
+        [Role(typeof(Api.Actions.Auth.SignUp))]
         public void SignUp(string userName)
         {
             _saveUser(new User

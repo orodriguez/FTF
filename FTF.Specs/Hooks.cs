@@ -1,4 +1,5 @@
-﻿using BoDi;
+﻿using System.Linq;
+using BoDi;
 using FTF.Api.Actions.Notes;
 using TechTalk.SpecFlow;
 
@@ -20,7 +21,13 @@ namespace FTF.Specs
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _container.RegisterInstanceAs(_context.Container.GetInstance<Create>());
+            var allActions = typeof (Api.Actions.Notes.Create)
+                .Assembly
+                .GetExportedTypes()
+                .Where(t => t.Namespace.StartsWith("FTF.Api.Actions"));
+
+            foreach (var action in allActions)
+                _container.RegisterInstanceAs(_context.Container.GetInstance(action));
         }
     }
 }

@@ -44,7 +44,7 @@ namespace FTF.Core.Notes
             _validate = validate;
         }
 
-        [Delegate(typeof(Api.Actions.Notes.Create))]
+        [Role(typeof(Api.Actions.Notes.Create))]
         public void Create(string text)
         {
             _validate(text);

@@ -10,7 +10,6 @@ using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
-using Delegate = FTF.Core.Attributes.Delegate;
 
 namespace FTF.Specs
 {
@@ -72,13 +71,13 @@ namespace FTF.Specs
 
             var delegateMethods = allTypes
                 .SelectMany(t => t.GetMethods(bindingFlags))
-                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
+                .Where(method => method.GetCustomAttributes<Role>(inherit: false).Any())
                 .ToArray();
 
             foreach (var method in delegateMethods)
             {
                 var delegateType = method
-                    .GetCustomAttribute<Delegate>()
+                    .GetCustomAttribute<Role>()
                     .DelegateType;
 
                 c.Register(delegateType, () => CreateDelegate(c, method, delegateType));
@@ -101,17 +100,11 @@ namespace FTF.Specs
 
             c.Register(saveType, () =>
             {
-                var db = c.GetInstance<DbContext>();
+                var dbSetAdapter = c.GetInstance(typeof (DbSetAdapter<>).MakeGenericType(entityType));
 
-                var setMethod = db.GetType()
-                    .GetMethod("Set", new Type[0])
-                    .MakeGenericMethod(entityType);
+                var addMethod = dbSetAdapter.GetType().GetMethod("Add");
 
-                var dbSet = setMethod.Invoke(db, null);
-
-                var addMethod = dbSet.GetType().GetMethod("Add");
-
-                return System.Delegate.CreateDelegate(saveType, dbSet, addMethod);
+                return System.Delegate.CreateDelegate(saveType, dbSetAdapter, addMethod);
             });
         }
 
