@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FTF.Core.Entities
 {
-    public class Note
+    public class Note : IEntity
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

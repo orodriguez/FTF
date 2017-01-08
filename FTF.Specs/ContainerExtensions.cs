@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
-using FTF.Core.Notes;
 using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
@@ -47,13 +46,13 @@ namespace FTF.Specs
                 .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
                 .ToArray();
 
+            foreach (var type in concreteTypes)
+                c.Register(type);
+
             var delegateMethods = allTypes
                 .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
                 .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
                 .ToArray();
-
-            foreach (var type in concreteTypes)
-                c.Register(type);
 
             foreach (var method in delegateMethods)
             {
@@ -61,52 +60,47 @@ namespace FTF.Specs
                     .GetCustomAttribute<Delegate>()
                     .DelegateType;
 
-                c.Register(
-                    delegateType,
-                    instanceCreator: () =>
-                    {
-                        var instance = c.GetInstance(method.DeclaringType);
-
-                        if (method.IsStatic)
-                            return System.Delegate.CreateDelegate(delegateType, method);
-
-                        return System.Delegate.CreateDelegate(delegateType, instance, method);
-                    });
+                c.Register(delegateType, () => CreateInstance(method, delegateType, c.GetInstance(method.DeclaringType)));
             }
 
-            // Storage.EntityFramework
-            c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>()),
-                Lifestyle.Scoped);
-            c.Register<SaveChanges>(() => c.GetInstance<DbContext>().SaveChanges);
+            var entities = allTypes
+                .Where(t => t.GetInterfaces().Any(i => i == typeof (IEntity)));
 
-            // Save<TEntity> delegates
-            c.RegisterSaveDelegates();
-
-            // Queriables
-            c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
-        }
-
-        private static void RegisterSaveDelegates(this Container c)
-        {
-            c.ResolveUnregisteredType += (sender, e) =>
+            foreach (var entityType in entities)
             {
-                var type = e.UnregisteredServiceType;
+                var type = typeof(Save<>).MakeGenericType(entityType);
 
-                if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof (Save<>))
+                c.Register(type, () =>
                 {
                     var db = c.GetInstance<DbContext>();
 
                     var setMethod = db.GetType()
                         .GetMethod("Set", new Type[0])
-                        .MakeGenericMethod(type.GetGenericArguments());
+                        .MakeGenericMethod(entityType);
 
                     var dbSet = setMethod.Invoke(db, null);
 
                     var addMethod = dbSet.GetType().GetMethod("Add");
 
-                    e.Register(() => System.Delegate.CreateDelegate(type, dbSet, addMethod));
-                }
-            };
+                    return System.Delegate.CreateDelegate(type, dbSet, addMethod);
+                });
+            }
+
+            // Storage.EntityFramework
+            c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>()),
+                Lifestyle.Scoped);
+
+            c.Register<SaveChanges>(() => c.GetInstance<DbContext>().SaveChanges);
+
+            // Queriables
+            c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
+        }
+
+        private static object CreateInstance(MethodInfo method, Type delegateType, object instance)
+        {
+            return method.IsStatic
+                ? System.Delegate.CreateDelegate(delegateType, method)
+                : System.Delegate.CreateDelegate(delegateType, instance, method);
         }
     }
 }
