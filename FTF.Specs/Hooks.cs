@@ -24,7 +24,8 @@ namespace FTF.Specs
             var allActions = typeof (Api.Actions.Notes.Create)
                 .Assembly
                 .GetExportedTypes()
-                .Where(t => t.Namespace.StartsWith("FTF.Api.Actions"));
+                .Where(t => t.Namespace != null 
+                    && t.Namespace.StartsWith("FTF.Api.Actions"));
 
             foreach (var action in allActions)
                 _container.RegisterInstanceAs(_context.Container.GetInstance(action));
