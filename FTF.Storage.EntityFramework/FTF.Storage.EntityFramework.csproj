@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbContext.cs" />
+    <Compile Include="DbSetAdapter.cs" />
     <Compile Include="Migrations\201612231412124_CreateNote.cs" />
     <Compile Include="Migrations\201612231412124_CreateNote.Designer.cs">
       <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>

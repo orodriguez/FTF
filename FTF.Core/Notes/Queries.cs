@@ -1,9 +1,12 @@
 using System.Linq;
+using FTF.Api.Actions.Notes;
 using FTF.Api.Responses;
+using FTF.Core.Attributes;
+using FTF.Core.Delegates;
 
 namespace FTF.Core.Notes
 {
-    public delegate int GetCurrentUserId();
+    [Concrete]
     public class Queries
     {
         private readonly IQueryable<Entities.Note> _notes;
@@ -16,6 +19,7 @@ namespace FTF.Core.Notes
             _getCurrentUserId = getCurrentUserId;
         }
 
+        [Delegate(typeof(Retrieve))]
         public INote Retrieve(int id)
         {
             var currentUserId = _getCurrentUserId();

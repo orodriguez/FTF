@@ -4,7 +4,7 @@ using FTF.Api.Responses;
 
 namespace FTF.Core.Entities
 {
-    public class Tag : INameable, ITag
+    public class Tag : IEntity, INameable, ITag
     {
         public int Id { get; set; }
 

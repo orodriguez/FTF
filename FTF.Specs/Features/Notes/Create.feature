@@ -20,7 +20,7 @@ Scenario: With Tags
 		| Name        |
 		| Buy         |
 		| SuperMarket |
-
+@error
 Scenario: Empty Text
 	When I create a note with text ''
 	Then it should show the error 'Note can not be empty'

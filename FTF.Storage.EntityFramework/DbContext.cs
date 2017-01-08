@@ -1,4 +1,6 @@
 using System.Data.Entity;
+using FTF.Core.Attributes;
+using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
 namespace FTF.Storage.EntityFramework
@@ -25,5 +27,6 @@ namespace FTF.Storage.EntityFramework
         public IDbSet<User> Users { get; set; }
 
         public IDbSet<Tagging> Taggings { get; set; }
+
     }
 }

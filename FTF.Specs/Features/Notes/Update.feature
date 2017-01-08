@@ -14,6 +14,7 @@ Scenario: Simple text Update
 		| CreationDate | Feb 20 1984         |
 		| UserName     | orodriguez          |
 
+@error
 Scenario: Empty Text
 	Given I created the note number 10 with text 'Buy cheese'
 	When I updated the note number 10 with text ''

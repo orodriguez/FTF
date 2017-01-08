@@ -1,8 +1,11 @@
 using System;
+using FTF.Core.Attributes;
 using FTF.Core.Entities;
+using Action = System.Action;
 
 namespace FTF.Core.Tags
 {
+    [Concrete]
     public class CreateTagHandler
     {
         private readonly Action<Tag> _save;
