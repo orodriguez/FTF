@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FTF.Core;
@@ -42,49 +43,15 @@ namespace FTF.Specs
                 .SelectMany(a => a.GetExportedTypes())
                 .ToArray();
 
-            var concreteTypes = allTypes
-                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
-                .ToArray();
+            c.RegisterConcreteTypes(allTypes);
 
-            foreach (var type in concreteTypes)
-                c.Register(type);
-
-            var delegateMethods = allTypes
-                .SelectMany(type => type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.DeclaredOnly))
-                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
-                .ToArray();
-
-            foreach (var method in delegateMethods)
-            {
-                var delegateType = method
-                    .GetCustomAttribute<Delegate>()
-                    .DelegateType;
-
-                c.Register(delegateType, () => CreateInstance(method, delegateType, c.GetInstance(method.DeclaringType)));
-            }
+            c.RegisterDelegates(allTypes);
 
             var entities = allTypes
                 .Where(t => t.GetInterfaces().Any(i => i == typeof (IEntity)));
 
             foreach (var entityType in entities)
-            {
-                var type = typeof(Save<>).MakeGenericType(entityType);
-
-                c.Register(type, () =>
-                {
-                    var db = c.GetInstance<DbContext>();
-
-                    var setMethod = db.GetType()
-                        .GetMethod("Set", new Type[0])
-                        .MakeGenericMethod(entityType);
-
-                    var dbSet = setMethod.Invoke(db, null);
-
-                    var addMethod = dbSet.GetType().GetMethod("Add");
-
-                    return System.Delegate.CreateDelegate(type, dbSet, addMethod);
-                });
-            }
+                c.RegisterSaveDelagates(entityType);
 
             // Storage.EntityFramework
             c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>()),
@@ -96,11 +63,67 @@ namespace FTF.Specs
             c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
         }
 
-        private static object CreateInstance(MethodInfo method, Type delegateType, object instance)
+        private static void RegisterDelegates(this Container c, Type[] allTypes)
         {
-            return method.IsStatic
-                ? System.Delegate.CreateDelegate(delegateType, method)
-                : System.Delegate.CreateDelegate(delegateType, instance, method);
+            const BindingFlags bindingFlags = BindingFlags.Public 
+                | BindingFlags.Instance 
+                | BindingFlags.Static 
+                | BindingFlags.DeclaredOnly;
+
+            var delegateMethods = allTypes
+                .SelectMany(t => t.GetMethods(bindingFlags))
+                .Where(method => method.GetCustomAttributes<Delegate>(inherit: false).Any())
+                .ToArray();
+
+            foreach (var method in delegateMethods)
+            {
+                var delegateType = method
+                    .GetCustomAttribute<Delegate>()
+                    .DelegateType;
+
+                c.Register(delegateType, () => CreateDelegate(c, method, delegateType));
+            }
+        }
+
+        private static void RegisterConcreteTypes(this Container c, IEnumerable<Type> allTypes)
+        {
+            var concreteTypes = allTypes
+                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
+                .ToArray();
+
+            foreach (var type in concreteTypes)
+                c.Register(type);
+        }
+
+        private static void RegisterSaveDelagates(this Container c, Type entityType)
+        {
+            var saveType = typeof (Save<>).MakeGenericType(entityType);
+
+            c.Register(saveType, () =>
+            {
+                var db = c.GetInstance<DbContext>();
+
+                var setMethod = db.GetType()
+                    .GetMethod("Set", new Type[0])
+                    .MakeGenericMethod(entityType);
+
+                var dbSet = setMethod.Invoke(db, null);
+
+                var addMethod = dbSet.GetType().GetMethod("Add");
+
+                return System.Delegate.CreateDelegate(saveType, dbSet, addMethod);
+            });
+        }
+
+        private static object CreateDelegate(Container c, MethodInfo method, Type delegateType)
+        {
+            if (method.IsStatic)
+                return System.Delegate.CreateDelegate(delegateType, method);
+
+            return System.Delegate.CreateDelegate(
+                delegateType, 
+                c.GetInstance(method.DeclaringType), 
+                method);
         }
     }
 }
