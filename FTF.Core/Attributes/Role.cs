@@ -3,11 +3,11 @@
 namespace FTF.Core.Attributes
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public class Delegate : Attribute
+    public class Role : Attribute
     {
         public Type DelegateType { get; }
 
-        public Delegate(Type delegateType)
+        public Role(Type delegateType)
         {
             DelegateType = delegateType;
         }

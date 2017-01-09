@@ -19,7 +19,7 @@ namespace FTF.Core.Notes
             _getCurrentUserId = getCurrentUserId;
         }
 
-        [Delegate(typeof(Retrieve))]
+        [Role(typeof(Retrieve))]
         public INote Retrieve(int id)
         {
             var currentUserId = _getCurrentUserId();

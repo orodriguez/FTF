@@ -25,7 +25,7 @@ namespace FTF.Core.Notes
             _saveChanges = saveChanges;
         }
 
-        [Delegate(typeof(Update))]
+        [Role(typeof(Update))]
         public void Update(int id, string text)
         {
             _validate(text);
