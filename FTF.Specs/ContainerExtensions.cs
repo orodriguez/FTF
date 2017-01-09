@@ -53,7 +53,7 @@ namespace FTF.Specs
                 c.RegisterSaveDelagates(entityType);
 
             // Storage.EntityFramework
-            c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseAlways<DbContext>()),
+            c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>()),
                 Lifestyle.Scoped);
 
             c.Register<SaveChanges>(() => c.GetInstance<DbContext>().SaveChanges);
