@@ -103,13 +103,18 @@ namespace FTF.Specs
         public TReturn Catch<TReturn>(Func<TReturn> func) 
             where TReturn : class
         {
-            TReturn result = null;
-
             if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
-                try { result = func(); }
-                catch (ApplicationException ae) { Exception = ae; }
+                try
+                {
+                    return func();
+                }
+                catch (ApplicationException ae)
+                {
+                    Exception = ae;
+                    return null;
+                }
 
-            return result;
+            return func();
         }
 
         public void Catch(Action action)
@@ -117,6 +122,8 @@ namespace FTF.Specs
             if (ScenarioContext.Current.ScenarioInfo.Tags.Contains("error"))
                 try { action(); }
                 catch (ApplicationException ae) { Exception = ae; }
+            else
+                action();
         }
 
         public void Dispose()
