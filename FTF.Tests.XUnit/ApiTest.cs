@@ -2,19 +2,22 @@
 using FTF.Api;
 using FTF.Api.Actions.Auth;
 using FTF.Api.Responses;
+using FTF.Core.Delegates;
+using FTF.Core.Ports;
 using FTF.IoC.SimpleInjector;
 
 namespace FTF.Tests.XUnit
 {
     public class ApiTest
     {
-        private DateTime _currentTime;
+        private DateTime _currentDate;
 
         private readonly IContainer _container;
 
-        public ApiTest(IContainer container)
+        public ApiTest()
         {
-            _container = ContainerFactory.Make();
+            _container = ContainerFactory.Make(new Adapter(
+                getCurrentDate: () => _currentDate));
         }
 
         protected void SignIn(string username)
@@ -30,7 +33,7 @@ namespace FTF.Tests.XUnit
 
         protected void TodayIs(int year, int month, int day)
         {
-            _currentTime = new DateTime(year, month, day);
+            _currentDate = new DateTime(year, month, day);
         }
 
         protected int CreateNotes(string text)
@@ -41,6 +44,18 @@ namespace FTF.Tests.XUnit
         protected INote RetrieveNote(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        private class Adapter : IPorts
+        {
+            public Adapter(GetCurrentDate getCurrentDate)
+            {
+                GetCurrentDate = getCurrentDate;
+            }
+
+            public GetCurrentDate GetCurrentDate { get; private set; }
+            public IAuth Auth { get; }
+            public IStorage Storage { get; set; }
         }
     }
 }

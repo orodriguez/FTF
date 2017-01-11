@@ -47,11 +47,10 @@ namespace FTF.Specs
             NextId = () => Container.GetInstance<IQueryable<Note>>().NextId();
 
             Container = new Container();
-            Container.RegisterTypes(generateNoteId: () => NextId(),
-                getCurrentDate: () => GetCurrentDate(),
+            /*Container.RegisterTypes(getCurrentDate: () => GetCurrentDate(),
                 getCurrentUser: () => CurrentUser,
                 getCurrentUserId: () => CurrentUser.Id,
-                setCurrentUser: user => CurrentUser = user);
+                setCurrentUser: user => CurrentUser = user);*/
 
             _scope = Container.BeginLifetimeScope();
 
