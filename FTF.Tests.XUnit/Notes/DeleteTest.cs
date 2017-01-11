@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using FTF.Api.Exceptions;
-using FTF.Api.Responses;
 using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
