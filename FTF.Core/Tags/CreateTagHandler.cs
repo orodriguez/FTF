@@ -1,6 +1,5 @@
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
-using FTF.Core.Delegates.Actions.Tags;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Tags
@@ -18,7 +17,6 @@ namespace FTF.Core.Tags
             _saveChanges = saveChanges;
         }
 
-        [Role(typeof(Create))]
         public void Create(string name)
         {
             _save(new Tag

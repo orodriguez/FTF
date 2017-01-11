@@ -3,7 +3,6 @@ using FTF.Api.Exceptions;
 using FTF.Api.Responses;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
-using FTF.Core.Delegates.Actions.Notes;
 
 namespace FTF.Core.Notes
 {
@@ -20,7 +19,6 @@ namespace FTF.Core.Notes
             _getCurrentUserId = getCurrentUserId;
         }
 
-        [Role(typeof(Retrieve))]
         public INote Retrieve(int id)
         {
             var currentUserId = _getCurrentUserId();

@@ -3,7 +3,6 @@ using System.Linq;
 using FTF.Api.Responses;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
-using FTF.Core.Delegates.Actions.Tags;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Tags
@@ -21,7 +20,6 @@ namespace FTF.Core.Tags
             _getCurrentUserId = getCurrentUserId;
         }
 
-        [Role(typeof(ListAll))]
         public IEnumerable<ITag> ListAll()
         {
             var userId = _getCurrentUserId();
@@ -43,7 +41,6 @@ namespace FTF.Core.Tags
                 .Select(t => new Response(t.Tag, t.NotesCount));
         }
 
-        [Role(typeof(ListJoint))]
         public IEnumerable<ITag> ListJoint(string tagname)
         {
             var userId = _getCurrentUserId();

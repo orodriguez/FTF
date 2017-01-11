@@ -46,13 +46,6 @@
     <Compile Include="Attributes\ConcreteAttribute.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />
-    <Compile Include="Delegates\Actions\Notes\Create.cs" />
-    <Compile Include="Delegates\Actions\Notes\Delete.cs" />
-    <Compile Include="Delegates\Actions\Notes\Retrieve.cs" />
-    <Compile Include="Delegates\Actions\Notes\Update.cs" />
-    <Compile Include="Delegates\Actions\Tags\Create.cs" />
-    <Compile Include="Delegates\Actions\Tags\ListAll.cs" />
-    <Compile Include="Delegates\Actions\Tags\ListJoint.cs" />
     <Compile Include="Delegates\GenerateNoteId.cs" />
     <Compile Include="Delegates\GetCurrentDate.cs" />
     <Compile Include="Delegates\GetCurrentUser.cs" />

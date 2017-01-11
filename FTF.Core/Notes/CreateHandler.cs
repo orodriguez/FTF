@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
-using FTF.Core.Delegates.Actions.Notes;
 using FTF.Core.Entities;
 using FTF.Core.Extensions;
 using FTF.Core.Extensions.Queriable;
@@ -41,7 +40,6 @@ namespace FTF.Core.Notes
             _validate = validate;
         }
 
-        [Role(typeof(Create))]
         public int Create(string text)
         {
             _validate(text);

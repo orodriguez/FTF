@@ -1,33 +1,33 @@
-using FTF.Api;
 using FTF.Api.Responses;
 using FTF.Api.Services;
-using FTF.Core.Delegates.Actions.Notes;
+using FTF.Core.Notes;
 
 namespace FTF.Core.Services
 {
     public class NotesService : INotesService
     {
-        private readonly Create _create;
+        private readonly CreateHandler _create;
 
-        private readonly Retrieve _retrieve;
+        private readonly Notes.Queries _queries;
 
-        private readonly Update _update;
+        private readonly UpdateHandler _update;
 
-        private readonly Delete _delete;
+        private readonly DeleteHandler _delete;
 
-        public NotesService(Create create, Retrieve retrieve, Update update, Delete delete)
+        public NotesService(CreateHandler create, Notes.Queries queries, UpdateHandler update, DeleteHandler delete)
         {
             _create = create;
-            _retrieve = retrieve;
+            _queries = queries;
             _delete = delete;
             _update = update;
         }
 
-        public int Create(string text) => _create(text);
+        public int Create(string text) => _create.Create(text);
 
-        public INote Retrieve(int noteId) => _retrieve(noteId);
-        public void Update(int id, string text) => _update(id, text);
+        public INote Retrieve(int noteId) => _queries.Retrieve(noteId);
 
-        public void Delete(int noteId) => _delete(noteId);
+        public void Update(int id, string text) => _update.Update(id, text);
+
+        public void Delete(int noteId) => _delete.Delete(noteId);
     }
 }
