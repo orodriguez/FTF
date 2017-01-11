@@ -12,17 +12,17 @@ namespace FTF.Core.Tags
     {
         private readonly IQueryable<Tagging> _taggings;
 
-        private readonly GetCurrentUserId _getCurrentUserId;
+        private readonly GetCurrentUser _getCurrentUser;
 
-        public Queries(IQueryable<Tagging> taggetNotes, GetCurrentUserId getCurrentUserId)
+        public Queries(IQueryable<Tagging> taggetNotes, GetCurrentUser getCurrentUser)
         {
             _taggings = taggetNotes;
-            _getCurrentUserId = getCurrentUserId;
+            _getCurrentUser = getCurrentUser;
         }
 
         public IEnumerable<ITag> ListAll()
         {
-            var userId = _getCurrentUserId();
+            var userId = _getCurrentUser().Id;
 
             var notesInTrash = _taggings
                 .Where(Tagging.Trash)
@@ -43,7 +43,7 @@ namespace FTF.Core.Tags
 
         public IEnumerable<ITag> ListJoint(string tagname)
         {
-            var userId = _getCurrentUserId();
+            var userId = _getCurrentUser().Id;
 
             var notesInTrash = _taggings
                 .Where(Tagging.Trash)

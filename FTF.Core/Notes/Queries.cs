@@ -11,17 +11,17 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Entities.Note> _notes;
 
-        private readonly GetCurrentUserId _getCurrentUserId;
+        private readonly GetCurrentUser _getCurrentUser;
 
-        public Queries(IQueryable<Entities.Note> notes, GetCurrentUserId getCurrentUserId)
+        public Queries(IQueryable<Entities.Note> notes, GetCurrentUser getCurrentUser)
         {
             _notes = notes;
-            _getCurrentUserId = getCurrentUserId;
+            _getCurrentUser = getCurrentUser;
         }
 
         public INote Retrieve(int id)
         {
-            var currentUserId = _getCurrentUserId();
+            var currentUserId = _getCurrentUser().Id;
 
             var note = _notes.FirstOrDefault(n => n.Id == id && n.User.Id == currentUserId);
 

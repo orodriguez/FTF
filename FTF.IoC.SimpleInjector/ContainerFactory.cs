@@ -32,7 +32,6 @@ namespace FTF.IoC.SimpleInjector
 
             c.Register(() => ports.GetCurrentDate);
             c.Register<GetCurrentUser>(() => () => ports.AuthPort.CurrentUser);
-            c.Register<GetCurrentUserId>(() => () => ports.AuthPort.CurrentUser.Id);
             c.Register<SetCurrentUser>(() => user => ports.AuthPort.CurrentUser = user);
 
             var assemblies = new[]
