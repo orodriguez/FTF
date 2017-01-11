@@ -12,8 +12,6 @@ namespace FTF.Core.Notes
     [Concrete]
     public class CreateHandler
     {
-        private readonly GenerateNoteId _generateId;
-
         private readonly GetCurrentDate _getCurrentDate;
 
         private readonly Save<Note> _saveNote;
@@ -27,7 +25,6 @@ namespace FTF.Core.Notes
         private readonly ValidateNote _validate;
 
         public CreateHandler(
-            GenerateNoteId generateId, 
             GetCurrentDate getCurrentDate, 
             Save<Note> saveNote, 
             SaveChanges saveChanges, 
@@ -35,7 +32,6 @@ namespace FTF.Core.Notes
             GetCurrentUser getCurrentUser, 
             ValidateNote validate)
         {
-            _generateId = generateId;
             _getCurrentDate = getCurrentDate;
             _saveNote = saveNote;
             _saveChanges = saveChanges;
@@ -45,13 +41,12 @@ namespace FTF.Core.Notes
         }
 
         [Role(typeof(Api.Actions.Notes.Create))]
-        public void Create(string text)
+        public int Create(string text)
         {
             _validate(text);
 
             var note = new Note
             {
-                Id = _generateId(),
                 Text = text,
                 CreationDate = _getCurrentDate(),
                 User = _getCurrentUser()
@@ -62,6 +57,8 @@ namespace FTF.Core.Notes
             _saveNote(note);
 
             _saveChanges();
+
+            return note.Id;
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) => 

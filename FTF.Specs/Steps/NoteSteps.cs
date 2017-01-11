@@ -18,25 +18,10 @@ namespace FTF.Specs.Steps
             _delete = delete;
         }
 
-        [Given(@"I created the note number (.*) with text '(.*)'")]
-        public void CreateNote(int id, string text)
-        {
-            Context.NextId = () => id;
-            Catch(() => _createNote(text));
-        }
-
-        [Given(@"I created a note with text '(.*)'")]
-        [When(@"I create a note with text '(.*)'")]
-        public void CreateNote(string text) => Catch(() => _createNote(text));
 
         [Given(@"I deleted the note (.*)")]
         public void DeleteNote(int id) => _delete(id);
 
-        [Given(@"I created the following notes:")]
-        public void CreateNotes(Table table) => 
-            table.CreateSet<Row>()
-                .ToList()
-                .ForEach(r => CreateNote(r.Text));
 
         private class Row
         {

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using FTF.Core;
 using FTF.Core.Delegates;
-using FTF.Core.Ports;
 
 namespace FTF.Storage.EntityFramework
 {
-    public class StorageAdapter : IStorage
+    public class StorageAdapter : IStoragePort
     {
         private readonly DbContext _db;
 
@@ -21,11 +21,13 @@ namespace FTF.Storage.EntityFramework
             throw new NotImplementedException();
         }
 
-        public IQueryable GetQueriable(Type entityType)
+        public IQueryable GetQueriable(Type entityType) => _db.Set(entityType);
+
+        public Save<TEntity> MakeSave<TEntity>() where TEntity : class => _db.Set<TEntity>().Add;
+
+        public void Dispose()
         {
             throw new NotImplementedException();
         }
-
-        public Save<TEntity> MakeSave<TEntity>() where TEntity : class => _db.Set<TEntity>().Add;
     }
 }

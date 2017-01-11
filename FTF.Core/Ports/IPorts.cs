@@ -1,7 +1,4 @@
-using System;
-using System.Linq;
 using FTF.Core.Delegates;
-using FTF.Core.Entities;
 
 namespace FTF.Core.Ports
 {
@@ -9,22 +6,8 @@ namespace FTF.Core.Ports
     {
         GetCurrentDate GetCurrentDate { get; }
 
-        IAuth Auth { get; }
+        IAuthPort AuthPort { get; }
 
-        IStorage Storage { get; set; }
-    }
-
-    public interface IStorage
-    {
-        int SaveChanges();
-
-        IQueryable GetQueriable(Type entityType);
-
-        Save<TEntity> MakeSave<TEntity>() where TEntity : class;
-    }
-
-    public interface IAuth
-    {
-        User CurrentUser { get; set; }
+        IStoragePort StoragePort { get; set; }
     }
 }

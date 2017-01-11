@@ -8,6 +8,7 @@ using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Ports;
+using FTF.Core.Services;
 using FTF.Storage.EntityFramework;
 using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
@@ -16,19 +17,21 @@ namespace FTF.IoC.SimpleInjector
 {
     public class ContainerFactory
     {
-        public static IContainer Make(IPorts ports) => 
-            new Adapter(RegisterTypes(ports));
-
-        public static Container RegisterTypes(IPorts ports)
+        public static Container Make(IPorts ports)
         {
             var c = new Container();
 
             c.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
 
+            c.Register<IApplication, Application>();
+            c.Register<IAuthService, AuthService>();
+            c.Register<INotesService, NotesService>();
+            c.Register(() => ports.StoragePort);
+
             c.Register(() => ports.GetCurrentDate);
-            c.Register<GetCurrentUser>(() => () => ports.Auth.CurrentUser);
-            c.Register<GetCurrentUserId>(() => () => ports.Auth.CurrentUser.Id);
-            c.Register<SetCurrentUser>(() => user => ports.Auth.CurrentUser = user);
+            c.Register<GetCurrentUser>(() => () => ports.AuthPort.CurrentUser);
+            c.Register<GetCurrentUserId>(() => () => ports.AuthPort.CurrentUser.Id);
+            c.Register<SetCurrentUser>(() => user => ports.AuthPort.CurrentUser = user);
 
             var assemblies = new[]
             {
@@ -49,19 +52,19 @@ namespace FTF.IoC.SimpleInjector
 
             foreach (var entityType in entities)
             {
-                var makeSave = ports.Storage
+                var makeSave = ports.StoragePort
                     .GetType()
                     .GetMethod("MakeSave")
                     .MakeGenericMethod(entityType);
 
                 c.Register(typeof(Save<>).MakeGenericType(entityType), 
-                    () => makeSave.Invoke(ports.Storage, null));
+                    () => makeSave.Invoke(ports.StoragePort, null));
 
                 c.Register(typeof (IQueryable<>).MakeGenericType(entityType), 
-                    () => ports.Storage.GetQueriable(entityType));
+                    () => ports.StoragePort.GetQueriable(entityType));
             }
 
-            c.Register<SaveChanges>(() => ports.Storage.SaveChanges);
+            c.Register<SaveChanges>(() => ports.StoragePort.SaveChanges);
 
             return c;
         }
@@ -70,10 +73,10 @@ namespace FTF.IoC.SimpleInjector
         {
             var saveType = typeof (Save<>).MakeGenericType(entityType);
 
-            var saveMethod = ports.Storage.GetType()
+            var saveMethod = ports.StoragePort.GetType()
                 .GetMethod("Save").MakeGenericMethod(entityType);
 
-            var saveDel = Delegate.CreateDelegate(saveType, ports.Storage, saveMethod);
+            var saveDel = Delegate.CreateDelegate(saveType, ports.StoragePort, saveMethod);
 
             return saveDel;
         }

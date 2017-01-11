@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
     <Compile Include="Attributes\Role.cs" />
     <Compile Include="Attributes\ConcreteAttribute.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Delegates\GetCurrentDate.cs" />
     <Compile Include="Delegates\GetCurrentUser.cs" />
     <Compile Include="Delegates\GetCurrentUserId.cs" />
+    <Compile Include="Delegates\Make.cs" />
     <Compile Include="Delegates\Save.cs" />
     <Compile Include="Delegates\SaveChanges.cs" />
     <Compile Include="Delegates\SetCurrentUser.cs" />
@@ -62,18 +64,22 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="INameable.cs" />
+    <Compile Include="IStoragePort.cs" />
     <Compile Include="IUserEntity.cs" />
     <Compile Include="Notes\CreateHandler.cs" />
     <Compile Include="Notes\DeleteHandler.cs" />
     <Compile Include="Notes\NoteValidator.cs" />
     <Compile Include="Notes\Queries.cs" />
     <Compile Include="Notes\UpdateHandler.cs" />
+    <Compile Include="Ports\IAuthPort.cs" />
     <Compile Include="Ports\IPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueriableFilters\TagginsFilteredByUser.cs" />
     <Compile Include="Queries\NameableQueries.cs" />
     <Compile Include="RecordNotFoundException.cs" />
     <Compile Include="Responses\Note.cs" />
+    <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\NotesService.cs" />
     <Compile Include="Tags\CreateTagHandler.cs" />
     <Compile Include="Tags\Queries.cs" />
     <Compile Include="ValidationException.cs" />
