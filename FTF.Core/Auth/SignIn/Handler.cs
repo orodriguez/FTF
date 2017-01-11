@@ -18,7 +18,7 @@ namespace FTF.Core.Auth.SignIn
             _setCurrentUser = setCurrentUser;
         }
 
-        [Role(typeof(Api.Actions.Auth.SignIn))]
+        [Role(typeof(Delegates.Actions.Auth.SignIn))]
         public void SignIn(string username)
         {
             var user = _users.First(u => u.Name == username);

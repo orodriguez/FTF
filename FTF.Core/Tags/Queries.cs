@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
-using FTF.Api.Actions.Tags;
 using FTF.Api.Responses;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
+using FTF.Core.Delegates.Actions.Tags;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Tags

@@ -8,8 +8,5 @@ namespace FTF.Core.Extensions.Queriable
     {
         public static IQueryable<Tag> WhereNameContains(this IQueryable<Tag> source, IEnumerable<string> names) =>
             source.Where(t => names.Contains(t.Name));
-
-        public static Tag FirstByName(this IQueryable<Tag> source, string name) =>
-            source.First(tag => tag.Name == name);
     }
 }

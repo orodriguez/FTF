@@ -1,5 +1,5 @@
 using FTF.Api;
-using FTF.Api.Actions.Auth;
+using FTF.Core.Delegates.Actions.Auth;
 
 namespace FTF.Core.Services
 {

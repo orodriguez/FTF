@@ -1,4 +1,4 @@
-﻿namespace FTF.Api.Actions.Auth
+﻿namespace FTF.Core.Delegates.Actions.Auth
 {
     public delegate void SignUp(string userName);
 }

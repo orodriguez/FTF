@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using FTF.Api.Actions.Notes;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
+using FTF.Core.Delegates.Actions.Notes;
 using FTF.Core.Entities;
 
 namespace FTF.Core.Notes
