@@ -1,7 +1,7 @@
 ﻿using FTF.Core.Extensions;
 using Xunit;
 
-namespace FTF.Tests.Unit
+namespace FTF.Tests.XUnit.Unit
 {
     public class TagNameParserTest
     {
