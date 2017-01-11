@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FTF.Api;
 using FTF.IoC.SimpleInjector;
 using Xunit;
@@ -29,6 +30,19 @@ namespace FTF.Tests.XUnit
             Assert.Equal("I was born", note.Text);
             Assert.Equal(new DateTime(2016, 2, 20), note.CreationDate);
             Assert.Equal("orodriguez", note.UserName);
+        }
+
+        [Fact]
+        public void WithTags()
+        {
+            var noteId = _app.Notes.Create("#Buy cheese at #SuperMarket");
+            var note = _app.Notes.Retrieve(noteId);
+
+            Assert.Equal(new[]
+            {
+                "Buy",
+                "SuperMarket"
+            }, note.Tags.Select(t => t.Name));
         }
     }
 }
