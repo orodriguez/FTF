@@ -49,6 +49,7 @@
     <Compile Include="Actions\Tags\Create.cs" />
     <Compile Include="Actions\Tags\ListAll.cs" />
     <Compile Include="Actions\Tags\ListJoint.cs" />
+    <Compile Include="IContainer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Responses\INote.cs" />
     <Compile Include="Responses\ITag.cs" />
