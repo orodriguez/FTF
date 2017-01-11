@@ -53,7 +53,6 @@
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="IAuthService.cs" />
-    <Compile Include="IContainer.cs" />
     <Compile Include="INotesService.cs" />
     <Compile Include="ITagsService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

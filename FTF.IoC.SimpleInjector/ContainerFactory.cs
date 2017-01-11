@@ -125,7 +125,7 @@ namespace FTF.IoC.SimpleInjector
                 method);
         }
 
-        private class Adapter : IContainer
+        private class Adapter
         {
             private readonly Container _container;
 
