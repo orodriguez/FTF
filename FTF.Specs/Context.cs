@@ -6,6 +6,7 @@ using FTF.Core.Entities;
 using SimpleInjector;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 using FTF.Core.Extensions.Queriable;
+using FTF.IoC.SimpleInjector;
 using TechTalk.SpecFlow;
 
 namespace FTF.Specs

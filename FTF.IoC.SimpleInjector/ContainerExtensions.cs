@@ -11,9 +11,9 @@ using SimpleInjector;
 using SimpleInjector.Extensions.LifetimeScoping;
 using DbContext = FTF.Storage.EntityFramework.DbContext;
 
-namespace FTF.Specs
+namespace FTF.IoC.SimpleInjector
 {
-    static internal class ContainerExtensions
+    public static class ContainerExtensions
     {
         // TODO: Refactor: Too many parameters
         public static void RegisterTypes(this Container c, 
@@ -42,15 +42,15 @@ namespace FTF.Specs
                 .SelectMany(a => a.GetExportedTypes())
                 .ToArray();
 
-            c.RegisterConcreteTypes(allTypes);
+            RegisterConcreteTypes(c, allTypes);
 
-            c.RegisterDelegates(allTypes);
+            RegisterDelegates(c, allTypes);
 
             var entities = allTypes
                 .Where(t => t.GetInterfaces().Any(i => i == typeof (IEntity)));
 
             foreach (var entityType in entities)
-                c.RegisterSaveDelagates(entityType);
+                RegisterSaveDelagates(c, entityType);
 
             // Storage.EntityFramework
             c.Register(() => new DbContext("name=FTF.Tests", new System.Data.Entity.DropCreateDatabaseIfModelChanges<DbContext>()),
@@ -104,7 +104,7 @@ namespace FTF.Specs
 
                 var addMethod = dbSetAdapter.GetType().GetMethod("Add");
 
-                return System.Delegate.CreateDelegate(saveType, dbSetAdapter, addMethod);
+                return System.Delegate.CreateDelegate(saveType, (object) dbSetAdapter, (MethodInfo) addMethod);
             });
         }
 
