@@ -13,8 +13,8 @@ namespace FTF.Tests.XUnit
             App = new ApplicationFactory()
                 .Make(getCurrentDate: () => new DateTime(2016, 2, 20));
 
-            App.AuthService.SignUp("orodriguez");
-            App.AuthService.SignIn("orodriguez");
+            App.Auth.SignUp("orodriguez");
+            App.Auth.SignIn("orodriguez");
         }
 
         public void Dispose() => App.Dispose();

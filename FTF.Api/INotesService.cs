@@ -6,6 +6,7 @@ namespace FTF.Api
     {
         int Create(string text);
         INote Retrieve(int noteId);
+        void Update(int id, string text);
         void Delete(int noteId);
     }
 }

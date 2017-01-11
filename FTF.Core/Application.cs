@@ -4,7 +4,7 @@ namespace FTF.Core
 {
     public class Application : IApplication
     {
-        public IAuthService AuthService { get; set; }
+        public IAuthService Auth { get; set; }
 
         public INotesService Notes { get; set; }
 
@@ -18,7 +18,7 @@ namespace FTF.Core
             ITagsService tags, 
             IStoragePort storage)
         {
-            AuthService = authService;
+            Auth = authService;
             Notes = notes;
             Tags = tags;
             _storage = storage;
