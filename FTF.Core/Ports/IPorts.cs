@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 
@@ -15,6 +17,10 @@ namespace FTF.Core.Ports
     public interface IStorage
     {
         int SaveChanges();
+
+        IQueryable GetQueriable(Type entityType);
+
+        Save<TEntity> MakeSave<TEntity>() where TEntity : class;
     }
 
     public interface IAuth

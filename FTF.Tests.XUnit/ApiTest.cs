@@ -5,10 +5,11 @@ using FTF.Api.Responses;
 using FTF.Core.Delegates;
 using FTF.Core.Ports;
 using FTF.IoC.SimpleInjector;
+using FTF.Storage.EntityFramework;
 
 namespace FTF.Tests.XUnit
 {
-    public class ApiTest
+    public class ApiTest : IDisposable
     {
         private DateTime _currentDate;
 
@@ -17,7 +18,13 @@ namespace FTF.Tests.XUnit
         public ApiTest()
         {
             _container = ContainerFactory.Make(new Adapter(
-                getCurrentDate: () => _currentDate));
+                getCurrentDate: () => _currentDate, 
+                storage: new StorageAdapter("FTF.Test")));
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
 
         protected void SignIn(string username)
@@ -28,13 +35,12 @@ namespace FTF.Tests.XUnit
 
         protected void SignUp(string username)
         {
-            throw new System.NotImplementedException();
+            var signUp = _container.GetInstance<SignUp>();
+            signUp(username);
         }
 
-        protected void TodayIs(int year, int month, int day)
-        {
+        protected void TodayIs(int year, int month, int day) => 
             _currentDate = new DateTime(year, month, day);
-        }
 
         protected int CreateNotes(string text)
         {
@@ -48,9 +54,10 @@ namespace FTF.Tests.XUnit
 
         private class Adapter : IPorts
         {
-            public Adapter(GetCurrentDate getCurrentDate)
+            public Adapter(GetCurrentDate getCurrentDate, IStorage storage)
             {
                 GetCurrentDate = getCurrentDate;
+                Storage = storage;
             }
 
             public GetCurrentDate GetCurrentDate { get; private set; }

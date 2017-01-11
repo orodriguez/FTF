@@ -76,6 +76,10 @@
       <Project>{44089CC5-6806-4DFB-8A67-D3B8B5EC7CF2}</Project>
       <Name>FTF.IoC.SimpleInjector</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FTF.Storage.EntityFramework\FTF.Storage.EntityFramework.csproj">
+      <Project>{C5A4E268-B508-436F-9AFA-B6BE4D27562D}</Project>
+      <Name>FTF.Storage.EntityFramework</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

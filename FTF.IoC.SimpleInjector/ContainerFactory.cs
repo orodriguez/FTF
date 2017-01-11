@@ -25,7 +25,7 @@ namespace FTF.IoC.SimpleInjector
 
             c.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
 
-            c.Register<GetCurrentDate>(() => ports.GetCurrentDate);
+            c.Register(() => ports.GetCurrentDate);
             c.Register<GetCurrentUser>(() => () => ports.Auth.CurrentUser);
             c.Register<GetCurrentUserId>(() => () => ports.Auth.CurrentUser.Id);
             c.Register<SetCurrentUser>(() => user => ports.Auth.CurrentUser = user);
@@ -48,14 +48,34 @@ namespace FTF.IoC.SimpleInjector
                 .Where(t => t.GetInterfaces().Any(i => i == typeof(IEntity)));
 
             foreach (var entityType in entities)
-                RegisterSaveDelagates(c, entityType);
+            {
+                var makeSave = ports.Storage
+                    .GetType()
+                    .GetMethod("MakeSave")
+                    .MakeGenericMethod(entityType);
+
+                c.Register(typeof(Save<>).MakeGenericType(entityType), 
+                    () => makeSave.Invoke(ports.Storage, null));
+
+                c.Register(typeof (IQueryable<>).MakeGenericType(entityType), 
+                    () => ports.Storage.GetQueriable(entityType));
+            }
 
             c.Register<SaveChanges>(() => ports.Storage.SaveChanges);
 
-            // Queriables
-            c.Register(typeof(IQueryable<>), typeof(DbSetAdapter<>));
-
             return c;
+        }
+
+        private static Delegate CreateSaveDelegate(IPorts ports, Type entityType)
+        {
+            var saveType = typeof (Save<>).MakeGenericType(entityType);
+
+            var saveMethod = ports.Storage.GetType()
+                .GetMethod("Save").MakeGenericMethod(entityType);
+
+            var saveDel = Delegate.CreateDelegate(saveType, ports.Storage, saveMethod);
+
+            return saveDel;
         }
 
         private static void RegisterDelegates(Container c, Type[] allTypes)
@@ -88,20 +108,6 @@ namespace FTF.IoC.SimpleInjector
 
             foreach (var type in concreteTypes)
                 c.Register(type);
-        }
-
-        private static void RegisterSaveDelagates(Container c, Type entityType)
-        {
-            var saveType = typeof(Save<>).MakeGenericType(entityType);
-
-            c.Register(saveType, () =>
-            {
-                var dbSetAdapter = c.GetInstance(typeof(DbSetAdapter<>).MakeGenericType(entityType));
-
-                var addMethod = dbSetAdapter.GetType().GetMethod("Add");
-
-                return System.Delegate.CreateDelegate(saveType, (object)dbSetAdapter, (MethodInfo)addMethod);
-            });
         }
 
         private static object CreateDelegate(Container c, MethodInfo method, Type delegateType)
