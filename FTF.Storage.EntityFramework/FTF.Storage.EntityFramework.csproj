@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.Designer.cs">
       <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701111918461_AutogenerateId.cs" />
+    <Compile Include="Migrations\201701111918461_AutogenerateId.Designer.cs">
+      <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageAdapter.cs" />
@@ -120,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.resx">
       <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701111918461_AutogenerateId.resx">
+      <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
