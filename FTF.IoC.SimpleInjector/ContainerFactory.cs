@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using FTF.Api;
+using FTF.Api.Services;
 using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;

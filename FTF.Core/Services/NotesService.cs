@@ -1,5 +1,6 @@
 using FTF.Api;
 using FTF.Api.Responses;
+using FTF.Api.Services;
 using FTF.Core.Delegates.Actions.Notes;
 
 namespace FTF.Core.Services

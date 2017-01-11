@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using FTF.Api;
 using FTF.Api.Responses;
+using FTF.Api.Services;
 
 namespace FTF.Core.Services
 {

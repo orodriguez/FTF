@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using FTF.Api.Responses;
 
-namespace FTF.Api
+namespace FTF.Api.Services
 {
     public interface ITagsService
     {

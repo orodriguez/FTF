@@ -1,4 +1,4 @@
-namespace FTF.Api
+namespace FTF.Api.Services
 {
     public interface IAuthService
     {

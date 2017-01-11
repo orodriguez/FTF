@@ -46,8 +46,6 @@
     <Compile Include="Attributes\ConcreteAttribute.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />
-    <Compile Include="Delegates\Actions\Auth\SignIn.cs" />
-    <Compile Include="Delegates\Actions\Auth\SignUp.cs" />
     <Compile Include="Delegates\Actions\Notes\Create.cs" />
     <Compile Include="Delegates\Actions\Notes\Delete.cs" />
     <Compile Include="Delegates\Actions\Notes\Retrieve.cs" />

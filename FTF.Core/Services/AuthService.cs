@@ -1,22 +1,21 @@
-using FTF.Api;
-using FTF.Core.Delegates.Actions.Auth;
+using FTF.Api.Services;
 
 namespace FTF.Core.Services
 {
     public class AuthService : IAuthService
     {
-        private readonly SignUp _signUp;
+        private readonly Auth.SignUp.Handler _signUp;
 
-        private readonly SignIn _signIn;
+        private readonly Auth.SignIn.Handler _signIn;
 
-        public AuthService(SignUp signUp, SignIn signIn)
+        public AuthService(Auth.SignUp.Handler signUp, Auth.SignIn.Handler signIn)
         {
             _signUp = signUp;
             _signIn = signIn;
         }
 
-        public void SignUp(string username) => _signUp(username);
+        public void SignUp(string username) => _signUp.SignUp(username);
 
-        public void SignIn(string username) => _signIn(username);
+        public void SignIn(string username) => _signIn.SignIn(username);
     }
 }

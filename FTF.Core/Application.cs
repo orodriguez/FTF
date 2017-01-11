@@ -1,4 +1,5 @@
 using FTF.Api;
+using FTF.Api.Services;
 
 namespace FTF.Core
 {
