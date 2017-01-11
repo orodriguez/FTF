@@ -71,6 +71,7 @@
     <Compile Include="Notes\CreateTest.cs" />
     <Compile Include="Notes\DeleteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tags\ListJoint.cs" />
     <Compile Include="Tags\ListAllTest.cs" />
     <Compile Include="Unit\TagNameParserTest.cs" />
   </ItemGroup>

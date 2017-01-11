@@ -14,5 +14,7 @@ namespace FTF.Core.Services
         }
 
         public IEnumerable<ITag> All() => _queries.ListAll();
+
+        public IEnumerable<ITag> Joint(string tag) => _queries.ListJoint(tag);
     }
 }
