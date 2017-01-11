@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
     <Compile Include="Notes\CreateTest.cs" />
+    <Compile Include="Notes\DeleteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\TagNameParserTest.cs" />
   </ItemGroup>

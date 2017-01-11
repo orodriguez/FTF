@@ -7,5 +7,7 @@ namespace FTF.Api
         IAuthService AuthService { get; set; }
 
         INotesService Notes { get; set; }
+
+        ITagsService Tags { get; set; }
     }
 }

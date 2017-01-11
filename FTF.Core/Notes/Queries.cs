@@ -1,5 +1,6 @@
 using System.Linq;
 using FTF.Api.Actions.Notes;
+using FTF.Api.Exceptions;
 using FTF.Api.Responses;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;

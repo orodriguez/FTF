@@ -8,15 +8,19 @@ namespace FTF.Core
 
         public INotesService Notes { get; set; }
 
+        public ITagsService Tags { get; set; }
+
         private readonly IStoragePort _storage;
 
         public Application(
             IAuthService authService, 
             INotesService notes, 
+            ITagsService tags, 
             IStoragePort storage)
         {
             AuthService = authService;
             Notes = notes;
+            Tags = tags;
             _storage = storage;
         }
 

@@ -26,6 +26,7 @@ namespace FTF.IoC.SimpleInjector
             c.Register<IApplication, Application>();
             c.Register<IAuthService, AuthService>();
             c.Register<INotesService, NotesService>();
+            c.Register<ITagsService, TagsService>();
             c.Register(() => ports.StoragePort);
 
             c.Register(() => ports.GetCurrentDate);
