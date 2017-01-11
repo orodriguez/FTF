@@ -4,7 +4,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
 {
-    public class DeleteTest : ApplicationTest
+    public class DeleteTest : UserAuthenticatedTest
     {
         [Fact]
         public void Simple()

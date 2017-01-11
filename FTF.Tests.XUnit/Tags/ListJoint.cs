@@ -5,7 +5,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Tags
 {
-    public class ListJoint : ApplicationTest
+    public class ListJoint : UserAuthenticatedTest
     {
         [Fact]
         public void _1Note_3Tags_Read1_Piano1_Empty0()

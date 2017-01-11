@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Tags
 {
-    public class ListAllTest : ApplicationTest
+    public class ListAllTest : UserAuthenticatedTest
     {
         [Fact]
         public void _1NoteWithNewTag()

@@ -5,7 +5,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
 {
-    public class CreateTest : ApplicationTest
+    public class CreateTest : UserAuthenticatedTest
     {
         [Fact]
         public void SimpleNote()

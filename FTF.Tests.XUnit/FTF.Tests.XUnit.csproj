@@ -65,7 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationTest.cs" />
+    <Compile Include="ApplicationTestBase.cs" />
+    <Compile Include="UserAuthenticatedTest.cs" />
     <Compile Include="Notes\UpdateTest.cs" />
     <Compile Include="Notes\RetrieveTest.cs" />
     <Compile Include="Notes\CreateTest.cs" />

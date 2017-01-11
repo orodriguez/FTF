@@ -3,7 +3,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
 {
-    public class RetrieveTest : ApplicationTest
+    public class RetrieveTest : UserAuthenticatedTest
     {
         [Fact]
         public void NoteFromAnotherUser()

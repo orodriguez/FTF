@@ -4,7 +4,7 @@ using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
 {
-    public class UpdateTest : ApplicationTest
+    public class UpdateTest : UserAuthenticatedTest
     {
         [Fact]
         public void SimpleTextUpdate()
