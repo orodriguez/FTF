@@ -82,7 +82,6 @@
     <Compile Include="Services\NotesService.cs" />
     <Compile Include="Tags\CreateTagHandler.cs" />
     <Compile Include="Tags\Queries.cs" />
-    <Compile Include="ValidationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

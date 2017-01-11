@@ -1,6 +1,6 @@
 using System;
 
-namespace FTF.Core
+namespace FTF.Api.Exceptions
 {
     public class ValidationException : ApplicationException
     {

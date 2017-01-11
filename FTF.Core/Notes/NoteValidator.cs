@@ -1,4 +1,5 @@
-﻿using FTF.Core.Attributes;
+﻿using FTF.Api.Exceptions;
+using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 
 namespace FTF.Core.Notes

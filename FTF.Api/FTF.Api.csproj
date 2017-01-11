@@ -49,6 +49,7 @@
     <Compile Include="Actions\Tags\Create.cs" />
     <Compile Include="Actions\Tags\ListAll.cs" />
     <Compile Include="Actions\Tags\ListJoint.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="IApplication.cs" />
     <Compile Include="IAuthService.cs" />
     <Compile Include="IContainer.cs" />

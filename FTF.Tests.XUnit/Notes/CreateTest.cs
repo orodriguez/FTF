@@ -1,16 +1,17 @@
-﻿using System;
+using System;
 using System.Linq;
 using FTF.Api;
+using FTF.Api.Exceptions;
 using FTF.IoC.SimpleInjector;
 using Xunit;
 
-namespace FTF.Tests.XUnit
+namespace FTF.Tests.XUnit.Notes
 {
-    public class CreateNoteTest : IDisposable
+    public class CreateTest : IDisposable
     {
         private readonly IApplication _app;
 
-        public CreateNoteTest()
+        public CreateTest()
         {
             _app = new ApplicationFactory()
                 .Make(getCurrentDate: () => new DateTime(2016, 2, 20));
@@ -43,6 +44,14 @@ namespace FTF.Tests.XUnit
                 "Buy",
                 "SuperMarket"
             }, note.Tags.Select(t => t.Name));
+        }
+
+        [Fact]
+        public void EmptyNote()
+        {
+            var exception = Assert.Throws<ValidationException>(() => _app.Notes.Create(""));
+
+            Assert.Equal("Note can not be empty", exception.Message);
         }
     }
 }
