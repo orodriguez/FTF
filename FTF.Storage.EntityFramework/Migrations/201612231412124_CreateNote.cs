@@ -11,7 +11,7 @@ namespace FTF.Storage.EntityFramework.Migrations
                 "dbo.Notes",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
                         Text = c.String(),
                         CreationDate = c.DateTime(nullable: false),
                     })
