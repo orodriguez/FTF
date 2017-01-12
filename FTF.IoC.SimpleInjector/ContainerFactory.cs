@@ -31,9 +31,20 @@ namespace FTF.IoC.SimpleInjector
 
             var allTypes = typeof (Application).Assembly.GetExportedTypes();
 
-            RegisterConcreteTypes(c, allTypes);
+            allTypes
+                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
+                .ToList()
+                .ForEach(type => c.Register(type));
 
-            RegisterTypesWithRoles(c, allTypes);
+            allTypes
+                .Where(t => t.GetCustomAttributes<RoleAttribute>().Any())
+                .Select(t => new
+                {
+                    ServiceType =  t.GetCustomAttribute<RoleAttribute>().RoleType,
+                    ImplementationType = t
+                })
+                .ToList()
+                .ForEach(obj => c.Register(obj.ServiceType, obj.ImplementationType));
 
             RegisterDelegates(c, allTypes);
 
@@ -59,18 +70,6 @@ namespace FTF.IoC.SimpleInjector
             return c;
         }
 
-        private static Delegate CreateSaveDelegate(IPorts ports, Type entityType)
-        {
-            var saveType = typeof (Save<>).MakeGenericType(entityType);
-
-            var saveMethod = ports.StoragePort.GetType()
-                .GetMethod("Save").MakeGenericMethod(entityType);
-
-            var saveDel = Delegate.CreateDelegate(saveType, ports.StoragePort, saveMethod);
-
-            return saveDel;
-        }
-
         private static void RegisterDelegates(Container c, Type[] allTypes)
         {
             const BindingFlags bindingFlags = BindingFlags.Public
@@ -93,24 +92,6 @@ namespace FTF.IoC.SimpleInjector
             }
         }
 
-        private static void RegisterConcreteTypes(Container c, IEnumerable<Type> allTypes)
-        {
-            var concreteTypes = allTypes
-                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any());
-
-            foreach (var type in concreteTypes)
-                c.Register(type);
-        }
-
-        private static void RegisterTypesWithRoles(Container c, Type[] allTypes)
-        {
-            var typesWithRoles = allTypes
-                .Where(t => t.GetCustomAttributes<RoleAttribute>().Any());
-
-            foreach (var type in typesWithRoles)
-                c.Register(type.GetCustomAttribute<RoleAttribute>().RoleType, type);
-        }
-
         private static object CreateDelegate(Container c, MethodInfo method, Type delegateType)
         {
             if (method.IsStatic)
@@ -120,18 +101,6 @@ namespace FTF.IoC.SimpleInjector
                 delegateType,
                 c.GetInstance(method.DeclaringType),
                 method);
-        }
-
-        private class Adapter
-        {
-            private readonly Container _container;
-
-            internal Adapter(Container container)
-            {
-                _container = container;
-            }
-
-            public T GetInstance<T>() where T : class => _container.GetInstance<T>();
         }
     }
 }
