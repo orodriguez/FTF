@@ -56,7 +56,6 @@
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\Tagging.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Extensions\Queriable\TagQueries.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="IEntity.cs" />
     <Compile Include="INameable.cs" />

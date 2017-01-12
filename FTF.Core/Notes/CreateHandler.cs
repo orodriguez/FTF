@@ -4,7 +4,6 @@ using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Extensions;
-using FTF.Core.Extensions.Queriable;
 using FTF.Core.Queries;
 
 namespace FTF.Core.Notes
@@ -61,15 +60,14 @@ namespace FTF.Core.Notes
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) => 
-            _tags
-                .WhereNameContains(tagNames)
+            _tags.Where(t => tagNames.Contains(t.Name))
                 .ToArray()
                 .Select(tag => new Tagging { Note = note, Tag = tag })
                 .Concat(MakeNewTaggings(note, tagNames));
 
         private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) => 
             tagNames
-                .Except(_tags.WhereNameContains(tagNames).Names())
+                .Except(_tags.Where(t => tagNames.Contains(t.Name)).Names())
                 .Select(tagName => new Tagging
                 {
                     Note = note,

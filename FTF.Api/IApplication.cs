@@ -5,10 +5,10 @@ namespace FTF.Api
 {
     public interface IApplication : IDisposable
     {
-        IAuthService Auth { get; set; }
+        IAuthService Auth { get; }
 
-        INotesService Notes { get; set; }
+        INotesService Notes { get; }
 
-        ITagsService Tags { get; set; }
+        ITagsService Tags { get; }
     }
 }
