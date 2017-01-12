@@ -10,29 +10,29 @@ namespace FTF.Tests.XUnit
     {
         public GetCurrentDate GetCurrentDate { get; }
 
-        public IAuthPort AuthPort { get; }
+        public IAuth Auth { get; }
 
-        public IStoragePort Storage { get; }
+        public IStorage Storage { get; }
 
         public TestsPortsConfig(GetCurrentDate getCurrentDate)
         {
             GetCurrentDate = getCurrentDate;
-            AuthPort = new FakeAuthAdapter();
-            Storage = new StoragePort();
+            Auth = new FakeAuthAdapter();
+            Storage = new RollbackStorage();
         }
 
-        private class FakeAuthAdapter : IAuthPort
+        private class FakeAuthAdapter : IAuth
         {
             public User CurrentUser { get; set; }
         }
 
-        private class StoragePort : IStoragePort
+        private class RollbackStorage : IStorage
         {
             public DbContext Db { get; }
 
             private readonly DbContextTransaction _trans;
 
-            public StoragePort()
+            public RollbackStorage()
             {
                 Db = new DbContext("name=FTF.Tests", 
                     new DropCreateDatabaseIfModelChanges<DbContext>());

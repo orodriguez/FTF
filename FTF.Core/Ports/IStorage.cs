@@ -3,7 +3,7 @@ using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Ports
 {
-    public interface IStoragePort : IDisposable
+    public interface IStorage : IDisposable
     {
         DbContext Db { get; }
     }

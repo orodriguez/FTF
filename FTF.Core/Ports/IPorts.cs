@@ -6,8 +6,8 @@ namespace FTF.Core.Ports
     {
         GetCurrentDate GetCurrentDate { get; }
 
-        IAuthPort AuthPort { get; }
+        IAuth Auth { get; }
 
-        IStoragePort Storage { get; }
+        IStorage Storage { get; }
     }
 }
