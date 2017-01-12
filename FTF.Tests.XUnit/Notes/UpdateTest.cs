@@ -26,7 +26,6 @@ namespace FTF.Tests.XUnit.Notes
         public void WithTags()
         {
             var noteId = App.Notes.Create("Note without tag");
-
             App.Notes.Update(noteId, "A Note with #some #tags");
 
             var note = App.Notes.Retrieve(noteId);
@@ -38,9 +37,7 @@ namespace FTF.Tests.XUnit.Notes
         public void WithExistingTags()
         {
             App.Notes.Create("Note with #Tag");
-
             var noteId = App.Notes.Create("Note without tag");
-
             App.Notes.Update(noteId, "Note update with #Tag");
 
             var tags = App.Tags.All().ToList();
