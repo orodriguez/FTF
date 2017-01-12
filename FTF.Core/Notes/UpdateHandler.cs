@@ -1,39 +1,28 @@
 ﻿using System.Linq;
 using FTF.Core.Attributes;
-using FTF.Core.Delegates;
-using FTF.Core.Entities;
-using FTF.Core.Storage;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Notes
 {
     [Concrete]
     public class UpdateHandler
     {
-        private readonly IQueryable<Note> _notes;
+        private readonly DbContext _db;
 
-        private readonly IUnitOfWork _uow;
-
-        private readonly ValidateNote _validate;
-
-        public UpdateHandler(
-            IQueryable<Note> notes, 
-            ValidateNote validate, 
-            IUnitOfWork uow)
+        public UpdateHandler(DbContext db)
         {
-            _notes = notes;
-            _validate = validate;
-            _uow = uow;
+            _db = db;
         }
 
         public void Update(int id, string text)
         {
-            _validate(text);
+            NoteValidator.Validate(text);
 
-            var noteToUpdate = _notes.First(n => n.Id == id);
+            var noteToUpdate = _db.Notes.First(n => n.Id == id);
 
             noteToUpdate.Text = text;
 
-            _uow.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }

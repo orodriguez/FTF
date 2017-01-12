@@ -1,18 +1,15 @@
-namespace FTF.Storage.EntityFramework.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FTF.Storage.EntityFramework.DbContext>
+namespace FTF.Core.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<Core.EntityFramework.DbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(FTF.Storage.EntityFramework.DbContext context)
+        protected override void Seed(Core.EntityFramework.DbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

@@ -1,18 +1,18 @@
-namespace FTF.Storage.EntityFramework.Migrations
+using System.Data.Entity.Migrations;
+
+namespace FTF.Core.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
-    public partial class AddUser : DbMigration
+    public partial class CreateNote : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Users",
+                "dbo.Notes",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Username = c.String(),
+                        Text = c.String(),
+                        CreationDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -20,7 +20,7 @@ namespace FTF.Storage.EntityFramework.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.Users");
+            DropTable("dbo.Notes");
         }
     }
 }

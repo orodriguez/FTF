@@ -1,8 +1,7 @@
-namespace FTF.Storage.EntityFramework.Migrations
+using System.Data.Entity.Migrations;
+
+namespace FTF.Core.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class ChangeMagicTagsNotesOneToMayAddTagging : DbMigration
     {
         public override void Up()

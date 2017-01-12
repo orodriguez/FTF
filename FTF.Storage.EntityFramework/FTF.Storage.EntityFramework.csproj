@@ -49,46 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbContext.cs" />
-    <Compile Include="Migrations\201612231412124_CreateNote.cs" />
-    <Compile Include="Migrations\201612231412124_CreateNote.Designer.cs">
-      <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612231437367_AddTagsToNote.cs" />
-    <Compile Include="Migrations\201612231437367_AddTagsToNote.Designer.cs">
-      <DependentUpon>201612231437367_AddTagsToNote.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612231457197_AddNameToTag.cs" />
-    <Compile Include="Migrations\201612231457197_AddNameToTag.Designer.cs">
-      <DependentUpon>201612231457197_AddNameToTag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612231601110_AddNotesToTag.cs" />
-    <Compile Include="Migrations\201612231601110_AddNotesToTag.Designer.cs">
-      <DependentUpon>201612231601110_AddNotesToTag.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612291454546_AddUser.cs" />
-    <Compile Include="Migrations\201612291454546_AddUser.Designer.cs">
-      <DependentUpon>201612291454546_AddUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612291504405_AddUserToNotes.cs" />
-    <Compile Include="Migrations\201612291504405_AddUserToNotes.Designer.cs">
-      <DependentUpon>201612291504405_AddUserToNotes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612291919044_AddUserToTags.cs" />
-    <Compile Include="Migrations\201612291919044_AddUserToTags.Designer.cs">
-      <DependentUpon>201612291919044_AddUserToTags.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs" />
-    <Compile Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.Designer.cs">
-      <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701111918461_AutogenerateId.cs" />
-    <Compile Include="Migrations\201701111918461_AutogenerateId.Designer.cs">
-      <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StorageAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FTF.Core\FTF.Core.csproj">
@@ -99,35 +60,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201612231412124_CreateNote.resx">
-      <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612231437367_AddTagsToNote.resx">
-      <DependentUpon>201612231437367_AddTagsToNote.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612231457197_AddNameToTag.resx">
-      <DependentUpon>201612231457197_AddNameToTag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612231601110_AddNotesToTag.resx">
-      <DependentUpon>201612231601110_AddNotesToTag.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612291454546_AddUser.resx">
-      <DependentUpon>201612291454546_AddUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612291504405_AddUserToNotes.resx">
-      <DependentUpon>201612291504405_AddUserToNotes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612291919044_AddUserToTags.resx">
-      <DependentUpon>201612291919044_AddUserToTags.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.resx">
-      <DependentUpon>201701051857234_ChangeMagicTagsNotesOneToMayAddTagging.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701111918461_AutogenerateId.resx">
-      <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,32 +1,27 @@
 using FTF.Core.Attributes;
 using FTF.Core.Entities;
-using FTF.Core.Storage;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Tags
 {
     [Concrete]
     public class CreateTagHandler
     {
-        private readonly IRepository<Tag> _tags;
+        private readonly DbContext _db;
 
-        private readonly IUnitOfWork _uow;
-
-        public CreateTagHandler(
-            IRepository<Tag> tags, 
-            IUnitOfWork uow)
+        public CreateTagHandler(DbContext db)
         {
-            _tags = tags;
-            _uow = uow;
+            _db = db;
         }
 
         public void Create(string name)
         {
-            _tags.Add(new Tag
+            _db.Tags.Add(new Tag
             {
                 Name = name
             });
 
-            _uow.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }

@@ -14,8 +14,7 @@ namespace FTF.Tests.XUnit
         {
             CurrentTime = DateTime.Now;
 
-            App = new ApplicationFactory()
-                .Make(getCurrentDate: () => CurrentTime);
+            App = new ApplicationFactory().Make(new TestsPortsConfig(() => CurrentTime));
         }
 
         public void Dispose() => App.Dispose();

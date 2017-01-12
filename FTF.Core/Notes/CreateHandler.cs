@@ -3,9 +3,9 @@ using System.Linq;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
+using FTF.Core.EntityFramework;
 using FTF.Core.Extensions;
 using FTF.Core.Queries;
-using FTF.Core.Storage;
 
 namespace FTF.Core.Notes
 {
@@ -14,35 +14,23 @@ namespace FTF.Core.Notes
     {
         private readonly GetCurrentDate _getCurrentDate;
 
-        private readonly IRepository<Note> _notes;
-
-        private readonly IUnitOfWork _uow;
-
-        private readonly IQueryable<Tag> _tags;
+        private readonly DbContext _db;
 
         private readonly GetCurrentUser _getCurrentUser;
 
-        private readonly ValidateNote _validate;
-
         public CreateHandler(
             GetCurrentDate getCurrentDate, 
-            IRepository<Note> notes, 
-            IUnitOfWork uow, 
-            IQueryable<Tag> tags, 
-            GetCurrentUser getCurrentUser, 
-            ValidateNote validate)
+            DbContext db, 
+            GetCurrentUser getCurrentUser)
         {
             _getCurrentDate = getCurrentDate;
-            _notes = notes;
-            _uow = uow;
-            _tags = tags;
             _getCurrentUser = getCurrentUser;
-            _validate = validate;
+            _db = db;
         }
 
         public int Create(string text)
         {
-            _validate(text);
+            NoteValidator.Validate(text);
 
             var note = new Note
             {
@@ -53,22 +41,22 @@ namespace FTF.Core.Notes
 
             note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
 
-            _notes.Add(note);
+            _db.Notes.Add(note);
 
-            _uow.SaveChanges();
+            _db.SaveChanges();
 
             return note.Id;
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) => 
-            _tags.Where(t => tagNames.Contains(t.Name))
+            _db.Tags.Where(t => tagNames.Contains(t.Name))
                 .ToArray()
                 .Select(tag => new Tagging { Note = note, Tag = tag })
                 .Concat(MakeNewTaggings(note, tagNames));
 
         private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) => 
             tagNames
-                .Except(_tags.Where(t => tagNames.Contains(t.Name)).Names())
+                .Except(_db.Tags.Where(t => tagNames.Contains(t.Name)).Names())
                 .Select(tagName => new Tagging
                 {
                     Note = note,

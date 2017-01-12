@@ -1,32 +1,27 @@
 ﻿using FTF.Core.Attributes;
 using FTF.Core.Entities;
-using FTF.Core.Storage;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Auth.SignUp
 {
     [Concrete]
     public class Handler
     {
-        private readonly IRepository<User> _users;
+        private readonly DbContext _db;
 
-        private readonly IUnitOfWork _uow;
-
-        public Handler(
-            IRepository<User> users, 
-            IUnitOfWork uow)
+        public Handler(DbContext db)
         {
-            _users = users;
-            _uow = uow;
+            _db = db;
         }
 
         public void SignUp(string userName)
         {
-            _users.Add(new User
+            _db.Users.Add(new User
             {
                 Name = userName
             });
 
-            _uow.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }

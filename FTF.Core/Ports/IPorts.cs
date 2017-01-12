@@ -1,4 +1,3 @@
-using System;
 using FTF.Core.Delegates;
 
 namespace FTF.Core.Ports
@@ -9,6 +8,6 @@ namespace FTF.Core.Ports
 
         IAuthPort AuthPort { get; }
 
-        IStoragePort StoragePort { get; set; }
+        IStoragePort Storage { get; }
     }
 }

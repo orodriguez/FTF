@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Reflection;
 using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Ports;
-using FTF.Core.Storage;
 using SimpleInjector;
 
 namespace FTF.IoC.SimpleInjector
@@ -17,7 +14,7 @@ namespace FTF.IoC.SimpleInjector
         {
             var c = new Container();
 
-            c.Register(() => ports.StoragePort);
+            c.Register(() => ports.Storage);
 
             c.Register(() => ports.GetCurrentDate);
 
@@ -25,7 +22,7 @@ namespace FTF.IoC.SimpleInjector
 
             c.Register<SetCurrentUser>(() => user => ports.AuthPort.CurrentUser = user);
 
-            c.Register(() => ports.StoragePort.MakeUnitOfWork());
+            c.Register(() => ports.Storage.Db);
 
             var allTypes = typeof (Application).Assembly.GetExportedTypes();
 
@@ -44,24 +41,7 @@ namespace FTF.IoC.SimpleInjector
                 .ToList()
                 .ForEach(obj => c.Register(obj.ServiceType, obj.ImplementationType));
 
-            allTypes
-                .Where(t => t.GetInterfaces().Any(i => i == typeof(IEntity)))
-                .ToList().ForEach(t =>
-                {
-                    c.Register(typeof(IRepository<>).MakeGenericType(t), () => MakeRepository(t, ports.StoragePort));
-                    c.Register(typeof(IQueryable<>).MakeGenericType(t), () => MakeRepository(t, ports.StoragePort));
-                });
-
             return c;
-        }
-
-        private static object MakeRepository(Type type, IStoragePort storage)
-        {
-            return storage
-                .GetType()
-                .GetMethod("MakeRepository")
-                .MakeGenericMethod(type)
-                .Invoke(storage, null);
         }
     }
 }

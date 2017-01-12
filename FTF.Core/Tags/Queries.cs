@@ -4,32 +4,33 @@ using FTF.Api.Responses;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Tags
 {
     [Concrete]
     public class Queries
     {
-        private readonly IQueryable<Tagging> _taggings;
+        private readonly DbContext _db;
 
         private readonly GetCurrentUser _getCurrentUser;
 
-        public Queries(IQueryable<Tagging> taggetNotes, GetCurrentUser getCurrentUser)
+        public Queries(DbContext db, GetCurrentUser getCurrentUser)
         {
-            _taggings = taggetNotes;
             _getCurrentUser = getCurrentUser;
+            _db = db;
         }
 
         public IEnumerable<ITag> ListAll()
         {
             var userId = _getCurrentUser().Id;
 
-            var notesInTrash = _taggings
+            var notesInTrash = _db.Taggings
                 .Where(Tagging.Trash)
                 .Select(tn => tn.Note.Id)
                 .ToArray();
 
-            return _taggings
+            return _db.Taggings
                 .Where(Tagging.TagCreatedByUser(userId))
                 .GroupBy(tn => tn.Tag)
                 .Select(g => new
@@ -45,17 +46,17 @@ namespace FTF.Core.Tags
         {
             var userId = _getCurrentUser().Id;
 
-            var notesInTrash = _taggings
+            var notesInTrash = _db.Taggings
                 .Where(Tagging.Trash)
                 .Select(tn => tn.Note.Id)
                 .ToArray();
 
-            var notesWithTag = _taggings
+            var notesWithTag = _db.Taggings
                 .Where(t => t.Tag.Name == tagname)
                 .Select(t => t.Note.Id)
                 .ToArray();
 
-            return _taggings
+            return _db.Taggings
                 .Where(tn => tn.Tag.User.Id == userId)
                 .Where(tn => notesWithTag.Contains(tn.Note.Id))
                 .GroupBy(tn => tn.Tag)

@@ -1,34 +1,25 @@
 ﻿using System.Linq;
 using FTF.Core.Attributes;
 using FTF.Core.Entities;
-using FTF.Core.Storage;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Notes
 {
     [Concrete]
     public class DeleteHandler
     {
-        private readonly IQueryable<Note> _notes;
+        private DbContext _db;
 
-        private readonly IQueryable<Tag> _tags;
-
-        private readonly IUnitOfWork _uow;
-
-        public DeleteHandler(
-            IQueryable<Note> notes, 
-            IQueryable<Tag> tags, 
-            IUnitOfWork uow)
+        public DeleteHandler(DbContext db)
         {
-            _notes = notes;
-            _tags = tags;
-            _uow = uow;
+            _db = db;
         }
 
         public void Delete(int id)
         {
-            var note = _notes.First(n => n.Id == id);
+            var note = _db.Notes.First(n => n.Id == id);
 
-            var trashTag = _tags.FirstOrDefault(t => t.Name == "Trash") ?? new Tag { Name = "Trash" };
+            var trashTag = _db.Tags.FirstOrDefault(t => t.Name == "Trash") ?? new Tag { Name = "Trash" };
 
             note.Taggings.Add(new Tagging
             {
@@ -36,7 +27,7 @@ namespace FTF.Core.Notes
                 Tag = trashTag
             });
 
-            _uow.SaveChanges();
+            _db.SaveChanges();
         }
     }
 }
