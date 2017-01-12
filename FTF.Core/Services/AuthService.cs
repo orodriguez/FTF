@@ -1,23 +1,40 @@
+using System.Linq;
 using FTF.Api.Services;
 using FTF.Core.Attributes;
+using FTF.Core.Delegates;
+using FTF.Core.Entities;
+using FTF.Core.EntityFramework;
 
 namespace FTF.Core.Services
 {
     [Role(typeof(IAuthService))]
     public class AuthService : IAuthService
     {
-        private readonly Auth.SignUp.Handler _signUp;
+        private readonly DbContext _db;
 
-        private readonly Auth.SignIn.Handler _signIn;
+        private readonly SetCurrentUser _setCurrentUser;
 
-        public AuthService(Auth.SignUp.Handler signUp, Auth.SignIn.Handler signIn)
+        public AuthService(DbContext db, SetCurrentUser setCurrentUser)
         {
-            _signUp = signUp;
-            _signIn = signIn;
+            _db = db;
+            _setCurrentUser = setCurrentUser;
         }
 
-        public void SignUp(string username) => _signUp.SignUp(username);
+        public void SignUp(string userName)
+        {
+            _db.Users.Add(new User
+            {
+                Name = userName
+            });
 
-        public void SignIn(string username) => _signIn.SignIn(username);
+            _db.SaveChanges();
+        }
+
+        public void SignIn(string username)
+        {
+            var user = _db.Users.First(u => u.Name == username);
+
+            _setCurrentUser(user);
+        }
     }
 }

@@ -52,8 +52,6 @@
     <Compile Include="Application.cs" />
     <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\ConcreteAttribute.cs" />
-    <Compile Include="Auth\SignIn\Handler.cs" />
-    <Compile Include="Auth\SignUp\Handler.cs" />
     <Compile Include="Delegates\GetCurrentDate.cs" />
     <Compile Include="Delegates\GetCurrentUser.cs" />
     <Compile Include="Delegates\SetCurrentUser.cs" />
