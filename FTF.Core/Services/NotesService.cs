@@ -70,6 +70,8 @@ namespace FTF.Core.Services
 
             noteToUpdate.Text = text;
 
+            noteToUpdate.Taggings = MakeTaggings(noteToUpdate, text.ParseTagNames()).ToList();
+
             _db.SaveChanges();
         }
 
