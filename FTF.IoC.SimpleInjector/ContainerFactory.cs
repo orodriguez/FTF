@@ -5,11 +5,9 @@ using System.Reflection;
 using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
-using FTF.Core.Entities;
 using FTF.Core.Ports;
-using FTF.Storage.EntityFramework;
+using FTF.Core.Storage;
 using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
 
 namespace FTF.IoC.SimpleInjector
 {
@@ -19,8 +17,6 @@ namespace FTF.IoC.SimpleInjector
         {
             var c = new Container();
 
-            c.Options.DefaultScopedLifestyle = new LifetimeScopeLifestyle();
-
             c.Register(() => ports.StoragePort);
 
             c.Register(() => ports.GetCurrentDate);
@@ -28,6 +24,8 @@ namespace FTF.IoC.SimpleInjector
             c.Register<GetCurrentUser>(() => () => ports.AuthPort.CurrentUser);
 
             c.Register<SetCurrentUser>(() => user => ports.AuthPort.CurrentUser = user);
+
+            c.Register(() => ports.StoragePort.MakeUnitOfWork());
 
             var allTypes = typeof (Application).Assembly.GetExportedTypes();
 
@@ -46,61 +44,24 @@ namespace FTF.IoC.SimpleInjector
                 .ToList()
                 .ForEach(obj => c.Register(obj.ServiceType, obj.ImplementationType));
 
-            RegisterDelegates(c, allTypes);
-
-            var entities = allTypes
-                .Where(t => t.GetInterfaces().Any(i => i == typeof(IEntity)));
-
-            foreach (var entityType in entities)
-            {
-                var makeSave = ports.StoragePort
-                    .GetType()
-                    .GetMethod("MakeSave")
-                    .MakeGenericMethod(entityType);
-
-                c.Register(typeof(Save<>).MakeGenericType(entityType), 
-                    () => makeSave.Invoke(ports.StoragePort, null));
-
-                c.Register(typeof (IQueryable<>).MakeGenericType(entityType), 
-                    () => ports.StoragePort.GetQueriable(entityType));
-            }
-
-            c.Register<SaveChanges>(() => ports.StoragePort.SaveChanges);
+            allTypes
+                .Where(t => t.GetInterfaces().Any(i => i == typeof(IEntity)))
+                .ToList().ForEach(t =>
+                {
+                    c.Register(typeof(IRepository<>).MakeGenericType(t), () => MakeRepository(t, ports.StoragePort));
+                    c.Register(typeof(IQueryable<>).MakeGenericType(t), () => MakeRepository(t, ports.StoragePort));
+                });
 
             return c;
         }
 
-        private static void RegisterDelegates(Container c, Type[] allTypes)
+        private static object MakeRepository(Type type, IStoragePort storage)
         {
-            const BindingFlags bindingFlags = BindingFlags.Public
-                | BindingFlags.Instance
-                | BindingFlags.Static
-                | BindingFlags.DeclaredOnly;
-
-            var delegateMethods = allTypes
-                .SelectMany(t => t.GetMethods(bindingFlags))
-                .Where(method => method.GetCustomAttributes<RoleAttribute>(inherit: false).Any())
-                .ToArray();
-
-            foreach (var method in delegateMethods)
-            {
-                var delegateType = method
-                    .GetCustomAttribute<RoleAttribute>()
-                    .RoleType;
-
-                c.Register(delegateType, () => CreateDelegate(c, method, delegateType));
-            }
-        }
-
-        private static object CreateDelegate(Container c, MethodInfo method, Type delegateType)
-        {
-            if (method.IsStatic)
-                return System.Delegate.CreateDelegate(delegateType, method);
-
-            return System.Delegate.CreateDelegate(
-                delegateType,
-                c.GetInstance(method.DeclaringType),
-                method);
+            return storage
+                .GetType()
+                .GetMethod("MakeRepository")
+                .MakeGenericMethod(type)
+                .Invoke(storage, null);
         }
     }
 }

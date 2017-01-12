@@ -2,6 +2,7 @@
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
+using FTF.Core.Storage;
 
 namespace FTF.Core.Notes
 {
@@ -10,18 +11,18 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Note> _notes;
 
-        private readonly SaveChanges _saveChanges;
+        private readonly IUnitOfWork _uow;
 
         private readonly ValidateNote _validate;
 
         public UpdateHandler(
             IQueryable<Note> notes, 
             ValidateNote validate, 
-            SaveChanges saveChanges)
+            IUnitOfWork uow)
         {
             _notes = notes;
             _validate = validate;
-            _saveChanges = saveChanges;
+            _uow = uow;
         }
 
         public void Update(int id, string text)
@@ -32,7 +33,7 @@ namespace FTF.Core.Notes
 
             noteToUpdate.Text = text;
 
-            _saveChanges();
+            _uow.SaveChanges();
         }
     }
 }

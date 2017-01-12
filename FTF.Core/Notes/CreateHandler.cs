@@ -5,6 +5,7 @@ using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.Extensions;
 using FTF.Core.Queries;
+using FTF.Core.Storage;
 
 namespace FTF.Core.Notes
 {
@@ -13,9 +14,9 @@ namespace FTF.Core.Notes
     {
         private readonly GetCurrentDate _getCurrentDate;
 
-        private readonly Save<Note> _saveNote;
+        private readonly IRepository<Note> _notes;
 
-        private readonly SaveChanges _saveChanges;
+        private readonly IUnitOfWork _uow;
 
         private readonly IQueryable<Tag> _tags;
 
@@ -25,15 +26,15 @@ namespace FTF.Core.Notes
 
         public CreateHandler(
             GetCurrentDate getCurrentDate, 
-            Save<Note> saveNote, 
-            SaveChanges saveChanges, 
+            IRepository<Note> notes, 
+            IUnitOfWork uow, 
             IQueryable<Tag> tags, 
             GetCurrentUser getCurrentUser, 
             ValidateNote validate)
         {
             _getCurrentDate = getCurrentDate;
-            _saveNote = saveNote;
-            _saveChanges = saveChanges;
+            _notes = notes;
+            _uow = uow;
             _tags = tags;
             _getCurrentUser = getCurrentUser;
             _validate = validate;
@@ -52,9 +53,9 @@ namespace FTF.Core.Notes
 
             note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
 
-            _saveNote(note);
+            _notes.Add(note);
 
-            _saveChanges();
+            _uow.SaveChanges();
 
             return note.Id;
         }

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using FTF.Core.Attributes;
-using FTF.Core.Delegates;
 using FTF.Core.Entities;
+using FTF.Core.Storage;
 
 namespace FTF.Core.Notes
 {
@@ -10,17 +10,18 @@ namespace FTF.Core.Notes
     {
         private readonly IQueryable<Note> _notes;
 
-        private readonly SaveChanges _saveChanges;
-
         private readonly IQueryable<Tag> _tags;
+
+        private readonly IUnitOfWork _uow;
 
         public DeleteHandler(
             IQueryable<Note> notes, 
-            SaveChanges saveChanges, IQueryable<Tag> tags)
+            IQueryable<Tag> tags, 
+            IUnitOfWork uow)
         {
             _notes = notes;
-            _saveChanges = saveChanges;
             _tags = tags;
+            _uow = uow;
         }
 
         public void Delete(int id)
@@ -35,7 +36,7 @@ namespace FTF.Core.Notes
                 Tag = trashTag
             });
 
-            _saveChanges();
+            _uow.SaveChanges();
         }
     }
 }

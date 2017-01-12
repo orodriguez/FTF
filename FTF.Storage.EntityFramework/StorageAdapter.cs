@@ -1,8 +1,6 @@
-﻿using System;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using FTF.Core;
-using FTF.Core.Delegates;
+using FTF.Core.Storage;
 
 namespace FTF.Storage.EntityFramework
 {
@@ -20,12 +18,37 @@ namespace FTF.Storage.EntityFramework
             _transaction = _db.Database.BeginTransaction();
         }
 
-        public int SaveChanges() => _db.SaveChanges();
-
-        public IQueryable GetQueriable(Type entityType) => _db.Set(entityType);
-
-        public Save<TEntity> MakeSave<TEntity>() where TEntity : class => _db.Set<TEntity>().Add;
-
         public void Dispose() => _transaction.Rollback();
+
+        public IUnitOfWork MakeUnitOfWork() => new UnitOfWork(_db);
+
+        public IRepository<T> MakeRepository<T>() where T : class => new Repository<T>(_db.Set<T>());
+    }
+
+    public class UnitOfWork : IUnitOfWork
+    {
+        private readonly DbContext _db;
+
+        public UnitOfWork(DbContext db)
+        {
+            _db = db;
+        }
+
+        public int SaveChanges() => _db.SaveChanges();
+    }
+
+    public class Repository<T> : IRepository<T> where T : class
+    {
+        private readonly IDbSet<T> _set;
+
+        public Repository(IDbSet<T> set)
+        {
+            _set = set;
+        }
+
+        public void Add(T entity)
+        {
+            _set.Add(entity);
+        }
     }
 }
