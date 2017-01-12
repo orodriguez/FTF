@@ -1,5 +1,6 @@
 using System;
 using FTF.Api;
+using FTF.Api.Services;
 using FTF.IoC.SimpleInjector;
 
 namespace FTF.Tests.XUnit

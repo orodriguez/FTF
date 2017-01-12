@@ -1,7 +1,6 @@
 using System;
-using FTF.Api.Services;
 
-namespace FTF.Api
+namespace FTF.Api.Services
 {
     public interface IApplication : IDisposable
     {

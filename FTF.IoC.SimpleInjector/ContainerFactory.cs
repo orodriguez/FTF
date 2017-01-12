@@ -4,6 +4,7 @@ using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
 using FTF.Core.Ports;
+using FTF.Core.Services;
 using SimpleInjector;
 
 namespace FTF.IoC.SimpleInjector

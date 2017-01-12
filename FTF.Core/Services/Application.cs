@@ -3,7 +3,7 @@ using FTF.Api.Services;
 using FTF.Core.Attributes;
 using FTF.Core.Ports;
 
-namespace FTF.Core
+namespace FTF.Core.Services
 {
     [Role(typeof(IApplication))]
     public class Application : IApplication

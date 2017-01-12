@@ -1,4 +1,4 @@
-﻿namespace FTF.Core
+﻿namespace FTF.Core.Entities
 {
     public interface IEntity
     {

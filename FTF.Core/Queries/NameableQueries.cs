@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using FTF.Core.Entities;
 
 namespace FTF.Core.Queries
 {

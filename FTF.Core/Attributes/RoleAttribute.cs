@@ -2,7 +2,7 @@
 
 namespace FTF.Core.Attributes
 {
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class RoleAttribute : Attribute
     {
         public Type RoleType { get; }
