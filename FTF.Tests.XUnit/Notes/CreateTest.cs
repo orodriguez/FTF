@@ -10,6 +10,8 @@ namespace FTF.Tests.XUnit.Notes
         [Fact]
         public void SimpleNote()
         {
+            CurrentTime = new DateTime(2016, 2, 20);
+
             var noteId = App.Notes.Create("I was born");
             var note = App.Notes.Retrieve(noteId);
 

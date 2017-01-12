@@ -9,6 +9,8 @@ namespace FTF.Tests.XUnit.Notes
         [Fact]
         public void SimpleTextUpdate()
         {
+            CurrentTime = new DateTime(2016, 2, 20);
+
             var noteId = App.Notes.Create("Buy cheese");
             App.Notes.Update(noteId, "Buy american cheese");
 

@@ -1,6 +1,6 @@
 namespace FTF.Tests.XUnit
 {
-    public class UserAuthenticatedTest : ApplicationTestBase
+    public class UserAuthenticatedTest : ApplicationTest
     {
         public UserAuthenticatedTest()
         {
