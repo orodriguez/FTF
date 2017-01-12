@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using FTF.Api.Responses;
 
 namespace FTF.Api.Services
@@ -8,5 +9,6 @@ namespace FTF.Api.Services
         INote Retrieve(int noteId);
         void Update(int id, string text);
         void Delete(int noteId);
+        IEnumerable<INote> All();
     }
 }

@@ -90,6 +90,12 @@ namespace FTF.Core.Services
             _db.SaveChanges();
         }
 
+        public IEnumerable<INote> All() => 
+            _db.Notes
+                .OrderByDescending(n => n.CreationDate)
+                .ToList()
+                .Select(n => new Responses.Note(n));
+
         public static void Validate(string text)
         {
             if (string.IsNullOrEmpty(text))
