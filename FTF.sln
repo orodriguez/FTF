@@ -5,8 +5,6 @@ VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Core", "FTF.Core\FTF.Core.csproj", "{B8BB0669-72D6-4CE9-872C-F041E367AB7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Storage.EntityFramework", "FTF.Storage.EntityFramework\FTF.Storage.EntityFramework.csproj", "{C5A4E268-B508-436F-9AFA-B6BE4D27562D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A3C4A060-1B50-4CC8-87BE-522AE0179AEA}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -28,10 +26,6 @@ Global
 		{B8BB0669-72D6-4CE9-872C-F041E367AB7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8BB0669-72D6-4CE9-872C-F041E367AB7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8BB0669-72D6-4CE9-872C-F041E367AB7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5A4E268-B508-436F-9AFA-B6BE4D27562D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15E623DF-5A5C-42A4-8DBA-4E4C0312BCA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15E623DF-5A5C-42A4-8DBA-4E4C0312BCA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15E623DF-5A5C-42A4-8DBA-4E4C0312BCA7}.Release|Any CPU.ActiveCfg = Release|Any CPU

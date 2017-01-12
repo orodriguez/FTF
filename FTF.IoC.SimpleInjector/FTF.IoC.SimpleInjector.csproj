@@ -70,10 +70,6 @@
       <Project>{B8BB0669-72D6-4CE9-872C-F041E367AB7C}</Project>
       <Name>FTF.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FTF.Storage.EntityFramework\FTF.Storage.EntityFramework.csproj">
-      <Project>{c5a4e268-b508-436f-9afa-b6be4d27562d}</Project>
-      <Name>FTF.Storage.EntityFramework</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
