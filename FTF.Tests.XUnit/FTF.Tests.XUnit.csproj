@@ -66,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
+    <Compile Include="Taggings\AllTest.cs" />
+    <Compile Include="Taggings\JointTest.cs" />
+    <Compile Include="Tags\CreateTest.cs" />
     <Compile Include="TestsPortsConfig.cs" />
     <Compile Include="UserAuthenticatedTest.cs" />
     <Compile Include="Notes\UpdateTest.cs" />
@@ -73,8 +76,6 @@
     <Compile Include="Notes\CreateTest.cs" />
     <Compile Include="Notes\DeleteTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tags\ListJoint.cs" />
-    <Compile Include="Tags\ListAllTest.cs" />
     <Compile Include="Unit\TagNameParserTest.cs" />
   </ItemGroup>
   <ItemGroup>

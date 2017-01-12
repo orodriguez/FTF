@@ -1,16 +1,16 @@
 ﻿using System.Linq;
 using Xunit;
 
-namespace FTF.Tests.XUnit.Tags
+namespace FTF.Tests.XUnit.Taggings
 {
-    public class ListAllTest : UserAuthenticatedTest
+    public class AllTest : UserAuthenticatedTest
     {
         [Fact]
         public void _1NoteWithNewTag()
         {
             App.Notes.Create("#Read a book");
 
-            var tags = App.Tags.All();
+            var tags = App.Taggins.All();
 
             var firstTag = tags.First();
             Assert.Equal("Read", firstTag.Name);
@@ -23,7 +23,7 @@ namespace FTF.Tests.XUnit.Tags
             App.Notes.Create("#Buy cheese");
             App.Notes.Create("#Buy nachos");
 
-            var tags = App.Tags.All();
+            var tags = App.Taggins.All();
 
             var firstTag = tags.First();
             Assert.Equal("Buy", firstTag.Name);
@@ -37,7 +37,7 @@ namespace FTF.Tests.XUnit.Tags
             App.Auth.SignUp("anotheruser");
             App.Auth.SignIn("anotheruser");
 
-            var tags = App.Tags.All();
+            var tags = App.Taggins.All();
 
             Assert.Empty(tags);
         }

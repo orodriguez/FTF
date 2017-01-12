@@ -14,17 +14,21 @@ namespace FTF.Core.Services
 
         public ITagsService Tags { get; set; }
 
+        public ITagginsService Taggins { get; set; }
+
         private readonly IStorage _storage;
 
         public Application(
             IAuthService authService, 
             INotesService notes, 
             ITagsService tags, 
+            ITagginsService taggins, 
             IStorage storage)
         {
             Auth = authService;
             Notes = notes;
             Tags = tags;
+            Taggins = taggins;
             _storage = storage;
         }
 

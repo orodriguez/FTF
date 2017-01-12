@@ -22,7 +22,7 @@ namespace FTF.Tests.XUnit.Notes
             var noteId = App.Notes.Create("#Buy cheese");
             App.Notes.Delete(noteId);
 
-            var tags = App.Tags.All();
+            var tags = App.Taggins.All();
 
             var firstTag = tags.First();
 

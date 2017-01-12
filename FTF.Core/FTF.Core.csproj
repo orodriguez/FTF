@@ -107,8 +107,9 @@
     <Compile Include="Responses\Note.cs" />
     <Compile Include="Services\Application.cs" />
     <Compile Include="Services\AuthService.cs" />
-    <Compile Include="Services\NotesService.cs" />
     <Compile Include="Services\TagsService.cs" />
+    <Compile Include="Services\NotesService.cs" />
+    <Compile Include="Services\TagginsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
