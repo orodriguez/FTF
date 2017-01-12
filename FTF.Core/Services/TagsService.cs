@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using FTF.Api.Responses;
 using FTF.Api.Services;
+using FTF.Core.Attributes;
 
 namespace FTF.Core.Services
 {
+    [Role(typeof(ITagsService))]
     public class TagsService : ITagsService
     {
         private readonly Tags.Queries _queries;

@@ -1,7 +1,9 @@
 using FTF.Api.Services;
+using FTF.Core.Attributes;
 
 namespace FTF.Core.Services
 {
+    [Role(typeof(IAuthService))]
     public class AuthService : IAuthService
     {
         private readonly Auth.SignUp.Handler _signUp;

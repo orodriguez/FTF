@@ -1,9 +1,11 @@
 using FTF.Api.Responses;
 using FTF.Api.Services;
+using FTF.Core.Attributes;
 using FTF.Core.Notes;
 
 namespace FTF.Core.Services
 {
+    [Role(typeof(INotesService))]
     public class NotesService : INotesService
     {
         private readonly CreateHandler _create;

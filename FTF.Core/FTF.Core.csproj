@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="Attributes\Role.cs" />
+    <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\ConcreteAttribute.cs" />
     <Compile Include="Auth\SignIn\Handler.cs" />
     <Compile Include="Auth\SignUp\Handler.cs" />

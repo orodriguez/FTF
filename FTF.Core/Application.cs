@@ -1,8 +1,10 @@
 using FTF.Api;
 using FTF.Api.Services;
+using FTF.Core.Attributes;
 
 namespace FTF.Core
 {
+    [Role(typeof(IApplication))]
     public class Application : IApplication
     {
         public IAuthService Auth { get; set; }
