@@ -8,6 +8,8 @@ namespace FTF.Api.Services
 
         INotesService Notes { get; }
 
-        ITagsService Tags { get; }
+        ITagginsService Taggins { get; }
+
+        ITagsService Tags { get; set; }
     }
 }

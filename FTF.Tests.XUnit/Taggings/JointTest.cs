@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using FTF.Api.Responses;
+﻿using System.Linq;
 using Xunit;
 
-namespace FTF.Tests.XUnit.Tags
+namespace FTF.Tests.XUnit.Taggings
 {
-    public class ListJoint : UserAuthenticatedTest
+    public class JointTest : UserAuthenticatedTest
     {
         [Fact]
         public void _1Note_3Tags_Read1_Piano1_Empty0()
@@ -13,7 +11,7 @@ namespace FTF.Tests.XUnit.Tags
             App.Notes.Create("Empty");
             App.Notes.Create("#Read a book about #Piano performance");
 
-            var tags = App.Tags.Joint("Read").ToArray();
+            var tags = App.Taggins.Joint("Read").ToArray();
 
             Assert.Equal(new[] { "Read", "Piano" }, tags.Select(t => t.Name));
             Assert.Equal(new[] { 1, 1 }, tags.Select(t => t.NotesCount));
@@ -26,7 +24,7 @@ namespace FTF.Tests.XUnit.Tags
             App.Notes.Create("Write sample application #Programming #FTF");
             App.Notes.Create("#FTF #Read about design principles");
 
-            var tags = App.Tags.Joint("Read").ToArray();
+            var tags = App.Taggins.Joint("Read").ToArray();
 
             Assert.Equal(new[] { "Read", "Programming", "FTF" }, tags.Select(t => t.Name));
             Assert.Equal(new[] { 2, 1, 1 }, tags.Select(t => t.NotesCount));
@@ -38,7 +36,7 @@ namespace FTF.Tests.XUnit.Tags
             App.Notes.Create("#Buy tire #Car");
             App.Notes.Create("#Buy gift for #Mary");
 
-            var tags = App.Tags.Joint("Mary").ToArray();
+            var tags = App.Taggins.Joint("Mary").ToArray();
 
             Assert.Equal(new[] { "Buy", "Mary" }, tags.Select(t => t.Name));
             Assert.Equal(new[] { 1, 1 }, tags.Select(t => t.NotesCount));

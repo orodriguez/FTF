@@ -3,10 +3,10 @@ using FTF.Api.Responses;
 
 namespace FTF.Api.Services
 {
-    public interface ITagsService
+    public interface ITagginsService
     {
-        int Create(string tagName);
-
         IEnumerable<ITag> All();
+
+        IEnumerable<ITag> Joint(string tag);
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Services\IApplication.cs" />
     <Compile Include="Services\IAuthService.cs" />
     <Compile Include="Services\INotesService.cs" />
+    <Compile Include="Services\ITagginsService.cs" />
     <Compile Include="Services\ITagsService.cs" />
   </ItemGroup>
   <ItemGroup />
