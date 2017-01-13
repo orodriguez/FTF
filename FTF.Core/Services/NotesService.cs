@@ -83,7 +83,10 @@ namespace FTF.Core.Services
             }
 
             if (request.Tags.Any())
-                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, noteToUpdate.Taggings.Select(t => t.Tag.Name).Concat(request.Tags).ToArray()).ToList();
+            {
+                var existingTags = noteToUpdate.Tags.Select(t => t.Name);
+                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, existingTags.Concat(request.Tags).ToArray()).ToList();
+            }
 
             _db.SaveChanges();
         }
