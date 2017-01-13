@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201701111918461_AutogenerateId.Designer.cs">
       <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701130053048_AddCreationDateToTagging.cs" />
+    <Compile Include="Migrations\201701130053048_AddCreationDateToTagging.Designer.cs">
+      <DependentUpon>201701130053048_AddCreationDateToTagging.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Ports\IAuth.cs" />
     <Compile Include="Ports\IPorts.cs" />
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701111918461_AutogenerateId.resx">
       <DependentUpon>201701111918461_AutogenerateId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701130053048_AddCreationDateToTagging.resx">
+      <DependentUpon>201701130053048_AddCreationDateToTagging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

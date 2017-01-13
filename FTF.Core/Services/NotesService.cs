@@ -102,7 +102,8 @@ namespace FTF.Core.Services
             note.Taggings.Add(new Tagging
             {
                 Note = note,
-                Tag = trashTag
+                Tag = trashTag,
+                CreationDate = _getCurrentDate()
             });
 
             _db.SaveChanges();

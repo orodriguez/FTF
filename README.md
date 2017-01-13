@@ -11,5 +11,5 @@
 ### Run Migrations against test database
 
 ```powershellz
-Update-Database -ProjectName FTF.Storage.EntityFramework -ConnectionStringName FTF.Tests
+Update-Database -ConnectionStringName FTF.Tests
 ```
