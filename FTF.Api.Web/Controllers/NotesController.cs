@@ -17,11 +17,11 @@ namespace FTF.Api.Web.Controllers
 
         public int Post(CreateRequest request) => _notes.Create(request);
 
-        public INote Get(int noteId) => _notes.Retrieve(noteId);
+        public INote Get(int id) => _notes.Retrieve(id);
 
         public void Update(int id, UpdateRequest request) => _notes.Update(id, request);
 
-        public void Delete(int noteId) => _notes.Delete(noteId);
+        public void Delete(int id) => _notes.Delete(id);
 
         public IEnumerable<INote> Get() => _notes.All();
 
