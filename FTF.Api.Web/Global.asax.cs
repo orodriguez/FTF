@@ -3,6 +3,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using FTF.IoC.SimpleInjector;
+using SimpleInjector;
 using SimpleInjector.Integration.WebApi;
 
 namespace FTF.Api.Web
@@ -13,8 +14,15 @@ namespace FTF.Api.Web
         {
             var container = ContainerFactory.MakeWebApi(new WebApiRequestLifestyle());
 
-            AreaRegistration.RegisterAllAreas();
+            container.RegisterWebApiControllers(GlobalConfiguration.Configuration);
+
+            container.Verify();
+
+            GlobalConfiguration.Configuration.DependencyResolver = 
+                new SimpleInjectorWebApiDependencyResolver(container);
+
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
