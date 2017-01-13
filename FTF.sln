@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Tests.XUnit", "FTF.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.IoC.SimpleInjector", "FTF.IoC.SimpleInjector\FTF.IoC.SimpleInjector.csproj", "{44089CC5-6806-4DFB-8A67-D3B8B5EC7CF2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FTF.Api.Web", "FTF.Api.Web\FTF.Api.Web.csproj", "{D3580AC3-E241-4BFA-B029-ACBB29D226A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +40,10 @@ Global
 		{44089CC5-6806-4DFB-8A67-D3B8B5EC7CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44089CC5-6806-4DFB-8A67-D3B8B5EC7CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44089CC5-6806-4DFB-8A67-D3B8B5EC7CF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3580AC3-E241-4BFA-B029-ACBB29D226A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3580AC3-E241-4BFA-B029-ACBB29D226A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3580AC3-E241-4BFA-B029-ACBB29D226A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3580AC3-E241-4BFA-B029-ACBB29D226A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
