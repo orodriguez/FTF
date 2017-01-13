@@ -31,19 +31,21 @@ namespace FTF.Core.Services
             _getCurrentUser = getCurrentUser;
         }
 
-        public int Create(string text)
+        public int Create(string text) => Create(new CreateRequest {Text = text});
+
+        public int Create(CreateRequest request)
         {
-            if (string.IsNullOrEmpty(text))
+            if (string.IsNullOrEmpty(request.Text))
                 throw new ValidationException("Note can not be empty");
 
             var note = new Note
             {
-                Text = text,
+                Text = request.Text,
                 CreationDate = _getCurrentDate(),
                 User = _getCurrentUser()
             };
 
-            note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
+            note.Taggings = MakeTaggings(note, request.Text.ParseTagNames().Concat(request.Tags).ToArray()).ToList();
 
             _db.Notes.Add(note);
 

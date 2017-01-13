@@ -7,6 +7,7 @@ namespace FTF.Api.Services
     public interface INotesService
     {
         int Create(string text);
+        int Create(CreateRequest request);
         INote Retrieve(int noteId);
         void Update(int id, string text);
         void Update(int id, UpdateRequest request);

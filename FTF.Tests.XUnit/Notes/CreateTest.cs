@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using FTF.Api.Exceptions;
+using FTF.Api.Requests.Notes;
 using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
@@ -21,7 +22,7 @@ namespace FTF.Tests.XUnit.Notes
         }
 
         [Fact]
-        public void WithTags()
+        public void WithTagsWithinText()
         {
             var noteId = App.Notes.Create("#Buy cheese at #SuperMarket");
             var note = App.Notes.Retrieve(noteId);
@@ -31,6 +32,20 @@ namespace FTF.Tests.XUnit.Notes
                 "Buy",
                 "SuperMarket"
             }, note.Tags.Select(t => t.Name));
+        }
+
+        [Fact]
+        public void WithTagList()
+        {
+            var noteId = App.Notes.Create(new CreateRequest
+            {
+                Text = "Text without tags",
+                Tags = new[] { "Tag1" }
+            });
+
+            var note = App.Notes.Retrieve(noteId);
+
+            Assert.Equal(new[] { "Tag1" }, note.Tags.Select(t => t.Name));
         }
 
         [Fact]
