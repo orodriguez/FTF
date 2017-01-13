@@ -1,5 +1,4 @@
 using System;
-using FTF.Api;
 using FTF.Api.Services;
 using FTF.IoC.SimpleInjector;
 
@@ -15,7 +14,7 @@ namespace FTF.Tests.XUnit
         {
             CurrentTime = DateTime.Now;
 
-            App = new ApplicationFactory().Make(new TestsPortsConfig(() => CurrentTime));
+            App = new ApplicationFactory().MakeTestApplication(() => CurrentTime);
         }
 
         public void Dispose() => App.Dispose();

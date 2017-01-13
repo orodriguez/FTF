@@ -1,11 +1,13 @@
-using FTF.Api;
 using FTF.Api.Services;
-using FTF.Core.Ports;
+using FTF.Core.Delegates;
+using FTF.IoC.SimpleInjector.PortsConfig;
 
 namespace FTF.IoC.SimpleInjector
 {
     public class ApplicationFactory
     {
-        public IApplication Make(IPorts ports) => ContainerFactory.Make(ports).GetInstance<IApplication>();
+        public IApplication MakeTestApplication(GetCurrentTime getCurrentTime) => 
+            ContainerFactory.Make(new TestsPortsConfig(getCurrentTime))
+                .GetInstance<IApplication>();
     }
 }

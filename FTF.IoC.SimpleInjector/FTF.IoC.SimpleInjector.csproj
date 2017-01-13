@@ -59,6 +59,7 @@
   <ItemGroup>
     <Compile Include="ApplicationFactory.cs" />
     <Compile Include="ContainerFactory.cs" />
+    <Compile Include="PortsConfig\TestsPortsConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

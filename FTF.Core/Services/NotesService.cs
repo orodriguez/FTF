@@ -16,18 +16,18 @@ namespace FTF.Core.Services
     [Role(typeof(INotesService))]
     public class NotesService : INotesService
     {
-        private readonly GetCurrentDate _getCurrentDate;
+        private readonly GetCurrentTime _getCurrentTime;
 
         private readonly DbContext _db;
 
         private readonly GetCurrentUser _getCurrentUser;
 
         public NotesService(DbContext db, 
-            GetCurrentDate getCurrentDate, 
+            GetCurrentTime getCurrentTime, 
             GetCurrentUser getCurrentUser)
         {
             _db = db;
-            _getCurrentDate = getCurrentDate;
+            _getCurrentTime = getCurrentTime;
             _getCurrentUser = getCurrentUser;
         }
 
@@ -41,7 +41,7 @@ namespace FTF.Core.Services
             var note = new Note
             {
                 Text = request.Text,
-                CreationDate = _getCurrentDate(),
+                CreationDate = _getCurrentTime(),
                 User = _getCurrentUser()
             };
 
@@ -103,7 +103,7 @@ namespace FTF.Core.Services
             {
                 Note = note,
                 Tag = trashTag,
-                CreationDate = _getCurrentDate()
+                CreationDate = _getCurrentTime()
             });
 
             _db.SaveChanges();
@@ -134,7 +134,7 @@ namespace FTF.Core.Services
                 {
                     Note = note,
                     Tag = tag,
-                    CreationDate = _getCurrentDate()
+                    CreationDate = _getCurrentTime()
                 })
                 .Concat(MakeNewTaggings(note, tagNames));
 
@@ -149,7 +149,7 @@ namespace FTF.Core.Services
                         Name = tagName,
                         User = _getCurrentUser()
                     },
-                    CreationDate = _getCurrentDate()
+                    CreationDate = _getCurrentTime()
                 })
                 .ToArray();
     }

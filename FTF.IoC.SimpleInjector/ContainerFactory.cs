@@ -17,7 +17,7 @@ namespace FTF.IoC.SimpleInjector
 
             c.Register(() => ports.Storage);
 
-            c.Register(() => ports.GetCurrentDate);
+            c.Register(() => ports.GetCurrentTime);
 
             c.Register<GetCurrentUser>(() => () => ports.Auth.CurrentUser);
 

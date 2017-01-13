@@ -4,7 +4,7 @@ namespace FTF.Core.Ports
 {
     public interface IPorts
     {
-        GetCurrentDate GetCurrentDate { get; }
+        GetCurrentTime GetCurrentTime { get; }
 
         IAuth Auth { get; }
 

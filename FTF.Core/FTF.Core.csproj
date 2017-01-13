@@ -51,7 +51,7 @@
   <ItemGroup>
     <Compile Include="Attributes\RoleAttribute.cs" />
     <Compile Include="Attributes\ConcreteAttribute.cs" />
-    <Compile Include="Delegates\GetCurrentDate.cs" />
+    <Compile Include="Delegates\GetCurrentTime.cs" />
     <Compile Include="Delegates\GetCurrentUser.cs" />
     <Compile Include="Delegates\SetCurrentUser.cs" />
     <Compile Include="Entities\IEntity.cs" />

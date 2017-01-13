@@ -4,19 +4,19 @@ using FTF.Core.Entities;
 using FTF.Core.Ports;
 using DbContext = FTF.Core.EntityFramework.DbContext;
 
-namespace FTF.Tests.XUnit
+namespace FTF.IoC.SimpleInjector.PortsConfig
 {
     public class TestsPortsConfig : IPorts
     {
-        public GetCurrentDate GetCurrentDate { get; }
+        public GetCurrentTime GetCurrentTime { get; }
 
         public IAuth Auth { get; }
 
         public IStorage Storage { get; }
 
-        public TestsPortsConfig(GetCurrentDate getCurrentDate)
+        public TestsPortsConfig(GetCurrentTime getCurrentTime)
         {
-            GetCurrentDate = getCurrentDate;
+            GetCurrentTime = getCurrentTime;
             Auth = new FakeAuthAdapter();
             Storage = new RollbackStorage();
         }
