@@ -1,21 +1,21 @@
 ﻿using System.Linq;
 using System.Reflection;
-using FTF.Core;
 using FTF.Core.Attributes;
 using FTF.Core.Delegates;
+using FTF.Core.Entities;
 using FTF.Core.Ports;
-using FTF.Core.Services;
+using FTF.IoC.SimpleInjector.PortsConfig;
 using SimpleInjector;
 
 namespace FTF.IoC.SimpleInjector
 {
     public class ContainerFactory
     {
-        public static Container Make(IPorts ports)
+        public static Container Make(IPorts ports, ScopedLifestyle scopedLifestyle)
         {
             var c = new Container();
 
-            c.Register(() => ports.Storage);
+            c.Options.DefaultScopedLifestyle = scopedLifestyle;
 
             c.Register(() => ports.GetCurrentTime);
 
@@ -23,26 +23,30 @@ namespace FTF.IoC.SimpleInjector
 
             c.Register<SetCurrentUser>(() => user => ports.Auth.CurrentUser = user);
 
-            c.Register(() => ports.Storage.Db);
+            c.Register(ports.Storage.MakeDbContext, Lifestyle.Scoped);
 
-            var allTypes = typeof (Application).Assembly.GetExportedTypes();
+            var allTypes = typeof (Note).Assembly.GetExportedTypes();
 
             allTypes
                 .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
                 .ToList()
                 .ForEach(type => c.Register(type));
 
-            allTypes
+            var list = allTypes
                 .Where(t => t.GetCustomAttributes<RoleAttribute>().Any())
                 .Select(t => new
                 {
                     ServiceType =  t.GetCustomAttribute<RoleAttribute>().RoleType,
                     ImplementationType = t
                 })
-                .ToList()
+                .ToList();
+            list
                 .ForEach(obj => c.Register(obj.ServiceType, obj.ImplementationType));
 
             return c;
         }
+
+        public static Container MakeWebApi(ScopedLifestyle scopedLifestyle) => 
+            Make(new WebApiPorts(), scopedLifestyle);
     }
 }

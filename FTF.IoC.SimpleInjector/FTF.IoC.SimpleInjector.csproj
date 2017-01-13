@@ -57,9 +57,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application.cs" />
     <Compile Include="ApplicationFactory.cs" />
     <Compile Include="ContainerFactory.cs" />
     <Compile Include="PortsConfig\TestsPortsConfig.cs" />
+    <Compile Include="PortsConfig\WebApiPorts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

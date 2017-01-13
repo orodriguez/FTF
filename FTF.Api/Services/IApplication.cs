@@ -10,6 +10,6 @@ namespace FTF.Api.Services
 
         ITagginsService Taggins { get; }
 
-        ITagsService Tags { get; set; }
+        ITagsService Tags { get; }
     }
 }

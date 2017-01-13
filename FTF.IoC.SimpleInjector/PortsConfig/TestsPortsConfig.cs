@@ -28,23 +28,8 @@ namespace FTF.IoC.SimpleInjector.PortsConfig
 
         private class RollbackStorage : IStorage
         {
-            public DbContext Db { get; }
-
-            private readonly DbContextTransaction _trans;
-
-            public RollbackStorage()
-            {
-                Db = new DbContext("name=FTF.Tests", 
-                    new DropCreateDatabaseIfModelChanges<DbContext>());
-
-                _trans = Db.Database.BeginTransaction();
-            }
-
-            public void Dispose()
-            {
-                _trans.Rollback();
-                Db.Dispose();
-            }
+            public DbContext MakeDbContext() => 
+                new DbContext("name=FTF.Tests", new DropCreateDatabaseIfModelChanges<DbContext>());
         }
     }
 }
