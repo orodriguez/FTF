@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Exceptions;
+using FTF.Api.Requests.Notes;
 using FTF.Api.Responses;
 using FTF.Api.Services;
 using FTF.Core.Attributes;
@@ -32,7 +33,8 @@ namespace FTF.Core.Services
 
         public int Create(string text)
         {
-            Validate(text);
+            if (string.IsNullOrEmpty(text))
+                throw new ValidationException("Note can not be empty");
 
             var note = new Note
             {
@@ -62,15 +64,26 @@ namespace FTF.Core.Services
             return new Responses.Note(note);
         }
 
-        public void Update(int id, string text)
+        public void Update(int id, string text) => Update(id, new UpdateRequest { Text = text });
+
+        public void Update(int id, UpdateRequest request)
         {
-            Validate(text);
+            if (request.Text != null && request.Text.Trim() == "")
+                throw new ValidationException("Note can not be empty");
 
             var noteToUpdate = _db.Notes.First(n => n.Id == id);
 
-            noteToUpdate.Text = text;
+            if (request.Text != null)
+            {
+                noteToUpdate.Text = request.Text;
 
-            noteToUpdate.Taggings = MakeTaggings(noteToUpdate, text.ParseTagNames()).ToList();
+                var tagNames = request.Text.ParseTagNames();
+
+                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, tagNames).ToList();
+            }
+
+            if (request.Tags.Any())
+                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, noteToUpdate.Taggings.Select(t => t.Tag.Name).Concat(request.Tags).ToArray()).ToList();
 
             _db.SaveChanges();
         }
@@ -96,10 +109,9 @@ namespace FTF.Core.Services
                 .ToList()
                 .Select(n => new Responses.Note(n));
 
-        public static void Validate(string text)
+        public IEnumerable<INote> ByTag(string tagName)
         {
-            if (string.IsNullOrEmpty(text))
-                throw new ValidationException("Note can not be empty");
+            throw new System.NotImplementedException();
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) =>

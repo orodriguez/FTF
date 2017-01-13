@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ApplicationTest.cs" />
     <Compile Include="Notes\AllTest.cs" />
+    <Compile Include="Notes\ByTagTest.cs" />
     <Compile Include="Taggings\AllTest.cs" />
     <Compile Include="Taggings\JointTest.cs" />
     <Compile Include="Tags\CreateTest.cs" />

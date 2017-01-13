@@ -43,6 +43,8 @@
     <Compile Include="Exceptions\RecordNotFoundException.cs" />
     <Compile Include="Exceptions\ValidationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Requests\Notes\UpdateRequest.cs" />
+    <Compile Include="Requests\Notes\Request.cs" />
     <Compile Include="Responses\INote.cs" />
     <Compile Include="Responses\ITag.cs" />
     <Compile Include="Services\IApplication.cs" />

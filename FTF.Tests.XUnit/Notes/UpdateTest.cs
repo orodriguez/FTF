@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using FTF.Api.Exceptions;
+using FTF.Api.Requests.Notes;
 using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
@@ -20,6 +21,22 @@ namespace FTF.Tests.XUnit.Notes
             Assert.Equal("Buy american cheese", note.Text);
             Assert.Equal(new DateTime(2016,2,20), note.CreationDate);
             Assert.Equal("orodriguez", note.UserName);
+        }
+
+        [Fact]
+        public void UpdateTags()
+        {
+            var noteId = App.Notes.Create("This is a note");
+
+            App.Notes.Update(noteId, new UpdateRequest
+            {
+                Tags = new [] { "Tag1", "Tag2"}
+            });
+
+            var note = App.Notes.Retrieve(noteId);
+
+            Assert.Equal(new[] { "Tag1", "Tag2" }, note.Tags.Select(t => t.Name));
+            Assert.Equal("This is a note", note.Text);
         }
 
         [Fact]
