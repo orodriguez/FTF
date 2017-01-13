@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Data.Entity.Core.Objects;
-using FTF.Api.Requests;
+using System.Linq;
 using FTF.Api.Requests.Notes;
 using Xunit;
 
@@ -8,7 +7,7 @@ namespace FTF.Tests.XUnit.Notes
 {
     public class ByTagTest : UserAuthenticatedTest
     {
-        [Fact(Skip = "Will implement update tags first")]
+        [Fact]
         public void OrderByTaggingDateDesc()
         {
             CurrentTime = new DateTime(2016, 2, 14);
@@ -23,7 +22,13 @@ namespace FTF.Tests.XUnit.Notes
                 Tags = new[] { "Buy" }
             });
 
-            App.Notes.ByTag("Buy");
+            var notes = App.Notes.ByTag("Buy");
+
+            Assert.Equal(new[]
+            {
+                "Go to supermarket",
+                "#Buy book"
+            }, notes.Select(n => n.Text));
         }
     }
 }

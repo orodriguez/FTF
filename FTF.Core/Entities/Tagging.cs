@@ -8,6 +8,7 @@ namespace FTF.Core.Entities
         public int Id { get; set; }
         public Note Note { get; set; }
         public Tag Tag { get; set; }
+        public DateTime CreationDate { get; set; }
 
         public static Expression<Func<Tagging, bool>> TagCreatedByUser(int userId) => tn => tn.Tag.User.Id == userId;
 

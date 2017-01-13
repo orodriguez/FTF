@@ -116,7 +116,13 @@ namespace FTF.Core.Services
 
         public IEnumerable<INote> ByTag(string tagName)
         {
-            throw new System.NotImplementedException();
+            var tag = _db.Tags.First(t => t.Name == tagName);
+
+            IQueryable<Tagging> taggins = _db.Taggings.Where(t => t.Tag.Id == tag.Id).OrderByDescending(t => t.CreationDate);
+
+            IQueryable<Note> notes = taggins.Select(t => t.Note);
+
+            return notes.Select(n => new Responses.Note(n));
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) =>
