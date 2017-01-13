@@ -6,6 +6,7 @@ using FTF.Core.Entities;
 using FTF.Core.Ports;
 using FTF.IoC.SimpleInjector.PortsConfig;
 using SimpleInjector;
+using SimpleInjector.Extensions.LifetimeScoping;
 
 namespace FTF.IoC.SimpleInjector
 {
@@ -32,15 +33,14 @@ namespace FTF.IoC.SimpleInjector
                 .ToList()
                 .ForEach(type => c.Register(type));
 
-            var list = allTypes
+            allTypes
                 .Where(t => t.GetCustomAttributes<RoleAttribute>().Any())
                 .Select(t => new
                 {
                     ServiceType =  t.GetCustomAttribute<RoleAttribute>().RoleType,
                     ImplementationType = t
                 })
-                .ToList();
-            list
+                .ToList()
                 .ForEach(obj => c.Register(obj.ServiceType, obj.ImplementationType));
 
             return c;

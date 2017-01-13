@@ -38,6 +38,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.3.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Extensions.LifetimeScoping, Version=3.3.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.Extensions.LifetimeScoping.3.3.2\lib\net40-client\SimpleInjector.Extensions.LifetimeScoping.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -71,6 +79,7 @@
     <Compile Include="Taggings\AllTest.cs" />
     <Compile Include="Taggings\JointTest.cs" />
     <Compile Include="Tags\CreateTest.cs" />
+    <Compile Include="Unit\ContainerFactoryTest.cs" />
     <Compile Include="UserAuthenticatedTest.cs" />
     <Compile Include="Notes\UpdateTest.cs" />
     <Compile Include="Notes\RetrieveTest.cs" />
