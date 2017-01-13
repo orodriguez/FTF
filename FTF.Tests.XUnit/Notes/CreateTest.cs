@@ -63,6 +63,20 @@ namespace FTF.Tests.XUnit.Notes
         }
 
         [Fact]
+        public void WithRedundantTagInTextAndList()
+        {
+            var noteId = App.Notes.Create(new CreateRequest
+            {
+                Text = "Note with #Tag1",
+                Tags = new[] { "Tag1" }
+            });
+
+            var note = App.Notes.Retrieve(noteId);
+
+            Assert.Equal(new[] { "Tag1" }, note.Tags.Select(t => t.Name));
+        }
+
+        [Fact]
         public void EmptyNote()
         {
             var exception = Assert.Throws<ValidationException>(() => App.Notes.Create(""));
