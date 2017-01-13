@@ -102,6 +102,10 @@
     <Compile Include="Migrations\201701130053048_AddCreationDateToTagging.Designer.cs">
       <DependentUpon>201701130053048_AddCreationDateToTagging.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701130103142_TaggingForeignKeys.cs" />
+    <Compile Include="Migrations\201701130103142_TaggingForeignKeys.Designer.cs">
+      <DependentUpon>201701130103142_TaggingForeignKeys.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Ports\IAuth.cs" />
     <Compile Include="Ports\IPorts.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701130053048_AddCreationDateToTagging.resx">
       <DependentUpon>201701130053048_AddCreationDateToTagging.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701130103142_TaggingForeignKeys.resx">
+      <DependentUpon>201701130103142_TaggingForeignKeys.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

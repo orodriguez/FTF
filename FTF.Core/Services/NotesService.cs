@@ -119,17 +119,23 @@ namespace FTF.Core.Services
         {
             var tag = _db.Tags.First(t => t.Name == tagName);
 
-            IQueryable<Tagging> taggins = _db.Taggings.Where(t => t.Tag.Id == tag.Id).OrderByDescending(t => t.CreationDate);
+            var notes = _db.Taggings
+                .Where(t => t.Tag.Id == tag.Id)
+                .OrderByDescending(t => t.CreationDate)
+                .Select(t => t.Note);
 
-            IQueryable<Note> notes = taggins.Select(t => t.Note);
-
-            return notes.Select(n => new Responses.Note(n));
+            return notes.ToList().Select(n => new Responses.Note(n));
         }
 
         private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) =>
             _db.Tags.Where(t => tagNames.Contains(t.Name))
                 .ToArray()
-                .Select(tag => new Tagging { Note = note, Tag = tag })
+                .Select(tag => new Tagging
+                {
+                    Note = note,
+                    Tag = tag,
+                    CreationDate = _getCurrentDate()
+                })
                 .Concat(MakeNewTaggings(note, tagNames));
 
         private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) =>
@@ -142,7 +148,8 @@ namespace FTF.Core.Services
                     {
                         Name = tagName,
                         User = _getCurrentUser()
-                    }
+                    },
+                    CreationDate = _getCurrentDate()
                 })
                 .ToArray();
     }
