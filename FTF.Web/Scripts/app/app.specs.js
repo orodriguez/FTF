@@ -1,6 +1,4 @@
-﻿/// <reference path="../angular.js"/>
-/// <reference path="../angular-mocks.js"/>
-/// <reference path="app.js"/>
+﻿/// <reference path="../_references.js"/>
 
 "use strict";
 
@@ -15,4 +13,6 @@ describe('NotesListController', function () {
         expect(scope.notes.length).toBe(3);
     }));
 
+
+    it('should be true', function() { expect(true).toBe(true)});
 });

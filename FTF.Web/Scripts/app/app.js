@@ -1,4 +1,4 @@
-﻿/// <reference path="../angular.js"/>
+﻿/// <reference path="../_references.js"/>
 
 "use strict";
 
