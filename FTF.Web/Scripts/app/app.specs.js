@@ -1,18 +1,19 @@
-﻿/// <reference path="../_references.js"/>
+﻿/// <reference path="../jasmine/jasmine.js"/>
+/// <reference path="../_references.js"/>
 
 "use strict";
 
-describe('NotesListController', function () {
+describe("NotesListController", function () {
 
-    beforeEach(module('ftfApp'));
+    beforeEach(module("ftfApp"));
 
-    it('should create a `notes` model with 3 notes', inject(function ($controller) {
+    it("should create a `notes` model with 3 notes", inject(function ($controller) {
         var scope = {};
-        var ctrl = $controller('NotesListController', { $scope: scope });
+        var ctrl = $controller("NotesListController", { $scope: scope });
 
         expect(scope.notes.length).toBe(3);
     }));
 
 
-    it('should be true', function() { expect(true).toBe(true)});
+    it("should be true", function() { expect(true).toBe(true)});
 });
