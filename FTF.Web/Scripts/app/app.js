@@ -1,4 +1,6 @@
-﻿"use strict";
+﻿/// <reference path="../angular.js"/>
+
+"use strict";
 
 var ftfApp = angular.module("ftfApp", []);
 
