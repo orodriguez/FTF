@@ -13,7 +13,4 @@ describe("NotesListController", function () {
 
         expect(scope.notes.length).toBe(3);
     }));
-
-
-    it("should be true", function() { expect(true).toBe(true)});
 });
