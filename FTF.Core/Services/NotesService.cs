@@ -39,10 +39,48 @@ namespace FTF.Core.Services
             {
                 Text = text,
                 CreationDate = _getCurrentTime(),
-                User = _getCurrentUser()
+                User = _getCurrentUser(),
+                Taggings = new List<Tagging>()
             };
 
-            note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
+            // Existing tags
+
+            var tagsInText = text.ParseTagNames();
+
+            var existingTags = _db.Tags.Where(t => tagsInText.Contains(t.Name));
+
+            var taggingsForExistingTags = existingTags
+                .ToList()
+                .Select(tag => new Tagging
+                {
+                    CreationDate = _getCurrentTime(),
+                    Tag = tag
+                });
+
+            taggingsForExistingTags
+                .ToList()
+                .ForEach(t => note.Taggings.Add(t));
+
+            // New tags
+
+            var newTagNames = tagsInText.Except(existingTags.Select(t => t.Name));
+
+            var newTags = newTagNames.Select(tagName => new Tag
+            {
+                Name = tagName,
+                User = _getCurrentUser()
+            });
+
+            var taggingsForNewTags = newTags.Select(t => new Tagging
+            {
+              Note  = note,
+              Tag = t,
+              CreationDate = _getCurrentTime()
+            });
+            
+            taggingsForNewTags
+                .ToList()
+                .ForEach(t => note.Taggings.Add(t));
 
             _db.Notes.Add(note);
 
