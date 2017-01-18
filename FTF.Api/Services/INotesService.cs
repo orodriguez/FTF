@@ -10,7 +10,6 @@ namespace FTF.Api.Services
         int Create(CreateRequest request);
         INote Retrieve(int noteId);
         void Update(int id, string text);
-        void Update(int id, UpdateRequest request);
         void Delete(int noteId);
         IEnumerable<INote> All();
         IEnumerable<INote> ByTag(string tagName);

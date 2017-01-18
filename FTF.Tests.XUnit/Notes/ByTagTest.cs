@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using FTF.Api.Requests.Notes;
 using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
@@ -17,16 +16,13 @@ namespace FTF.Tests.XUnit.Notes
             App.Notes.Create("#Buy book");
 
             CurrentTime = new DateTime(2016, 2, 16);
-            App.Notes.Update(noteId, new UpdateRequest
-            {
-                Tags = new[] { "Buy" }
-            });
+            App.Notes.Update(noteId, "#Buy Go to supermarkert");
 
             var notes = App.Notes.ByTag("Buy");
 
             Assert.Equal(new[]
             {
-                "Go to supermarket",
+                "#Buy Go to supermarkert",
                 "#Buy book"
             }, notes.Select(n => n.Text));
         }

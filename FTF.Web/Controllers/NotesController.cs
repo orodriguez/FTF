@@ -21,7 +21,7 @@ namespace FTF.Web.Controllers
 
         public INote Get(int id) => _notes.Retrieve(id);
 
-        public void Update(int id, UpdateRequest request) => _notes.Update(id, request);
+        public void Update(int id, string text) => _notes.Update(id, text);
 
         public void Delete(int id) => _notes.Delete(id);
 

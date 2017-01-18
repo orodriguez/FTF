@@ -66,28 +66,20 @@ namespace FTF.Core.Services
             return new Responses.Note(note);
         }
 
-        public void Update(int id, string text) => Update(id, new UpdateRequest { Text = text });
-
-        public void Update(int id, UpdateRequest request)
+        public void Update(int id, string text)
         {
-            if (request.Text != null && request.Text.Trim() == "")
+            if (text != null && text.Trim() == "")
                 throw new ValidationException("Note can not be empty");
 
             var noteToUpdate = _db.Notes.First(n => n.Id == id);
 
-            if (request.Text != null)
+            if (text != null)
             {
-                noteToUpdate.Text = request.Text;
+                noteToUpdate.Text = text;
 
-                var tagNames = request.Text.ParseTagNames();
+                var tagNames = text.ParseTagNames();
 
                 noteToUpdate.Taggings = MakeTaggings(noteToUpdate, tagNames).ToList();
-            }
-
-            if (request.Tags.Any())
-            {
-                var existingTags = noteToUpdate.Tags.Select(t => t.Name);
-                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, existingTags.Concat(request.Tags).ToArray()).ToList();
             }
 
             _db.SaveChanges();
