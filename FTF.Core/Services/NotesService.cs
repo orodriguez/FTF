@@ -8,7 +8,6 @@ using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.EntityFramework;
 using FTF.Core.Extensions;
-using FTF.Core.Queries;
 
 namespace FTF.Core.Services
 {
@@ -45,9 +44,9 @@ namespace FTF.Core.Services
 
             // Existing tags
 
-            var tagsInText = text.ParseTagNames();
+            var tagNamesInText = text.ParseTagNames();
 
-            var existingTags = _db.Tags.Where(t => tagsInText.Contains(t.Name));
+            var existingTags = _db.Tags.Where(t => tagNamesInText.Contains(t.Name));
 
             var taggingsForExistingTags = existingTags
                 .ToList()
@@ -63,7 +62,7 @@ namespace FTF.Core.Services
 
             // New tags
 
-            var newTagNames = tagsInText.Except(existingTags.Select(t => t.Name));
+            var newTagNames = tagNamesInText.Except(existingTags.Select(t => t.Name));
 
             var newTags = newTagNames.Select(tagName => new Tag
             {
@@ -112,9 +111,28 @@ namespace FTF.Core.Services
             {
                 noteToUpdate.Text = text;
 
-                var tagNames = text.ParseTagNames();
+                var tagNamesInText = text.ParseTagNames();
 
-                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, tagNames).ToList();
+                var tagNamesAlreadyTagged = noteToUpdate.Tags.Select(t => t.Name).ToList();
+
+                var difference = tagNamesInText.Except(tagNamesAlreadyTagged);
+
+                var newTagNames = difference.Where(t1 => tagNamesAlreadyTagged.All(t2 => t1 != t2));
+
+                var newTags = newTagNames.Select(tagName => new Tag
+                {
+                    Name = tagName,
+                    User = _getCurrentUser()
+                });
+
+                var taggingsOfNewTags = newTags.Select(tag => new Tagging
+                {
+                    Note = noteToUpdate,
+                    Tag = tag,
+                    CreationDate = _getCurrentTime(),
+                });
+
+                taggingsOfNewTags.ToList().ForEach(t => noteToUpdate.Taggings.Add(t));
             }
 
             _db.SaveChanges();
@@ -153,31 +171,5 @@ namespace FTF.Core.Services
 
             return notes.ToList().Select(n => new Responses.Note(n));
         }
-
-        private IEnumerable<Tagging> MakeTaggings(Note note, string[] tagNames) =>
-            _db.Tags.Where(t => tagNames.Contains(t.Name))
-                .ToArray()
-                .Select(tag => new Tagging
-                {
-                    Note = note,
-                    Tag = tag,
-                    CreationDate = _getCurrentTime()
-                })
-                .Concat(MakeNewTaggings(note, tagNames));
-
-        private IEnumerable<Tagging> MakeNewTaggings(Note note, string[] tagNames) =>
-            tagNames
-                .Except(_db.Tags.Where(t => tagNames.Contains(t.Name)).Names())
-                .Select(tagName => new Tagging
-                {
-                    Note = note,
-                    Tag = new Tag
-                    {
-                        Name = tagName,
-                        User = _getCurrentUser()
-                    },
-                    CreationDate = _getCurrentTime()
-                })
-                .ToArray();
     }
 }
