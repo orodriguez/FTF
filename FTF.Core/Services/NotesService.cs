@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Exceptions;
-using FTF.Api.Requests.Notes;
 using FTF.Api.Responses;
 using FTF.Api.Services;
 using FTF.Core.Attributes;
@@ -31,21 +30,19 @@ namespace FTF.Core.Services
             _getCurrentUser = getCurrentUser;
         }
 
-        public int Create(string text) => Create(new CreateRequest {Text = text});
-
-        public int Create(CreateRequest request)
+        public int Create(string text)
         {
-            if (string.IsNullOrEmpty(request.Text))
+            if (string.IsNullOrEmpty(text))
                 throw new ValidationException("Note can not be empty");
 
             var note = new Note
             {
-                Text = request.Text,
+                Text = text,
                 CreationDate = _getCurrentTime(),
                 User = _getCurrentUser()
             };
 
-            note.Taggings = MakeTaggings(note, request.Text.ParseTagNames().Concat(request.Tags).ToArray()).ToList();
+            note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
 
             _db.Notes.Add(note);
 
@@ -66,28 +63,20 @@ namespace FTF.Core.Services
             return new Responses.Note(note);
         }
 
-        public void Update(int id, string text) => Update(id, new UpdateRequest { Text = text });
-
-        public void Update(int id, UpdateRequest request)
+        public void Update(int id, string text)
         {
-            if (request.Text != null && request.Text.Trim() == "")
+            if (text != null && text.Trim() == "")
                 throw new ValidationException("Note can not be empty");
 
             var noteToUpdate = _db.Notes.First(n => n.Id == id);
 
-            if (request.Text != null)
+            if (text != null)
             {
-                noteToUpdate.Text = request.Text;
+                noteToUpdate.Text = text;
 
-                var tagNames = request.Text.ParseTagNames();
+                var tagNames = text.ParseTagNames();
 
                 noteToUpdate.Taggings = MakeTaggings(noteToUpdate, tagNames).ToList();
-            }
-
-            if (request.Tags.Any())
-            {
-                var existingTags = noteToUpdate.Tags.Select(t => t.Name);
-                noteToUpdate.Taggings = MakeTaggings(noteToUpdate, existingTags.Concat(request.Tags).ToArray()).ToList();
             }
 
             _db.SaveChanges();
