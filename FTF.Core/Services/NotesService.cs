@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FTF.Api.Exceptions;
-using FTF.Api.Requests.Notes;
 using FTF.Api.Responses;
 using FTF.Api.Services;
 using FTF.Core.Attributes;
@@ -31,21 +30,19 @@ namespace FTF.Core.Services
             _getCurrentUser = getCurrentUser;
         }
 
-        public int Create(string text) => Create(new CreateRequest {Text = text});
-
-        public int Create(CreateRequest request)
+        public int Create(string text)
         {
-            if (string.IsNullOrEmpty(request.Text))
+            if (string.IsNullOrEmpty(text))
                 throw new ValidationException("Note can not be empty");
 
             var note = new Note
             {
-                Text = request.Text,
+                Text = text,
                 CreationDate = _getCurrentTime(),
                 User = _getCurrentUser()
             };
 
-            note.Taggings = MakeTaggings(note, request.Text.ParseTagNames().Concat(request.Tags).ToArray()).ToList();
+            note.Taggings = MakeTaggings(note, text.ParseTagNames()).ToList();
 
             _db.Notes.Add(note);
 

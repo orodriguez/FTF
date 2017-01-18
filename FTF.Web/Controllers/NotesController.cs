@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Web.Http;
-using FTF.Api.Requests.Notes;
 using FTF.Api.Responses;
 using FTF.Api.Services;
 using FTF.Web.Filters;
@@ -17,7 +16,7 @@ namespace FTF.Web.Controllers
         }
 
         [ValidationExceptionFilter]
-        public int Post(CreateRequest request) => _notes.Create(request);
+        public int Post(string text) => _notes.Create(text);
 
         public INote Get(int id) => _notes.Retrieve(id);
 

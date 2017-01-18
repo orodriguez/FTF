@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using FTF.Api.Exceptions;
-using FTF.Api.Requests.Notes;
 using Xunit;
 
 namespace FTF.Tests.XUnit.Notes
@@ -35,41 +34,9 @@ namespace FTF.Tests.XUnit.Notes
         }
 
         [Fact]
-        public void WithTagList()
-        {
-            var noteId = App.Notes.Create(new CreateRequest
-            {
-                Text = "Text without tags",
-                Tags = new[] { "Tag1" }
-            });
-
-            var note = App.Notes.Retrieve(noteId);
-
-            Assert.Equal(new[] { "Tag1" }, note.Tags.Select(t => t.Name));
-        }
-
-        [Fact]
-        public void WithTagsInTextAndList()
-        {
-            var noteId = App.Notes.Create(new CreateRequest
-            {
-                Text = "Note with #Tag1",
-                Tags = new[] { "Tag2" }
-            });
-
-            var note = App.Notes.Retrieve(noteId);
-
-            Assert.Equal(new[] { "Tag1", "Tag2" }, note.Tags.Select(t => t.Name));
-        }
-
-        [Fact]
         public void WithRedundantTagInTextAndList()
         {
-            var noteId = App.Notes.Create(new CreateRequest
-            {
-                Text = "Note with #Tag1",
-                Tags = new[] { "Tag1" }
-            });
+            var noteId = App.Notes.Create("Note with #Tag1");
 
             var note = App.Notes.Retrieve(noteId);
 
