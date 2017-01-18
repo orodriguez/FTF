@@ -117,9 +117,29 @@ namespace FTF.Core.Services
 
                 var difference = tagNamesInText.Except(tagNamesAlreadyTagged);
 
-                var newTagNames = difference.Where(t1 => tagNamesAlreadyTagged.All(t2 => t1 != t2));
+                var addedTags = difference
+                    .Where(t1 => tagNamesAlreadyTagged.All(t2 => t1 != t2))
+                    .ToList();
 
-                var newTags = newTagNames.Select(tagName => new Tag
+                var existingTags = _db.Tags
+                    .Where(tag => addedTags.Any(tagName => tag.Name == tagName))
+                    .ToList();
+
+                var taggingsOfExistingTags = existingTags
+                    .Select(tag => new Tagging
+                    {
+                        Note = noteToUpdate,
+                        Tag = tag,
+                        CreationDate = _getCurrentTime()
+                    });
+
+                taggingsOfExistingTags
+                    .ToList()
+                    .ForEach(tagging => noteToUpdate.Taggings.Add(tagging));
+
+                var tagsToCreate = addedTags.Except(existingTags.Select(t => t.Name));
+
+                var newTags = tagsToCreate.Select(tagName => new Tag
                 {
                     Name = tagName,
                     User = _getCurrentUser()
