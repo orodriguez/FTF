@@ -37,6 +37,7 @@ namespace FTF.Tests.XUnit.Notes
         public void WithExistingTags()
         {
             App.Notes.Create("Note with #Tag");
+
             var noteId = App.Notes.Create("Note without tag");
             App.Notes.Update(noteId, "Note update with #Tag");
 
@@ -44,6 +45,18 @@ namespace FTF.Tests.XUnit.Notes
 
             Assert.Equal(new[] { "Tag" }, tags.Select(t => t.Name));
             Assert.Equal(new[] { 2 }, tags.Select(t => t.NotesCount));
+        }
+
+        [Fact]
+        public void RemovingTag()
+        {
+            var noteId = App.Notes.Create("Note with #Tag");
+
+            App.Notes.Update(noteId, "Note without tag");
+
+            var note = App.Notes.Retrieve(noteId);
+
+            Assert.Empty(note.Tags);
         }
 
         [Fact]
