@@ -41,9 +41,7 @@ namespace FTF.Core.Services
                 .Where(NotIn(noteTaggings))
                 .ToList();
 
-            var tagsToCreate = addedTags.Except(_db.Tags
-                .Where(tag => addedTags.Any(tagName => tag.Name == tagName))
-                .ToList().Select(t => t.Name));
+            var tagsToCreate = addedTags.Where(name => _db.Tags.All(tag => tag.Name != name));
 
             var newTags = tagsToCreate.Select(tagName => new Tag
             {
@@ -56,12 +54,15 @@ namespace FTF.Core.Services
 
             var taggingsToDelete = note.Taggings.Where(t => !tagsInText.Contains(t.Tag.Name));
 
-            var taggingsToAdd = taggingsOfNewTags.Concat(ExistingTags(note, tagsInText));
+            var existingTaggings = ExistingTags(note, tagsInText)
+                .Select(tag => _taggingsFactory.Make(note, tag));
+
+            var taggingsToAdd = taggingsOfNewTags.Concat(existingTaggings);
 
             return new Result(taggingsToAdd, taggingsToDelete);
         }
 
-        private IEnumerable<Tagging> ExistingTags(Note note, IEnumerable<string> tagsInText)
+        private IEnumerable<Tag> ExistingTags(Note note, IEnumerable<string> tagsInText)
         {
             var noteTaggings = _db.Taggings
                 .Where(tagging => tagging.Note.Id == note.Id)
@@ -73,8 +74,7 @@ namespace FTF.Core.Services
 
             return _db.Tags
                 .Where(tag => addedTags.Any(tagName => tag.Name == tagName))
-                .ToList()
-                .Select(tag => _taggingsFactory.Make(note, tag));
+                .ToList();
         }
 
         public class Result
