@@ -114,6 +114,7 @@
     <Compile Include="Queries\NameableQueries.cs" />
     <Compile Include="Responses\Note.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\TaggingsDiffService.cs" />
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Services\NotesService.cs" />
     <Compile Include="Services\TagginsService.cs" />
