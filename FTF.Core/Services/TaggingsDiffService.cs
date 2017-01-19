@@ -1,13 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.EntityFramework;
 using FTF.Core.Extensions;
 using FTF.Core.Factories;
-using static FTF.Core.Predicates.GenericPredicates;
 
 namespace FTF.Core.Services
 {

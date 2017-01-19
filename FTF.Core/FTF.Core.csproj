@@ -111,7 +111,6 @@
     <Compile Include="Ports\IAuth.cs" />
     <Compile Include="Ports\IPorts.cs" />
     <Compile Include="Ports\IStorage.cs" />
-    <Compile Include="Predicates\GenericPredicates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\NameableQueries.cs" />
     <Compile Include="Responses\Note.cs" />
@@ -166,7 +165,9 @@
       <Name>FTF.Api</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Predicates\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
