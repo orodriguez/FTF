@@ -6,7 +6,6 @@ using FTF.Core.Entities;
 using FTF.Core.Ports;
 using FTF.IoC.SimpleInjector.PortsConfig;
 using SimpleInjector;
-using SimpleInjector.Extensions.LifetimeScoping;
 
 namespace FTF.IoC.SimpleInjector
 {
