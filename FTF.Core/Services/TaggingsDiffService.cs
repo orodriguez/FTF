@@ -31,16 +31,10 @@ namespace FTF.Core.Services
         public Result DiffTaggings(Note note, string text) => 
             DiffTaggings(note, text.ParseTagNames());
 
-        private Result DiffTaggings(Note note, string[] tagsInText)
-        {
-            var added = TaggingsAdded(note, tagsInText);
+        public IEnumerable<Tagging> TaggingsAdded(Note note, string text) => 
+            TaggingsAdded(note, text.ParseTagNames());
 
-            var deleted = TaggingsDeleted(note, tagsInText);
-
-            return new Result(added, deleted);
-        }
-
-        private IEnumerable<Tagging> TaggingsAdded(Note note, IEnumerable<string> tagsInText)
+        public IEnumerable<Tagging> TaggingsAdded(Note note, IEnumerable<string> tagsInText)
         {
             var noteTaggings = _db.Taggings
                 .Where(tagging => tagging.Note.Id == note.Id)
@@ -61,6 +55,15 @@ namespace FTF.Core.Services
             return newTags
                 .Concat(ExistingTags(addedTags))
                 .Select(t => _taggingsFactory.Make(note, t));
+        }
+
+        private Result DiffTaggings(Note note, string[] tagsInText)
+        {
+            var added = TaggingsAdded(note, tagsInText);
+
+            var deleted = TaggingsDeleted(note, tagsInText);
+
+            return new Result(added, deleted);
         }
 
         private static IEnumerable<Tagging> TaggingsDeleted(Note note, IEnumerable<string> tagsInText) => 
