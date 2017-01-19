@@ -4,6 +4,7 @@ using FTF.Core.Delegates;
 using FTF.Core.Entities;
 using FTF.Core.EntityFramework;
 using FTF.Core.Extensions;
+using FTF.Core.Factories;
 
 namespace FTF.Core.Services
 {
@@ -11,17 +12,17 @@ namespace FTF.Core.Services
     {
         private readonly DbContext _db;
 
-        private readonly GetCurrentTime _getCurrentTime;
-
         private readonly GetCurrentUser _getCurrentUser;
 
+        private readonly TaggingsFactory _taggingsFactory;
+
         public TaggingsDiffService(DbContext db, 
-            GetCurrentTime getCurrentTime, 
-            GetCurrentUser getCurrentUser)
+            GetCurrentUser getCurrentUser, 
+            TaggingsFactory taggingsFactory)
         {
             _db = db;
-            _getCurrentTime = getCurrentTime;
             _getCurrentUser = getCurrentUser;
+            _taggingsFactory = taggingsFactory;
         }
 
         public Result DiffTaggings(Note note, string text)
@@ -44,7 +45,7 @@ namespace FTF.Core.Services
                 .ToList();
 
             var taggingsOfExistingTags = existingTags
-                .Select(tag => MakeTagging(note, tag));
+                .Select(tag => _taggingsFactory.Make(note, tag));
 
             var tagsToCreate = addedTags.Except(existingTags.Select(t => t.Name));
 
@@ -54,7 +55,8 @@ namespace FTF.Core.Services
                 User = _getCurrentUser()
             });
 
-            var taggingsOfNewTags = newTags.Select(tag => MakeTagging(note, tag));
+            var taggingsOfNewTags = newTags
+                .Select(tag => _taggingsFactory.Make(note, tag));
 
             var taggingsToDelete = note.Taggings.Where(t => !tagNamesInText.Contains(t.Tag.Name));
 
@@ -62,13 +64,6 @@ namespace FTF.Core.Services
 
             return new Result(taggingsToAdd, taggingsToDelete);
         }
-
-        private Tagging MakeTagging(Note note, Tag tag) => new Tagging
-        {
-            Note = note,
-            Tag = tag,
-            CreationDate = _getCurrentTime(),
-        };
 
         public class Result
         {

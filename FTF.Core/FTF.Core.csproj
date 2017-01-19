@@ -62,6 +62,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="EntityFramework\DbContext.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
+    <Compile Include="Factories\TaggingsFactory.cs" />
     <Compile Include="Migrations\201612231412124_CreateNote.cs" />
     <Compile Include="Migrations\201612231412124_CreateNote.Designer.cs">
       <DependentUpon>201612231412124_CreateNote.cs</DependentUpon>
