@@ -41,7 +41,8 @@ namespace FTF.Core.Services
                 .Where(NotIn(noteTaggings))
                 .ToList();
 
-            var tagsToCreate = addedTags.Where(name => _db.Tags.All(tag => tag.Name != name));
+            var tagsToCreate = addedTags
+                .Where(name => _db.Tags.All(tag => tag.Name != name));
 
             var newTags = tagsToCreate.Select(tagName => new Tag
             {
@@ -49,15 +50,13 @@ namespace FTF.Core.Services
                 User = _getCurrentUser()
             });
 
-            var taggingsOfNewTags = newTags
-                .Select(tag => _taggingsFactory.Make(note, tag));
-
             var taggingsToDelete = note.Taggings.Where(t => !tagsInText.Contains(t.Tag.Name));
 
-            var existingTaggings = ExistingTags(note, tagsInText)
-                .Select(tag => _taggingsFactory.Make(note, tag));
+            var existingTags = ExistingTags(note, tagsInText);
 
-            var taggingsToAdd = taggingsOfNewTags.Concat(existingTaggings);
+            var tagsToAdd = newTags.Concat(existingTags);
+
+            var taggingsToAdd = tagsToAdd.Select(t => _taggingsFactory.Make(note, t));
 
             return new Result(taggingsToAdd, taggingsToDelete);
         }
