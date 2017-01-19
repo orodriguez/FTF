@@ -44,12 +44,7 @@ namespace FTF.Core.Services
                 .ToList();
 
             var taggingsOfExistingTags = existingTags
-                .Select(tag => new Tagging
-                {
-                    Note = note,
-                    Tag = tag,
-                    CreationDate = _getCurrentTime()
-                });
+                .Select(tag => MakeTagging(note, tag));
 
             var tagsToCreate = addedTags.Except(existingTags.Select(t => t.Name));
 
@@ -59,12 +54,7 @@ namespace FTF.Core.Services
                 User = _getCurrentUser()
             });
 
-            var taggingsOfNewTags = newTags.Select(tag => new Tagging
-            {
-                Note = note,
-                Tag = tag,
-                CreationDate = _getCurrentTime(),
-            });
+            var taggingsOfNewTags = newTags.Select(tag => MakeTagging(note, tag));
 
             var taggingsToDelete = note.Taggings.Where(t => !tagNamesInText.Contains(t.Tag.Name));
 
@@ -72,6 +62,13 @@ namespace FTF.Core.Services
 
             return new Result(taggingsToAdd, taggingsToDelete);
         }
+
+        private Tagging MakeTagging(Note note, Tag tag) => new Tagging
+        {
+            Note = note,
+            Tag = tag,
+            CreationDate = _getCurrentTime(),
+        };
 
         public class Result
         {
