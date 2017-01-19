@@ -33,48 +33,43 @@ namespace FTF.Core.Services
 
         private Result DiffTaggings(Note note, string[] tagsInText)
         {
-            var noteTaggings = _db.Taggings
-                .Where(tagging => tagging.Note.Id == note.Id)
-                .Select(tagging => tagging.Tag.Name);
+            var added = TaggingsAdded(note, tagsInText);
 
-            var addedTags = tagsInText
-                .Where(NotIn(noteTaggings))
-                .ToList();
+            var deleted = TaggingsDeleted(note, tagsInText);
 
-            var tagsToCreate = addedTags
-                .Where(name => _db.Tags.All(tag => tag.Name != name));
-
-            var newTags = tagsToCreate.Select(tagName => new Tag
-            {
-                Name = tagName,
-                User = _getCurrentUser()
-            });
-
-            var taggingsToDelete = note.Taggings.Where(t => !tagsInText.Contains(t.Tag.Name));
-
-            var existingTags = ExistingTags(note, tagsInText);
-
-            var tagsToAdd = newTags.Concat(existingTags);
-
-            var taggingsToAdd = tagsToAdd.Select(t => _taggingsFactory.Make(note, t));
-
-            return new Result(taggingsToAdd, taggingsToDelete);
+            return new Result(added, deleted);
         }
 
-        private IEnumerable<Tag> ExistingTags(Note note, IEnumerable<string> tagsInText)
+        private IEnumerable<Tagging> TaggingsAdded(Note note, IEnumerable<string> tagsInText)
         {
             var noteTaggings = _db.Taggings
                 .Where(tagging => tagging.Note.Id == note.Id)
                 .Select(tagging => tagging.Tag.Name);
 
             var addedTags = tagsInText
-                .Where(NotIn(noteTaggings))
+                .Where(n1 => noteTaggings.All(n2 => n1 != n2))
                 .ToList();
 
-            return _db.Tags
+            var newTags = addedTags
+                .Where(name => _db.Tags.All(tag => tag.Name != name))
+                .Select(tagName => new Tag
+                {
+                    Name = tagName,
+                    User = _getCurrentUser()
+                });
+
+            return newTags
+                .Concat(ExistingTags(addedTags))
+                .Select(t => _taggingsFactory.Make(note, t));
+        }
+
+        private static IEnumerable<Tagging> TaggingsDeleted(Note note, IEnumerable<string> tagsInText) => 
+            note.Taggings.Where(t => !tagsInText.Contains(t.Tag.Name));
+
+        private IEnumerable<Tag> ExistingTags(IEnumerable<string> addedTags) => 
+            _db.Tags
                 .Where(tag => addedTags.Any(tagName => tag.Name == tagName))
                 .ToList();
-        }
 
         public class Result
         {
