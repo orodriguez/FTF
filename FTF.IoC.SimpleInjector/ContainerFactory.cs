@@ -29,11 +29,6 @@ namespace FTF.IoC.SimpleInjector
             var allTypes = typeof (Note).Assembly.GetExportedTypes();
 
             allTypes
-                .Where(t => t.GetCustomAttributes<ConcreteAttribute>().Any())
-                .ToList()
-                .ForEach(type => c.Register(type));
-
-            allTypes
                 .Where(t => t.GetCustomAttributes<RoleAttribute>().Any())
                 .Select(t => new
                 {
